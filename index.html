@@ -138,6 +138,28 @@
         }
     }
 
+    #backToMenu {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #c4262b;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s;
+    z-index: 1000; /* Ensure it's above other elements */
+        }
+
+        #backToMenu:hover {
+            background-color: #a02025;
+        }
+
+
 </style>
 </head>
 <body>
@@ -166,7 +188,7 @@
         </div>
     </header>
 
-    <nav>
+    <nav id="mainMenu">
         <span class="menu-icon" onclick="toggleMenu()">☰ Menu</span>
         <ul>
             <li><a href="#biography">Biography</a></li>
@@ -181,6 +203,7 @@
             <li><a href="#references">References</a></li>
         </ul>
     </nav>
+
 
     <main>
         <section id="biography">
@@ -479,12 +502,23 @@
         <section id="references">
             <h2>References</h2>
             <ul>
-                <li><strong><a href="https://experts.deakin.edu.au/12600-keshav-sood">Dr. Keshav Sood</a></strong> - Senior Lecturer, Deakin University. Phone: +61 3 924 45519, Email: keshav.sood@deakin.edu.au</li>
-                <li><strong><a href="https://experts.deakin.edu.au/706-yong-xiang">Professor Yong Xiang</a></strong> - Professor of Network Engineering, Deakin University. Phone: +61 3 925 17740, Email: yong.xiang@deakin.edu.au</li>
-                <li><strong><a href="https://experts.deakin.edu.au/28771-lei-pan">Associate Professor Lei Pan</a></strong> - Associate Professor, Deakin University. Phone: +61 3 925 17483, Email: l.pan@deakin.edu.au</li>
+                <li><strong><a href="https://experts.deakin.edu.au/12600-keshav-sood">Dr. Keshav Sood</a></strong> - Senior Lecturer, Deakin University.<br>
+                    Phone: +61 3 924 45519<br>
+                    Email: keshav.sood@deakin.edu.au
+                </li>
+                <li><strong><a href="https://experts.deakin.edu.au/706-yong-xiang">Professor Yong Xiang</a></strong> - Professor of Network Engineering, Deakin University.<br>
+                    Phone: +61 3 925 17740<br>
+                    Email: yong.xiang@deakin.edu.au
+                </li>
+                <li><strong><a href="https://experts.deakin.edu.au/28771-lei-pan">Associate Professor Lei Pan</a></strong> - Associate Professor, Deakin University.<br>
+                    Phone: +61 3 925 17483<br>
+                    Email: l.pan@deakin.edu.au
+                </li>
             </ul>
         </section>
     </main>
+
+    <button id="backToMenu" onclick="scrollToMenu()">Menu</button>
 
     <script>
     function toggleMenu() {
@@ -501,6 +535,55 @@
 
 	  gtag('config', 'G-J8Q8MCB64W');
 	</script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM fully loaded and parsed");
+
+    const backToMenuButton = document.getElementById("backToMenu");
+    const menu = document.getElementById("mainMenu");
+
+    if (backToMenuButton) {
+        console.log("Back to Menu button found!");
+        backToMenuButton.addEventListener("click", function() {
+            console.log("Button clicked!");
+            if (menu) {
+                menu.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                console.error("Menu not found!");
+            }
+        });
+    } else {
+        console.error("Back to Menu button not found!");
+    }
+    });
+
+    window.addEventListener("scroll", function () {
+        const button = document.getElementById("backToMenu");
+        if (!button) return;
+
+        console.log("User is scrolling...");
+        
+        if (window.scrollY > 300) { 
+            console.log("Displaying Back to Menu button");
+            button.style.display = "block"; 
+        } else {
+            console.log("Hiding Back to Menu button");
+            button.style.display = "none";
+        }
+    });
+
+
+    // Smooth scroll to the menu
+    function scrollToMenu() {
+        const menu = document.getElementById("mainMenu");
+        if (menu) {
+            menu.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            console.error("Menu not found");
+        }
+    }
+    </script>
 
     <footer>
         <p>&copy; 2025 Dinh Duc Nha Nguyen </p>
