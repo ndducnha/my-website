@@ -154,11 +154,23 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     transition: opacity 0.3s;
     z-index: 1000; /* Ensure it's above other elements */
-        }
+    }
 
         #backToMenu:hover {
             background-color: #a02025;
-        }
+    }
+
+    .thank-you-banner {
+    background-color: #1c3d76;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    border-radius: 5px;
+    }
+
 
 
 </style>
@@ -517,6 +529,12 @@
                 </li>
             </ul>
         </section>
+
+        <div class="thank-you-banner">
+            <p>✨ Appreciate your visit!</p>
+        </div>
+
+        <br/><br/><br/><br/>
     </main>
 
     <button id="backToMenu" onclick="scrollToMenu()">Menu</button>
