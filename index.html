@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,9 +19,14 @@
         object-fit: cover;
     }
 
+    body {
+        background-color: white;
+        color: black;
+    }
+
     .banner {
-        background-color: #ffcc00;
-        color: #333;
+        background-color: #c4262b;
+        color: white;
         text-align: center;
         padding: 15px;
         font-size: 18px;
@@ -30,13 +34,64 @@
     }
 
     .banner a {
-        color: #333;
+        color: white;
         text-decoration: underline;
         font-weight: bold;
     }
 
+    header {
+        background-color: white;
+        color: #1c3d76;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .contact-info p {
+        margin: 2px 0;
+    }
+
+    .contact-info a {
+        color: #c4262b;
+        text-decoration: none;
+    }
+
+    .contact-info a:hover {
+        text-decoration: underline;
+    }
+
+    h1, h2, h3 {
+        color: #1c3d76;
+    }
+
+    h2 {
+        border-bottom: 2px solid #c4262b;
+        padding-bottom: 5px;
+    }
+
+    strong {
+        color: #1c3d76;
+    }
+
+    a {
+        color: #c4262b;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
     nav {
-        background-color: #333;
+        background-color: #1c3d76;
         padding: 10px;
     }
 
@@ -60,7 +115,7 @@
     }
 
     nav ul li a:hover {
-        background-color: #575757;
+        background-color: #c4262b;
     }
 
     @media (max-width: 768px) {
@@ -82,29 +137,36 @@
             padding: 10px;
         }
     }
+
 </style>
 </head>
 <body>
     <header>
-
         <div class="banner">
         🚀 We are recruiting a Research Assistant! Apply now - <a href="Research_assistant_JD.pdf">Download the Job Description</a>
         </div>
+
+        <br/><br/>
 
         <div id="one">
             <img src="https://github.com/ndducnha/my-website/raw/main/nha.jpg" alt="Dinh Duc Nha Nguyen">
         </div>
         <div id="two">
             <h1>Dinh Duc Nha Nguyen (Tony) (Nhã)</h1>
-            <h2>Assistant Professor (Computer Science)</h2>
+            <h2>Assistant Professor (Computer Science - Cybersecurity)</h2>
             <h3>VinUniversity, Ha Noi, Viet Nam</h3>
-            <p>Contact: (+84) 0369 7777 13 | <a href="mailto:nha.ndd@vinuni.edu.vn">nha.ndd@vinuni.edu.vn</a></p> | <a href="mailto:ndducnha@gmail.com">ndducnha@gmail.com</a></p>
-            <p><a href="https://www.linkedin.com/in/dinh-duc-nha-nguyen-677428158">LinkedIn Profile</a> | <a href="https://www.vcyber.work">Vcyber Lab</a></p>
+            <div class="contact-info">
+                <p><strong>Phone:</strong> (+84) 0369 7777 13</p>
+                <p><strong>Working email:</strong> <a href="mailto:nha.ndd@vinuni.edu.vn">nha.ndd@vinuni.edu.vn</a></p>
+                <p><strong>Private email:</strong> <a href="mailto:ndducnha@gmail.com">ndducnha@gmail.com</a></p>
+                <p><strong>Research lab:</strong> <a href="https://www.vcyber.work">Vcyber (vcyber.work)</a></p>
+                <p><strong>Academic:</strong> <a href="https://scholar.google.com.au/citations?user=SIWu-ZcAAAAJ&hl=en&oi=sra">Google Scholar</a> | <a href="https://orcid.org/0000-0002-8106-7703">ORCID</a> | <a href="https://www.scopus.com/authid/detail.uri?authorId=57214528477&origin=resultslist">Scopus</a></p>
+                <p><strong>Social:</strong> <a href="https://www.linkedin.com/in/dinh-duc-nha-nguyen-677428158">LinkedIn</a> | <a href="https://www.facebook.com/profile.php?id=1513403651">Facebook</a> |  <a href="https://www.ducnha.work">My website</a> </p>
+            </div>
         </div>
     </header>
 
-    
-    <nav>s
+    <nav>
         <span class="menu-icon" onclick="toggleMenu()">☰ Menu</span>
         <ul>
             <li><a href="#biography">Biography</a></li>
@@ -123,7 +185,7 @@
     <main>
         <section id="biography">
             <h2>Biography</h2> 
-            <p style="text-align: justify;">I am currently an Assistant Professor of Computer Science at VinUniversity and the Founder of <a href="https://vcyber.work">VCyber Lab</a>. I hold a PhD and completed my postdoctoral research at Deakin University, as well as a Master’s degree from Queensland University of Technology, Australia. My research focuses on Post-Quantum Cryptography (PQC), AI-driven cybersecurity, and IoT & robotic security. I have published eleven papers, including seven in Q1 journals, in top-tier venues such as TDSC, and one in a B-ranked conference.</p>
+            <p style="text-align: justify;">I am currently an Assistant Professor of Computer Science (cybersecurity) at VinUniversity and the Founder of <a href="https://vcyber.work">VCyber Lab</a>. I hold a PhD and completed my postdoctoral research at Deakin University, as well as a Master’s degree from Queensland University of Technology, Australia. My research focuses on Post-Quantum Cryptography (PQC), AI-driven cybersecurity, and IoT & robotic security. I have published many papers, including seven in Q1 journals, in top-tier venues such as TDSC, and one in a B-ranked conference.</p>
 
 			<p style="text-align: justify;">Beyond academia, I serve as an Expert Advisor for PSI Testing and Certification Joint Stock Company (PSI), contributing to cybersecurity compliance, risk assessment, and secure system integration for telecommunications, industrial electronics, and lithium battery testing. I have also secured a research grant, won an international prize, and worked extensively with industry partners.</p>
 			
@@ -425,25 +487,23 @@
     </main>
 
     <script>
-    // JavaScript to toggle the menu on small screens
     function toggleMenu() {
         const navUl = document.querySelector('nav ul');
         navUl.classList.toggle('show');
     }
-</script>
+    </script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-J8Q8MCB64W"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-J8Q8MCB64W"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-J8Q8MCB64W');
-</script>
+	  gtag('config', 'G-J8Q8MCB64W');
+	</script>
 
     <footer>
-        <p>&copy; 2024 Dinh Duc Nha Nguyen - ndducnha@gmail.com</p>
+        <p>&copy; 2024 Dinh Duc Nha Nguyen - <a href="mailto:ndducnha@gmail.com" style="color:#c4262b;">ndducnha@gmail.com</a></p>
     </footer>
 </body>
 </html>
