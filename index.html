@@ -6,6 +6,7 @@
     <title>Dinh Duc Nha Nguyen's Home Page</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="script.js"></script>
 <style>
     #one {
         display: inline-block;
@@ -171,14 +172,69 @@
     border-radius: 5px;
     }
 
+    /* Language selector styles */
+    .language-selector {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
 
+    .lang-btn {
+        background-color: #1c3d76;
+        color: white;
+        border: 2px solid #1c3d76;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .lang-btn:hover {
+        background-color: #c4262b;
+        border-color: #c4262b;
+    }
+
+    .lang-btn.active {
+        background-color: #c4262b;
+        border-color: #c4262b;
+    }
+
+    @media (max-width: 768px) {
+        .language-selector {
+            position: relative;
+            top: auto;
+            right: auto;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+    }
 
 </style>
 </head>
 <body>
+    <!-- Language selection popup -->
+    <div id="langModal" style="display:none;position:fixed;z-index:2000;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
+      <div style="background:white;padding:32px 24px 24px 24px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.15);max-width:90vw;text-align:center;">
+        <h2 style="margin-bottom:20px;">Chọn ngôn ngữ / Select language</h2>
+        <button class="lang-btn" style="margin:8px 16px;min-width:120px;" onclick="chooseLangFromModal('en')">English</button>
+        <button class="lang-btn" style="margin:8px 16px;min-width:120px;" onclick="chooseLangFromModal('vi')">Tiếng Việt</button>
+      </div>
+    </div>
+    <!-- End language popup -->
+
     <header>
-        <div class="banner">
-        🚀 We are recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers! <a href="https://github.com/ndducnha/my-website/raw/main/JD_AirQC_VinUni.pdf">Apply now</a>!
+        <div class="language-selector">
+            <button class="lang-btn active" onclick="changeLanguage('en')">English</button>
+            <button class="lang-btn" onclick="changeLanguage('vi')">Tiếng Việt</button>
+        </div>
+
+        <div class="banner" data-en="🚀 We are recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers! Apply now!" data-vi="🚀 Chúng tôi đang tuyển dụng Trợ lý Nghiên cứu, sinh viên Tiến sĩ, sinh viên Thạc sĩ và nhà nghiên cứu Sau tiến sĩ! Đăng ký ngay!">
+            🚀 We are recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers! <a href="https://github.com/ndducnha/my-website/raw/main/JD_AirQC_VinUni.pdf">Apply now</a>!
         </div>
 
         <br/><br/>
@@ -188,8 +244,8 @@
         </div>
         <div id="two">
             <h1>Dinh Duc Nha Nguyen (Tony) (Nhã)</h1>
-            <h2>Assistant Professor (Computer Science - Cybersecurity, AI)</h2>
-            <h3>VinUniversity, Ha Noi, Viet Nam</h3>
+            <h2 data-en="Assistant Professor (Computer Science - Cybersecurity, AI)" data-vi="Trợ lý Giáo sư (Khoa học Máy tính - An ninh mạng, AI)">Assistant Professor (Computer Science - Cybersecurity, AI)</h2>
+            <h3 data-en="VinUniversity, Ha Noi, Viet Nam" data-vi="Đại học VinUni, Hà Nội, Việt Nam">VinUniversity, Ha Noi, Viet Nam</h3>
             <div class="contact-info">
                 <p><strong>📞 Phone:</strong> (+84) 0369 7777 13 | (+84) 099 3462 999</p>
                 <p><strong>📧 Working email:</strong> <a href="mailto:nha.ndd@vinuni.edu.vn">nha.ndd@vinuni.edu.vn</a></p>
@@ -205,343 +261,397 @@
     <nav id="mainMenu">
         <span class="menu-icon" onclick="toggleMenu()">☰ Menu</span>
         <ul>
-            <li><a href="#biography">Biography</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#awards">Awards</a></li>
-            <li><a href="#areas-of-interest">Areas of Interest</a></li>
-            <li><a href="#teaching">Teaching</a></li>
-            <li><a href="#professional-experience">Professional Experience</a></li>
-            <li><a href="#publications">Publications</a></li>
-            <li><a href="#leadership">Leadership & Affiliations</a></li>
-            <li><a href="#mentorship">Mentorship</a></li>
-            <li><a href="#collaboration">Research collaboration</a></li>
-            <li><a href="#work">Working with me</a></li>
-            <li><a href="#references">References</a></li>
+            <li><a href="#biography" data-en="Biography" data-vi="Tiểu sử">Biography</a></li>
+            <li><a href="#education" data-en="Education" data-vi="Học vấn">Education</a></li>
+            <li><a href="#awards" data-en="Awards" data-vi="Giải thưởng">Awards</a></li>
+            <li><a href="#areas-of-interest" data-en="Areas of Interest" data-vi="Lĩnh vực quan tâm">Areas of Interest</a></li>
+            <li><a href="#teaching" data-en="Teaching" data-vi="Giảng dạy">Teaching</a></li>
+            <li><a href="#professional-experience" data-en="Professional Experience" data-vi="Kinh nghiệm chuyên môn">Professional Experience</a></li>
+            <li><a href="#publications" data-en="Publications" data-vi="Ấn phẩm">Publications</a></li>
+            <li><a href="#leadership" data-en="Leadership & Affiliations" data-vi="Lãnh đạo & Liên kết">Leadership & Affiliations</a></li>
+            <li><a href="#mentorship" data-en="Mentorship" data-vi="Hướng dẫn">Mentorship</a></li>
+            <li><a href="#collaboration" data-en="Research collaboration" data-vi="Hợp tác nghiên cứu">Research collaboration</a></li>
+            <li><a href="#work" data-en="Working with me" data-vi="Làm việc với tôi">Working with me</a></li>
+            <li><a href="#references" data-en="References" data-vi="Tham khảo">References</a></li>
         </ul>
     </nav>
 
 
     <main>
         <section id="biography">
-            <h2>Biography</h2> 
+            <h2 data-en="Biography" data-vi="Tiểu sử">Biography</h2> 
             <section id="biography">
 
-            <p style="text-align: justify;">
-                I am currently an <strong>Assistant Professor of Computer Science (Cybersecurity)</strong> at <strong>VinUniversity</strong> and the <strong>Founder of <a href="https://vcyber.work">VCyber Lab (Cybersecurity research Lab)</a></strong>. I hold a <strong>PhD</strong> and completed my <strong>postdoctoral research</strong> at <strong>Deakin University</strong>, as well as a <strong>Master’s degree</strong> from <strong>Queensland University of Technology (QUT)</strong>, Australia. 
+            <p style="text-align: justify;" data-en="I am currently an Assistant Professor of Computer Science (Cybersecurity) at VinUniversity and the Founder of VCyber Lab (Cybersecurity research Lab). I hold a PhD and completed my postdoctoral research at Deakin University, as well as a Master's degree from Queensland University of Technology (QUT), Australia. My research focuses on Post-Quantum Cryptography (PQC), AI-driven cybersecurity, and IoT & robotic security. I have published many papers, including seven in Q1 journals, in top-tier venues such as IEEE TDSC, and one in a B-ranked conference." data-vi="Tôi hiện là Trợ lý Giáo sư Khoa học Máy tính (An ninh mạng) tại Đại học VinUni và là Người sáng lập VCyber Lab (Phòng thí nghiệm nghiên cứu An ninh mạng). Tôi có bằng Tiến sĩ và hoàn thành nghiên cứu sau tiến sĩ tại Đại học Deakin, cũng như bằng Thạc sĩ từ Đại học Công nghệ Queensland (QUT), Úc. Nghiên cứu của tôi tập trung vào Mật mã học Hậu lượng tử (PQC), An ninh mạng dựa trên AI, và An ninh IoT & robot. Tôi đã xuất bản nhiều bài báo, bao gồm bảy bài trên tạp chí Q1, tại các diễn đàn hàng đầu như IEEE TDSC, và một bài tại hội nghị xếp hạng B.">
+                I am currently an <strong>Assistant Professor of Computer Science (Cybersecurity)</strong> at <strong>VinUniversity</strong> and the <strong>Founder of <a href="https://vcyber.work">VCyber Lab (Cybersecurity research Lab)</a></strong>. I hold a <strong>PhD</strong> and completed my <strong>postdoctoral research</strong> at <strong>Deakin University</strong>, as well as a <strong>Master's degree</strong> from <strong>Queensland University of Technology (QUT)</strong>, Australia. 
                 My research focuses on <strong>Post-Quantum Cryptography (PQC)</strong>, <strong>AI-driven cybersecurity</strong>, and <strong>IoT & robotic security</strong>. 
                 I have published many papers, including <strong>seven in Q1 journals</strong>, in top-tier venues such as <strong>IEEE TDSC</strong>, and one in a <strong>B-ranked conference</strong>.
             </p>
 
-            <p style="text-align: justify;">
-                Beyond academia, I hold several <strong>key leadership and advisory positions</strong> in Vietnam’s digital transformation and cybersecurity ecosystem. My work bridges <strong>academia, industry, and government</strong>, promoting innovation, policy, and technical excellence across critical sectors:
+            <p style="text-align: justify;" data-en="Beyond academia, I hold several key leadership and advisory positions in Vietnam's digital transformation and cybersecurity ecosystem. My work bridges academia, industry, and government, promoting innovation, policy, and technical excellence across critical sectors:" data-vi="Ngoài học thuật, tôi giữ nhiều vị trí lãnh đạo và tư vấn quan trọng trong hệ sinh thái chuyển đổi số và an ninh mạng của Việt Nam. Công việc của tôi kết nối học thuật, công nghiệp và chính phủ, thúc đẩy đổi mới, chính sách và xuất sắc kỹ thuật trên các lĩnh vực quan trọng:">
+                Beyond academia, I hold several <strong>key leadership and advisory positions</strong> in Vietnam's digital transformation and cybersecurity ecosystem. My work bridges <strong>academia, industry, and government</strong>, promoting innovation, policy, and technical excellence across critical sectors:
             </p>
             <ul style="text-align: justify;">
-                <li>
-                    <strong>President of the Scientific Council</strong> at the 
-                    <a href="https://idt.org.vn/gioi-thieu/co-cau-to-chuc-va-ban-lanh-dao" target="_blank">
-                    Institute of Digital Transformation Research and Application (IDT)</a> under VUSTA – overseeing national-level research strategy and scientific coordination for digital transformation.
-                </li>
-                <li>
-                    <strong>Member of the <a href="https://www.nca.org.vn/home?l=vi" target="_blank">National Cybersecurity Association (NCA)</a></strong> – actively contributing to cybersecurity policy and national defense frameworks in Vietnam.
-                </li>
-                <li>
-                    <strong>CEO of</strong> <a href="https://sohoadulieu.org" target="_blank">Data Digitization Company (Số Hoá Dữ Liệu - DDC)</a> – leading the development of advanced digital transformation and data-driven solutions for enterprises and public-sector partners.
-                </li>
-<!--                 <li>
-                    <strong>Technical Advisor</strong> to 
-                    <a href="https://psicert.vn/gioi-thieu/" target="_blank">PSI Testing and Certification JSC</a> – a nationally recognized lab specializing in product safety testing for lithium batteries, telecom equipment, and electrical-electronic devices.
-                </li> -->
-            </ul>
+    <li>
+        <strong style="font-size: 18px;">
+            <span data-en="President of the Scientific Council at the" data-vi="Chủ tịch Hội đồng Khoa học tại">President of the Scientific Council at the</span>
+            <a href="https://idt.org.vn/gioi-thieu/co-cau-to-chuc-va-ban-lanh-dao" target="_blank">Institute of Digital Transformation Research and Application (IDT)</a>
+            <span data-en=" under VUSTA" data-vi=" thuộc VUSTA"> under VUSTA</span>
+        </strong><br>
+        <span data-en="Overseeing national-level research strategy and scientific coordination for digital transformation." 
+              data-vi="Giám sát chiến lược nghiên cứu cấp quốc gia và điều phối khoa học cho chuyển đổi số.">
+            Overseeing national-level research strategy and scientific coordination for digital transformation.
+        </span>
+    </li>
+    <br/>
 
-            <p style="text-align: justify;">
+    <li>
+        <strong style="font-size: 18px;">
+            <span data-en="Member of the" data-vi="Thành viên của">Member of the</span>
+            <a href="https://www.nca.org.vn/home?l=vi" target="_blank">National Cybersecurity Association (NCA)</a>
+        </strong><br>
+        <span data-en="Contributing to policy development and national cybersecurity defense frameworks in Vietnam." 
+              data-vi="Đóng góp vào phát triển chính sách và khung phòng thủ an ninh mạng quốc gia tại Việt Nam.">
+            Contributing to policy development and national cybersecurity defense frameworks in Vietnam.
+        </span>
+    </li>
+    <br/>
+
+    <li>
+        <strong style="font-size: 18px;">
+            <span data-en="CEO of" data-vi="Tổng Giám đốc">CEO of</span>
+            <a href="https://sohoadulieu.org" target="_blank">Data Digitization Company (Số Hoá Dữ Liệu - DDC)</a>
+        </strong><br>
+        <span data-en="Leading digital transformation and data solution efforts for enterprise and public-sector clients." 
+              data-vi="Dẫn dắt các hoạt động chuyển đổi số và cung cấp giải pháp dữ liệu cho doanh nghiệp và khu vực công.">
+            Leading digital transformation and data solution efforts for enterprise and public-sector clients.
+        </span>
+    </li>
+    <br/>
+
+    <li>
+        <strong style="font-size: 18px;">
+            <span data-en="Technical Advisor for" data-vi="Cố vấn kỹ thuật cho">Technical Advisor for</span>
+            <a href="https://psicert.vn/gioi-thieu/" target="_blank">PSI Testing and Certification JSC</a>
+        </strong><br>
+        <span data-en="A key lab in Vietnam for lithium battery, telecom, and electrical-electronic product safety certification, compliant with ISO/IEC 17025:2017 and QCVN 101:2020/BTTTT standards." 
+              data-vi="Phòng thí nghiệm chủ chốt tại Việt Nam về chứng nhận an toàn cho pin lithium, viễn thông và sản phẩm điện – điện tử, tuân thủ các tiêu chuẩn ISO/IEC 17025:2017 và QCVN 101:2020/BTTTT.">
+            A key lab in Vietnam for lithium battery, telecom, and electrical-electronic product safety certification, compliant with ISO/IEC 17025:2017 and QCVN 101:2020/BTTTT standards.
+        </span>
+    </li>
+</ul>
+
+
+            <p style="text-align: justify;" data-en="I have also secured a research grant, won an international prize, and worked extensively with industry partners. Throughout my career, I have mentored students in publishing high-impact research, contributed to an Elsevier book chapter, and received prestigious awards including the School of IT Higher Degree by Research Award (2022), QUT Dean's List recognitions (2019 & 2020), and third place in the 2022 Country to Country (C2C) Cybersecurity Challenge hosted by MIT." data-vi="Tôi cũng đã giành được tài trợ nghiên cứu, đoạt giải thưởng quốc tế và làm việc rộng rãi với các đối tác công nghiệp. Trong suốt sự nghiệp, tôi đã hướng dẫn sinh viên xuất bản nghiên cứu có tác động cao, đóng góp vào chương sách Elsevier, và nhận được các giải thưởng danh giá bao gồm Giải thưởng Nghiên cứu Bằng cấp cao của Trường CNTT (2022), Danh sách Trưởng khoa QUT (2019 & 2020), và vị trí thứ ba trong Thử thách An ninh mạng Quốc gia (C2C) 2022 do MIT tổ chức.">
                 I have also <strong>secured a research grant</strong>, <strong>won an international prize</strong>, and worked extensively with <strong>industry partners</strong>. 
-                Throughout my career, I have <strong>mentored students</strong> in publishing high-impact research, <strong>contributed to an Elsevier book chapter</strong>, and received prestigious awards including the <strong>School of IT Higher Degree by Research Award (2022)</strong>, <strong>QUT Dean’s List recognitions (2019 & 2020)</strong>, and <strong>third place in the 2022 Country to Country (C2C) Cybersecurity Challenge</strong> hosted by <strong>MIT</strong>.
+                Throughout my career, I have <strong>mentored students</strong> in publishing high-impact research, <strong>contributed to an Elsevier book chapter</strong>, and received prestigious awards including the <strong>School of IT Higher Degree by Research Award (2022)</strong>, <strong>QUT Dean's List recognitions (2019 & 2020)</strong>, and <strong>third place in the 2022 Country to Country (C2C) Cybersecurity Challenge</strong> hosted by <strong>MIT</strong>.
             </p>
 
-            <p style="text-align: justify;">
+            <p style="text-align: justify;" data-en="I hold professional certifications in cybersecurity (Certified Ethical Hacker), machine learning (IBM), IoT, quantum computing, cryptography, and blockchain. My core expertise lies in cybersecurity, AI technologies, network security, and quantum technology, with a strong interdisciplinary focus on machine learning and data science." data-vi="Tôi có các chứng chỉ chuyên môn về an ninh mạng (Certified Ethical Hacker), học máy (IBM), IoT, tính toán lượng tử, mật mã học và blockchain. Chuyên môn cốt lõi của tôi nằm ở an ninh mạng, công nghệ AI, an ninh mạng và công nghệ lượng tử, với trọng tâm liên ngành mạnh mẽ về học máy và khoa học dữ liệu.">
                 I hold <strong>professional certifications</strong> in cybersecurity (<em>Certified Ethical Hacker</em>), machine learning (IBM), IoT, quantum computing, cryptography, and blockchain. 
                 My core expertise lies in <strong>cybersecurity, AI technologies, network security</strong>, and <strong>quantum technology</strong>, with a strong interdisciplinary focus on <strong>machine learning</strong> and <strong>data science</strong>.
             </p>
-
- 
-
 
             <a href="https://github.com/ndducnha/my-website/raw/main/CV_Dinh_Duc_Nha_Nguyen.pdf">One-page CV</a> - <a href="https://github.com/ndducnha/my-website/raw/main/Research_Statement_Dinh_Duc_Nha_Nguyen.pdf">Research Statement</a> - <a href="https://github.com/ndducnha/my-website/raw/main/Teaching_Statement_Dinh_Duc_Nha_Nguyen.pdf">Teaching Statement</a> - <a href="https://github.com/ndducnha/my-website/raw/main/References_Dinh_Duc_Nha_Nguyen.pdf">References</a> 
         </section>
 
         <section id="education">
-            <h2>Education</h2>
+            <h2 data-en="Education" data-vi="Học vấn">Education</h2>
             <ul>
-                <li><strong style="font-size: 18px;">Doctor of Philosophy (Cybersecurity)</strong> <a href="https://github.com/ndducnha/my-website/raw/main/Qualification_PhD_AwardCertificate.pdf">Certificate</a> <br>
+                <li><strong style="font-size: 18px;" data-en="Doctor of Philosophy (Cybersecurity)" data-vi="Tiến sĩ Khoa học (An ninh mạng)">Doctor of Philosophy (Cybersecurity)</strong> <a href="https://github.com/ndducnha/my-website/raw/main/Qualification_PhD_AwardCertificate.pdf">Certificate</a> <br>
                 Deakin University, Burwood campus, Melbourne, Australia (2020-2024)<br>
-                Thesis: Developing An Authentication Framework for Next Generation Network.<br>
-                <i><strong>Award: School of Information Technology 2022 Student Excellence Award Higher Degree Research.</i></strong></li>
+                <span data-en="Thesis: Developing An Authentication Framework for Next Generation Network." data-vi="Luận án: Phát triển mô hình xác thực dành cho mạng thế hệ tiếp theo.">Thesis: Developing An Authentication Framework for Next Generation Network.</span><br>
+                <i><strong data-en="Award: School of Information Technology 2022 Student Excellence Award Higher Degree Research." data-vi="Giải thưởng Sinh viên Xuất sắc năm 2022 của Trường Công nghệ Thông tin dành cho chương trình Sau đại học.">Award: School of Information Technology 2022 Student Excellence Award Higher Degree Research.</i></strong></li>
                 <br/>
-                <li><strong style="font-size: 18px;">Master of Information Technology (Networks)</strong> <a href="https://github.com/ndducnha/my-website/raw/main/Qualification_MasterOfIT_AwardCertificate.pdf">Certificate</a> <br>
+                <li><strong style="font-size: 18px;" data-en="Master of Information Technology (Networks)" data-vi="Thạc sĩ Công nghệ Thông tin (Mạng)">Master of Information Technology (Networks)</strong> <a href="https://github.com/ndducnha/my-website/raw/main/Qualification_MasterOfIT_AwardCertificate.pdf">Certificate</a> <br>
                 Queensland University of Technology, Brisbane, Australia (2018-2020)<br>
-                Graduation with Distinction (GPA 6.118, equivalent to 81% WAM).<br>
-                <i><strong>Award: Awarded Dean’s List for excellent academic performance in semester 2 in 2019 and semester 1 in 2020.</i></strong></li>
+                <span data-en="Graduation with Distinction (GPA 6.118, equivalent to 81% WAM)." data-vi="Tốt nghiệp Xuất sắc (GPA 6.118, tương đương 81% WAM).">Graduation with Distinction (GPA 6.118, equivalent to 81% WAM).</span><br>
+                <i><strong data-en="Award: Awarded Dean's List for excellent academic performance in semester 2 in 2019 and semester 1 in 2020." data-vi="Giải thưởng: Được trao danh hiệu Dean’s List vì thành tích học tập xuất sắc trong học kỳ 2 năm 2019 và học kỳ 1 năm 2020.">Award: Awarded Dean's List for excellent academic performance in semester 2 in 2019 and semester 1 in 2020.</i></strong></li>
                 <br/>
-                <li><strong style="font-size: 18px;">Bachelor Degree of Telecommunication and Electronic</strong> <a href="https://github.com/ndducnha/my-website/raw/main/Dinh_Duc_Nha_Nguyen_bachelor_cert.pdf">Certificate</a><br>
+                <li><strong style="font-size: 18px;" data-en="Bachelor Degree of Telecommunication and Electronic" data-vi="Cử nhân Viễn thông và Điện tử">Bachelor Degree of Telecommunication and Electronic</strong> <a href="https://github.com/ndducnha/my-website/raw/main/Dinh_Duc_Nha_Nguyen_bachelor_cert.pdf">Certificate</a><br>
                 Post and Telecommunications Institute of Technology, Ho Chi Minh City, Viet Nam (2006-2011)</li>
             </ul>
 
-            <h2>Professional Certifications</h2>
-            <ul> <h3>Technical skills</h3>
+            <h2 data-en="Professional Certifications" data-vi="Chứng chỉ Chuyên môn">Professional Certifications</h2>
+            <ul> <h3 data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</h3>
                 <li>
-                    <strong>Cybersecurity:</strong> Certified Ethical Hacking (v12) <a href="https://github.com/ndducnha/my-website/raw/main/cert10_ceh.pdf">Certificate</a>  | Network Security <a href="https://github.com/ndducnha/my-website/raw/main/cert31_network_secu.pdf">Certificate</a> | Cyber Attack Countermeasures <a href="https://github.com/ndducnha/my-website/raw/main/cert40_attack_counter.pdf">Certificate</a> | Pentesting Fundamentals for Beginners <a href="https://github.com/ndducnha/my-website/raw/main/cert41_pentester_fundamental.pdf">Certificate</a>
+                    <strong data-en="Cybersecurity:" data-vi="An ninh mạng:">Cybersecurity:</strong> <span data-en="Certified Ethical Hacking (v12)" data-vi="Chứng chỉ Hacking đạo đức (v12)">Certified Ethical Hacking (v12)</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert10_ceh.pdf">Certificate</a>  | <span data-en="Network Security" data-vi="An ninh mạng">Network Security</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert31_network_secu.pdf">Certificate</a> | <span data-en="Cyber Attack Countermeasures" data-vi="Biện pháp đối phó tấn công mạng">Cyber Attack Countermeasures</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert40_attack_counter.pdf">Certificate</a> | <span data-en="Pentesting Fundamentals for Beginners" data-vi="Cơ bản về Kiểm thử xâm nhập cho người mới bắt đầu">Pentesting Fundamentals for Beginners</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert41_pentester_fundamental.pdf">Certificate</a>
                 </li>
                 <li>
-                	<strong>Data Science:</strong> IBM Data Science Professional Certificate <a href="https://github.com/ndducnha/my-website/raw/main/cert35_data.pdf">Certificate</a> | IBM Machine Learning Professional Certificate <a href="https://github.com/ndducnha/my-website/raw/main/cert11_machine_learning.pdf">Certificate</a> | Generative AI Foundations <a href="https://github.com/ndducnha/my-website/raw/main/cert33_genai.pdf">Certificate</a> | Generative AI with Large Language Models <a href="https://github.com/ndducnha/my-website/raw/main/cert39_genAI_LLM.pdf">Certificate</a>
+                	<strong data-en="Data Science:" data-vi="Khoa học dữ liệu:">Data Science:</strong> <span data-en="IBM Data Science Professional Certificate" data-vi="Chứng chỉ Chuyên nghiệp Khoa học Dữ liệu IBM">IBM Data Science Professional Certificate</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert35_data.pdf">Certificate</a> | <span data-en="IBM Machine Learning Professional Certificate" data-vi="Chứng chỉ Chuyên nghiệp Học máy IBM">IBM Machine Learning Professional Certificate</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert11_machine_learning.pdf">Certificate</a> | <span data-en="Generative AI Foundations" data-vi="Nền tảng AI sinh">Generative AI Foundations</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert33_genai.pdf">Certificate</a> | <span data-en="Generative AI with Large Language Models" data-vi="AI sinh với Mô hình ngôn ngữ lớn">Generative AI with Large Language Models</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert39_genAI_LLM.pdf">Certificate</a>
                 </li>
                 <li>
-                    <strong>Internet of Things (IoT):</strong> IoT Devices <a href="https://github.com/ndducnha/my-website/raw/main/cert13_iot_devices.pdf">Certificate</a> | IoT Communications <a href="https://github.com/ndducnha/my-website/raw/main/cert14_iot_comm.pdf">Certificate</a> | IoT Networking <a href="https://github.com/ndducnha/my-website/raw/main/cert15_iot_network.pdf">Certificate</a> | IoT Cloud <a href="https://github.com/ndducnha/my-website/raw/main/cert37_iot_cloud.pdf">Certificate</a> | Hands-on Internet of Things Specialization <a href="https://github.com/ndducnha/my-website/raw/main/cert38_iot.pdf">Certificate</a> 
+                    <strong data-en="Internet of Things (IoT):" data-vi="Internet vạn vật (IoT):">Internet of Things (IoT):</strong> <span data-en="IoT Devices" data-vi="Thiết bị IoT">IoT Devices</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert13_iot_devices.pdf">Certificate</a> | <span data-en="IoT Communications" data-vi="Truyền thông IoT">IoT Communications</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert14_iot_comm.pdf">Certificate</a> | <span data-en="IoT Networking" data-vi="Mạng IoT">IoT Networking</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert15_iot_network.pdf">Certificate</a> | <span data-en="IoT Cloud" data-vi="Đám mây IoT">IoT Cloud</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert37_iot_cloud.pdf">Certificate</a> | <span data-en="Hands-on Internet of Things Specialization" data-vi="Chuyên môn Thực hành Internet vạn vật">Hands-on Internet of Things Specialization</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert38_iot.pdf">Certificate</a> 
                 </li>
                 <li>
-                    <strong>Cryptography:</strong> Cryptography and Information Theory <a href="https://github.com/ndducnha/my-website/raw/main/cert19_cryptography.pdf">Certificate</a>
+                    <strong data-en="Cryptography:" data-vi="Mật mã học:">Cryptography:</strong> <span data-en="Cryptography and Information Theory" data-vi="Mật mã học và Lý thuyết thông tin">Cryptography and Information Theory</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert19_cryptography.pdf">Certificate</a>
                 </li>
                 <li>
-                    <strong>Networks:</strong> Computer Networking <a href="https://github.com/ndducnha/my-website/raw/main/cert29_network.pdf">Certificate</a> | Introduction to Network Automation <a href="https://github.com/ndducnha/my-website/raw/main/cert30_network_aut.pdf">Certificate</a>
+                    <strong data-en="Networks:" data-vi="Mạng:">Networks:</strong> <span data-en="Computer Networking" data-vi="Mạng máy tính">Computer Networking</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert29_network.pdf">Certificate</a> | <span data-en="Introduction to Network Automation" data-vi="Giới thiệu về Tự động hóa mạng">Introduction to Network Automation</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert30_network_aut.pdf">Certificate</a>
                 </li>
                 <li>
-                    <strong>Platform:</strong> Fundamentals of Cloud Computing <a href="https://github.com/ndducnha/my-website/raw/main/cert20_cloud.pdf">Certificate</a> | Operating System Foundations <a href="https://github.com/ndducnha/my-website/raw/main/cert23_os.pdf">Certificate</a> | Kali Linux <a href="https://github.com/ndducnha/my-website/raw/main/cert28_kali.pdf">Certificate</a>
+                    <strong data-en="Platform:" data-vi="Nền tảng:">Platform:</strong> <span data-en="Fundamentals of Cloud Computing" data-vi="Cơ bản về Điện toán đám mây">Fundamentals of Cloud Computing</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert20_cloud.pdf">Certificate</a> | <span data-en="Operating System Foundations" data-vi="Nền tảng Hệ điều hành">Operating System Foundations</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert23_os.pdf">Certificate</a> | <span data-en="Kali Linux" data-vi="Kali Linux">Kali Linux</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert28_kali.pdf">Certificate</a>
                 </li>
                 <li>
-                    <strong>Software Development:</strong> Object-Oriented Programming Concepts <a href="https://github.com/ndducnha/my-website/raw/main/cert21_oop.pdf">Certificate</a> | Application Programming Fundamentals <a href="https://github.com/ndducnha/my-website/raw/main/cert22_app_dev.pdf">Certificate</a>
+                    <strong data-en="Software Development:" data-vi="Phát triển phần mềm:">Software Development:</strong> <span data-en="Object-Oriented Programming Concepts" data-vi="Khái niệm Lập trình hướng đối tượng">Object-Oriented Programming Concepts</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert21_oop.pdf">Certificate</a> | <span data-en="Application Programming Fundamentals" data-vi="Cơ bản về Lập trình ứng dụng">Application Programming Fundamentals</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert22_app_dev.pdf">Certificate</a>
                 </li>
                 <li>
-                    <strong>Quantum Computing:</strong> Quantum Computing For Everyone - An Introduction <a href="https://github.com/ndducnha/my-website/raw/main/cert16_quantum4e.pdf">Certificate</a> | Python Programming for Quantum Computing <a href="https://github.com/ndducnha/my-website/raw/main/cert17_quantum_python.pdf">Certificate</a>
+                    <strong data-en="Quantum Computing:" data-vi="Tính toán lượng tử:">Quantum Computing:</strong> <span data-en="Quantum Computing For Everyone - An Introduction" data-vi="Tính toán lượng tử cho mọi người - Giới thiệu">Quantum Computing For Everyone - An Introduction</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert16_quantum4e.pdf">Certificate</a> | <span data-en="Python Programming for Quantum Computing" data-vi="Lập trình Python cho Tính toán lượng tử">Python Programming for Quantum Computing</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert17_quantum_python.pdf">Certificate</a>
                 </li>
                 <li>
-                    <strong>Blockchain:</strong> Blockchain and Cryptography Overview <a href="https://github.com/ndducnha/my-website/raw/main/cert17_quantum_python.pdf">Certificate</a> | Blockchain Business Model <a href="https://github.com/ndducnha/my-website/raw/main/cert12_block_chain_businessmodel.pdf">Certificate</a>
+                    <strong data-en="Blockchain:" data-vi="Blockchain:">Blockchain:</strong> <span data-en="Blockchain and Cryptography Overview" data-vi="Tổng quan Blockchain và Mật mã học">Blockchain and Cryptography Overview</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert17_quantum_python.pdf">Certificate</a> | <span data-en="Blockchain Business Model" data-vi="Mô hình kinh doanh Blockchain">Blockchain Business Model</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert12_block_chain_businessmodel.pdf">Certificate</a>
                 </li>
             </ul>
-            <ul> <h3>Soft skills</h3>
+            <ul> <h3 data-en="Soft skills" data-vi="Kỹ năng mềm">Soft skills</h3>
                 <li>
-                    <strong>Teaching:</strong> University Teaching <a href="https://github.com/ndducnha/my-website/raw/main/cert24_uni_teaching.pdf">Certificate</a> | English for Teaching Purposes <a href="https://github.com/ndducnha/my-website/raw/main/cert34_eap.pdf">Certificate</a> | Foundations of Teaching for Learning: Developing Relationships <a href="https://github.com/ndducnha/my-website/raw/main/cert36_teaching_relationship.pdf">Certificate</a> 
+                    <strong data-en="Teaching:" data-vi="Giảng dạy:">Teaching:</strong> <span data-en="University Teaching" data-vi="Giảng dạy đại học">University Teaching</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert24_uni_teaching.pdf">Certificate</a> | <span data-en="English for Teaching Purposes" data-vi="Tiếng Anh cho mục đích giảng dạy">English for Teaching Purposes</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert34_eap.pdf">Certificate</a> | <span data-en="Foundations of Teaching for Learning: Developing Relationships" data-vi="Nền tảng giảng dạy để học: Phát triển mối quan hệ">Foundations of Teaching for Learning: Developing Relationships</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert36_teaching_relationship.pdf">Certificate</a> 
                 </li>
                 <li>
-                    <strong>Grant:</strong> Scientific Writing for Research Grant Proposals <a href="https://github.com/ndducnha/my-website/raw/main/cert25_grant.pdf">Certificate</a> | Grant Proposal Plans, Sections, and Resubmission <a href="https://github.com/ndducnha/my-website/raw/main/cert26_grant2.pdf">Certificate</a> 
+                    <strong data-en="Grant:" data-vi="Tài trợ:">Grant:</strong> <span data-en="Scientific Writing for Research Grant Proposals" data-vi="Viết học thuật cho đề xuất tài trợ nghiên cứu">Scientific Writing for Research Grant Proposals</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert25_grant.pdf">Certificate</a> | <span data-en="Grant Proposal Plans, Sections, and Resubmission" data-vi="Lập kế hoạch, cấu trúc và tái nộp Đề xuất tài trợ">Grant Proposal Plans, Sections, and Resubmission</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert26_grant2.pdf">Certificate</a> 
                 </li>
                 <li>
-                    <strong>Research:</strong> Research Methodologies <a href="https://github.com/ndducnha/my-website/raw/main/cert27_research.pdf">Certificate</a> | Researcher Management and Leadership Training <a href="https://github.com/ndducnha/my-website/raw/main/cert32_research_mana.pdf">Certificate</a>
+                    <strong data-en="Research:" data-vi="Nghiên cứu:">Research:</strong> <span data-en="Research Methodologies" data-vi="Phương pháp nghiên cứu">Research Methodologies</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert27_research.pdf">Certificate</a> | <span data-en="Researcher Management and Leadership Training" data-vi="Chương trình đào tạo Quản lý và Lãnh đạo dành cho Nhà nghiên cứu">Researcher Management and Leadership Training</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert32_research_mana.pdf">Certificate</a>
                 </li>
             </ul>
 
         </section>
 
         <section id="awards">
-            <h2>Awards</h2>
+            <h2 data-en="Awards" data-vi="Giải thưởng">Awards</h2>
             <ul>
                 <li>
-                    <strong>Third Place - Country to Country CTF (C2C) Cybersecurity Challenge 2022 (MIT)</strong> <a href="https://github.com/ndducnha/my-website/raw/main/cert1.png">Result</a> - <a href="https://github.com/ndducnha/my-website/raw/main/cert2.png">About</a>
+                    <strong data-en="Third Place - Country to Country CTF (C2C) Cybersecurity Challenge 2022 (MIT)" data-vi="Giải Ba – Cuộc thi CTF An ninh mạng C2C (Country to Country) 2022 do MIT tổ chức">Third Place - Country to Country CTF (C2C) Cybersecurity Challenge 2022 (MIT)</strong> <a href="https://github.com/ndducnha/my-website/raw/main/cert1.png">Result</a> - <a href="https://github.com/ndducnha/my-website/raw/main/cert2.png">About</a>
 
                     <br>
                     <a href="http://c2c-ctf-2022.mit.edu/country-country-award-winners-2022" target="_blank">http://c2c-ctf-2022.mit.edu/country-country-award-winners-2022</a>
-                    <p style="text-align: justify;">
+                    <p style="text-align: justify;" data-en="The Country to Country CTF (C2C) Cybersecurity Challenge is a series of international CTF competitions organized by the International Cyber Security – Center of Excellence (INCS-CoE) with leading international universities. The 2022 competition is hosted by the Massachusetts Institute of Technology (MIT)." data-vi="Thử thách An ninh mạng Quốc gia CTF (C2C) là một chuỗi các cuộc thi CTF quốc tế được tổ chức bởi Trung tâm Xuất sắc An ninh mạng Quốc tế (INCS-CoE) với các trường đại học quốc tế hàng đầu. Cuộc thi năm 2022 được tổ chức bởi Viện Công nghệ Massachusetts (MIT).">
                         The Country to Country CTF (C2C) Cybersecurity Challenge is a series of international CTF competitions organized by the International Cyber Security – Center of Excellence (INCS-CoE) with leading international universities. The 2022 competition is hosted by the Massachusetts Institute of Technology (MIT).
                     </p>
                 </li>
                 <li>
-                    <strong>School of Information Technology 2022 Student Excellence Award Higher Degree By Research (Deakin University)</strong> <a href="https://github.com/ndducnha/my-website/raw/main/cert3.png">Certificate</a>
-                    <p style="text-align: justify;">
+                    <strong data-en="School of Information Technology 2022 Student Excellence Award Higher Degree By Research (Deakin University)" data-vi="Giải thưởng Xuất sắc Sinh viên 2022 của Trường Công nghệ Thông tin cho Nghiên cứu Bằng cấp cao (Đại học Deakin)">School of Information Technology 2022 Student Excellence Award Higher Degree By Research (Deakin University)</strong> <a href="https://github.com/ndducnha/my-website/raw/main/cert3.png">Certificate</a>
+                    <p style="text-align: justify;" data-en="Awarded as the student enrolled in the School of Information Technology Higher Degree by Research course who has demonstrated the highest research and academic merit." data-vi="Được trao cho sinh viên đăng ký khóa học Nghiên cứu Bằng cấp cao của Trường Công nghệ Thông tin, người đã thể hiện thành tích nghiên cứu và học thuật cao nhất.">
                         Awarded as the student enrolled in the School of Information Technology Higher Degree by Research course who has demonstrated the highest research and academic merit.
                     </p>
                 </li>
                 <li>
-                    <strong>Dean's List of Students with Excellent Academic Performance (2019, 2020) (QUT)</strong> <a href="https://github.com/ndducnha/my-website/raw/main/cert4.png">Certificate</a>
-                    <p style="text-align: justify;">
-                        Awarded a place on the Dean’s List for Excellent Academic Performance in Semester 2, 2019, and Semester 1, 2020 at Queensland University of Technology (QUT).
+                    <strong data-en="Dean's List of Students with Excellent Academic Performance (2019, 2020) (QUT)" data-vi="Danh sách Trưởng khoa của Sinh viên có Thành tích Học tập Xuất sắc (2019, 2020) (QUT)">Dean's List of Students with Excellent Academic Performance (2019, 2020) (QUT)</strong> <a href="https://github.com/ndducnha/my-website/raw/main/cert4.png">Certificate</a>
+                    <p style="text-align: justify;" data-en="Awarded a place on the Dean's List for Excellent Academic Performance in Semester 2, 2019, and Semester 1, 2020 at Queensland University of Technology (QUT)." data-vi="Được trao vị trí trong Danh sách Trưởng khoa cho Thành tích Học tập Xuất sắc trong Học kỳ 2, 2019, và Học kỳ 1, 2020 tại Đại học Công nghệ Queensland (QUT).">
+                        Awarded a place on the Dean's List for Excellent Academic Performance in Semester 2, 2019, and Semester 1, 2020 at Queensland University of Technology (QUT).
                     </p>
                 </li>
             </ul>
         </section>
 
         <section id="areas-of-interest">
-            <h2>Areas of Interest</h2>
+            <h2 data-en="Areas of Interest" data-vi="Lĩnh vực quan tâm">Areas of Interest</h2>
             <ul>
-                <li>Machine Learning and AI applications in cybersecurity</li>
-                <li>IoT Intrusion Detection</li>
-                <li>Cryptography</li>
-                <li>Next Generation Network Security</li>
-                <li>Post-Quantum Cryptography (PQC)</li>
-                <li>VPN technologies</li>
+                <li data-en="Machine Learning and AI applications in cybersecurity" data-vi="Học máy và ứng dụng AI trong an ninh mạng">Machine Learning and AI applications in cybersecurity</li>
+                <li data-en="IoT Intrusion Detection" data-vi="Phát hiện xâm nhập IoT">IoT Intrusion Detection</li>
+                <li data-en="Cryptography" data-vi="Mật mã học">Cryptography</li>
+                <li data-en="Next Generation Network Security" data-vi="An ninh mạng thế hệ tiếp theo">Next Generation Network Security</li>
+                <li data-en="Post-Quantum Cryptography (PQC)" data-vi="Mật mã học hậu lượng tử (PQC)">Post-Quantum Cryptography (PQC)</li>
+                <li data-en="VPN technologies" data-vi="Công nghệ VPN">VPN technologies</li>
             </ul>
         </section>
 
         <section id="teaching">
-            <h2>Teaching Experience</h2>
+            <h2 data-en="Teaching Experience" data-vi="Kinh nghiệm giảng dạy">Teaching Experience</h2>
             <ul>
-                <li><strong style="font-size: 18px;">Cyber Security (2025)</strong> – <i>VinUniversity</i><br/>
-   <!--              <p style="text-align: justify;">Satisfaction: 92.9% - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT325_T2_2022.png">Comments from students</a> </p> -->
-                <p style="text-align: justify;">This course covers the topics of technical and social understanding of how and why security and privacy matter, how to think adversarial, how (and how not) to design systems and products. Topics include user authentication, cryptography, malware, behavioural economics in security, human factors in security, privacy and anonymity, side channels, decoys and deception, and adversarial modelling. Real-world systems and attacks, including Bitcoin, Stuxnet, retailer breaches, implantable medical devices, and health apps are covered. The course discusses societal and ethical issues in cybersecurity. <br/>
-                <u>Technical skills</u>: User authentication, cryptography, malware analysis, behavioral economics in security, human factors, privacy, side channels, decoys, adversarial modeling, real-world attack analysis, and cybersecurity ethics.</p>
+                <li><strong style="font-size: 18px;" data-en="Cyber Security (2025)" data-vi="An ninh mạng (2025)">Cyber Security (2025)</strong> – <i>VinUniversity</i><br/>
+                <p style="text-align: justify;" data-en="This course covers the topics of technical and social understanding of how and why security and privacy matter, how to think adversarial, how (and how not) to design systems and products. Topics include user authentication, cryptography, malware, behavioural economics in security, human factors in security, privacy and anonymity, side channels, decoys and deception, and adversarial modelling. Real-world systems and attacks, including Bitcoin, Stuxnet, retailer breaches, implantable medical devices, and health apps are covered. The course discusses societal and ethical issues in cybersecurity." data-vi="Khóa học này bao gồm các chủ đề về hiểu biết kỹ thuật và xã hội về cách thức và lý do tại sao bảo mật và quyền riêng tư quan trọng, cách suy nghĩ đối kháng, cách thiết kế (và không thiết kế) hệ thống và sản phẩm. Các chủ đề bao gồm xác thực người dùng, mật mã học, phần mềm độc hại, kinh tế học hành vi trong bảo mật, yếu tố con người trong bảo mật, quyền riêng tư và ẩn danh, kênh phụ, mồi nhử và lừa đảo, và mô hình hóa đối kháng. Các hệ thống và tấn công thực tế, bao gồm Bitcoin, Stuxnet, vi phạm bán lẻ, thiết bị y tế cấy ghép và ứng dụng sức khỏe được đề cập. Khóa học thảo luận về các vấn đề xã hội và đạo đức trong an ninh mạng.">
+                    This course covers the topics of technical and social understanding of how and why security and privacy matter, how to think adversarial, how (and how not) to design systems and products. Topics include user authentication, cryptography, malware, behavioural economics in security, human factors in security, privacy and anonymity, side channels, decoys and deception, and adversarial modelling. Real-world systems and attacks, including Bitcoin, Stuxnet, retailer breaches, implantable medical devices, and health apps are covered. The course discusses societal and ethical issues in cybersecurity.
+                </p>
+                <br/>
+                <u data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</u>: <span data-en="User authentication, cryptography, malware analysis, behavioral economics in security, human factors, privacy, side channels, decoys, adversarial modeling, real-world attack analysis, and cybersecurity ethics." data-vi="Xác thực người dùng, mật mã học, phân tích phần mềm độc hại, kinh tế học hành vi trong bảo mật, yếu tố con người, quyền riêng tư, kênh phụ, mồi nhử, mô hình hóa đối kháng, phân tích tấn công thực tế và đạo đức an ninh mạng.">User authentication, cryptography, malware analysis, behavioral economics in security, human factors, privacy, side channels, decoys, adversarial modeling, real-world attack analysis, and cybersecurity ethics.</span></p>
                 </li>
-                <li><strong style="font-size: 18px;">Cryptography (2025)</strong> – <i>VinUniversity</i><br/>
-<!--                 <p style="text-align: justify;">Satisfaction: 92.9% - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT325_T2_2022.png">Comments from students</a> </p> -->
-                <p style="text-align: justify;">This is an introductory course in Cryptography. Topics include one-way functions, encryption, digital signatures, pseudo-random number generation, zero-knowledge and basic protocols. The emphasis will be on fundamental notions and constructions with proofs of security based on precise definitions and assumptions.<br/>
-                <u>Technical skills</u>: One-way functions, encryption, digital signatures, pseudo-random generation, zero-knowledge, basic protocols, security proofs, and foundational cryptographic concepts.</p>
+                <li><strong style="font-size: 18px;" data-en="Cryptography (2025)" data-vi="Mật mã học (2025)">Cryptography (2025)</strong> – <i>VinUniversity</i><br/>
+                <p style="text-align: justify;" data-en="This is an introductory course in Cryptography. Topics include one-way functions, encryption, digital signatures, pseudo-random number generation, zero-knowledge and basic protocols. The emphasis will be on fundamental notions and constructions with proofs of security based on precise definitions and assumptions." data-vi="Đây là khóa học giới thiệu về Mật mã học. Các chủ đề bao gồm hàm một chiều, mã hóa, chữ ký số, tạo số ngẫu nhiên giả, zero-knowledge và các giao thức cơ bản. Trọng tâm sẽ là các khái niệm cơ bản và cấu trúc với các chứng minh bảo mật dựa trên định nghĩa và giả định chính xác.">
+                    This is an introductory course in Cryptography. Topics include one-way functions, encryption, digital signatures, pseudo-random number generation, zero-knowledge and basic protocols. The emphasis will be on fundamental notions and constructions with proofs of security based on precise definitions and assumptions.
+                </p>
+                <br/>
+                <u data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</u>: <span data-en="One-way functions, encryption, digital signatures, pseudo-random generation, zero-knowledge, basic protocols, security proofs, and foundational cryptographic concepts." data-vi="Hàm một chiều, mã hóa, chữ ký số, tạo ngẫu nhiên giả, zero-knowledge, giao thức cơ bản, chứng minh bảo mật và khái niệm mật mã học nền tảng.">One-way functions, encryption, digital signatures, pseudo-random generation, zero-knowledge, basic protocols, security proofs, and foundational cryptographic concepts.</span></p>
                 </li>
-                <li><strong style="font-size: 18px;">Cyber Security Management (2023)</strong> – <i>Deakin University</i><br/>
-                <p style="text-align: justify;">Satisfaction: 100% - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT284_T1_2023.png">Comments from students</a> </p>
-                <p style="text-align: justify;">This unit provides students with the foundations required to learn the fundamentals of cyber security management for organisations. Students will be introduced to cyber security assessment; including policy development and risk management through application of methodological and procedural techniques, for a range of organisational constraints. Students will examine both business and security operations. The unit also enables students to develop contingency planning, risk assessment, risk management and compliance standards for various businesses. Students will also explore legal and ethical issues in the context of security management and audit and will be taught security education, training and awareness (SETA), incident response and auditing for cyber security management.</p>
+                <li><strong style="font-size: 18px;" data-en="Cyber Security Management (2023)" data-vi="Quản lý An ninh mạng (2023)">Cyber Security Management (2023)</strong> – <i>Deakin University</i><br/>
+                <p style="text-align: justify;" data-en="Satisfaction: 100%" data-vi="Mức độ hài lòng: 100%">Satisfaction: 100%</span> - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT284_T1_2023.png">Comments from students</a> </p>
+                <p style="text-align: justify;" data-en="This unit provides students with the foundations required to learn the fundamentals of cyber security management for organisations. Students will be introduced to cyber security assessment; including policy development and risk management through application of methodological and procedural techniques, for a range of organisational constraints. Students will examine both business and security operations. The unit also enables students to develop contingency planning, risk assessment, risk management and compliance standards for various businesses. Students will also explore legal and ethical issues in the context of security management and audit and will be taught security education, training and awareness (SETA), incident response and auditing for cyber security management." data-vi="Đơn vị này cung cấp cho sinh viên nền tảng cần thiết để học các nguyên tắc cơ bản của quản lý an ninh mạng cho tổ chức. Sinh viên sẽ được giới thiệu về đánh giá an ninh mạng; bao gồm phát triển chính sách và quản lý rủi ro thông qua ứng dụng các kỹ thuật phương pháp luận và thủ tục, cho một loạt các ràng buộc tổ chức. Sinh viên sẽ kiểm tra cả hoạt động kinh doanh và bảo mật. Đơn vị cũng cho phép sinh viên phát triển kế hoạch dự phòng, đánh giá rủi ro, quản lý rủi ro và tiêu chuẩn tuân thủ cho các doanh nghiệp khác nhau. Sinh viên cũng sẽ khám phá các vấn đề pháp lý và đạo đức trong bối cảnh quản lý bảo mật và kiểm toán và sẽ được dạy giáo dục, đào tạo và nhận thức bảo mật (SETA), phản ứng sự cố và kiểm toán cho quản lý an ninh mạng.">
+                    This unit provides students with the foundations required to learn the fundamentals of cyber security management for organisations. Students will be introduced to cyber security assessment; including policy development and risk management through application of methodological and procedural techniques, for a range of organisational constraints. Students will examine both business and security operations. The unit also enables students to develop contingency planning, risk assessment, risk management and compliance standards for various businesses. Students will also explore legal and ethical issues in the context of security management and audit and will be taught security education, training and awareness (SETA), incident response and auditing for cyber security management.
+                </p>
                 </li>
-                <li><strong style="font-size: 18px;">Cyber Security Analytics (2022-2023)</strong> – <i>Deakin University</i><br/>
-                <p style="text-align: justify;">Satisfaction: 100% - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT_384_T1_2023.png">Comments from students</a> - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT_384_T1_2022.png">More comments</a> </p>
-                <p style="text-align: justify;">Tutor for the subject: In the unit students will learn about the various data analytical methodologies used to investigate cyber security problems. In particular, we will focus on processing and analysing data relevant to cyber security systems and applications. Students will be introduced to the scripting techniques and solutions required for data analytics in the context of cyber security. Applying appropriate data analytical methods and solving cyber security problems will be a key practical element of this unit.<br/>
-                <u>Technical skills</u>: Security · Machine Learning · Python (Programming Language) · Artificial Intelligence (AI)</p>
+                <li><strong style="font-size: 18px;" data-en="Cyber Security Analytics (2022-2023)" data-vi="Phân tích An ninh mạng (2022-2023)">Cyber Security Analytics (2022-2023)</strong> – <i>Deakin University</i><br/>
+                <p style="text-align: justify;" data-en="Satisfaction: 100%" data-vi="Mức độ hài lòng: 100%">Satisfaction: 100%</span> - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT_384_T1_2023.png">Comments from students</a> - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT_384_T1_2022.png">More comments</a> </p>
+                <p style="text-align: justify;" data-en="Tutor for the subject: In the unit students will learn about the various data analytical methodologies used to investigate cyber security problems. In particular, we will focus on processing and analysing data relevant to cyber security systems and applications. Students will be introduced to the scripting techniques and solutions required for data analytics in the context of cyber security. Applying appropriate data analytical methods and solving cyber security problems will be a key practical element of this unit." data-vi="Trợ giảng cho môn học: Trong đơn vị này, sinh viên sẽ học về các phương pháp phân tích dữ liệu khác nhau được sử dụng để điều tra các vấn đề an ninh mạng. Đặc biệt, chúng ta sẽ tập trung vào xử lý và phân tích dữ liệu liên quan đến hệ thống và ứng dụng an ninh mạng. Sinh viên sẽ được giới thiệu về các kỹ thuật script và giải pháp cần thiết cho phân tích dữ liệu trong bối cảnh an ninh mạng. Áp dụng các phương pháp phân tích dữ liệu phù hợp và giải quyết các vấn đề an ninh mạng sẽ là yếu tố thực hành chính của đơn vị này.">
+                    Tutor for the subject: In the unit students will learn about the various data analytical methodologies used to investigate cyber security problems. In particular, we will focus on processing and analysing data relevant to cyber security systems and applications. Students will be introduced to the scripting techniques and solutions required for data analytics in the context of cyber security. Applying appropriate data analytical methods and solving cyber security problems will be a key practical element of this unit.
+                </p>
+                <br/>
+                <u data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</u>: <span data-en="Security · Machine Learning · Python (Programming Language) · Artificial Intelligence (AI)" data-vi="Bảo mật · Học máy · Python (Ngôn ngữ lập trình) · Trí tuệ nhân tạo (AI)">Security · Machine Learning · Python (Programming Language) · Artificial Intelligence (AI)</span></p>
                 </li>
-                <li><strong style="font-size: 18px;">Advance Network Security (2022)</strong> – <i>Deakin University</i><br/>
-                <p style="text-align: justify;">Satisfaction: 92.9% - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT325_T2_2022.png">Comments from students</a> </p>
-                <p style="text-align: justify;">Tutor for the subject: A strong understanding of networking is critical for cyber security. This unit will provide students in the network security minor the advanced understanding of networks needed for success in the field. The unit will cover a range of advanced and emerging technologies, such as Software Defined Networks, Internet of Things, and AI based networking.<br/>
-                <u>Technical skills</u>: 5G · Network Security · Internet of Things (IoT) · Machine Learning · Python (Programming Language) · Physical Security</p>
+                <li><strong style="font-size: 18px;" data-en="Advance Network Security (2022)" data-vi="An ninh mạng nâng cao (2022)">Advance Network Security (2022)</strong> – <i>Deakin University</i><br/>
+                <p style="text-align: justify;" data-en="Satisfaction: 92.9%" data-vi="Mức độ hài lòng: 92.9%">Satisfaction: 92.9%</span> - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT325_T2_2022.png">Comments from students</a> </p>
+                <p style="text-align: justify;" data-en="Tutor for the subject: A strong understanding of networking is critical for cyber security. This unit will provide students in the network security minor the advanced understanding of networks needed for success in the field. The unit will cover a range of advanced and emerging technologies, such as Software Defined Networks, Internet of Things, and AI based networking." data-vi="Trợ giảng cho môn học: Hiểu biết sâu sắc về mạng là rất quan trọng cho an ninh mạng. Đơn vị này sẽ cung cấp cho sinh viên chuyên ngành an ninh mạng sự hiểu biết nâng cao về mạng cần thiết để thành công trong lĩnh vực này. Đơn vị sẽ bao gồm một loạt các công nghệ tiên tiến và mới nổi, như Mạng định nghĩa bằng phần mềm, Internet vạn vật và mạng dựa trên AI.">
+                    Tutor for the subject: A strong understanding of networking is critical for cyber security. This unit will provide students in the network security minor the advanced understanding of networks needed for success in the field. The unit will cover a range of advanced and emerging technologies, such as Software Defined Networks, Internet of Things, and AI based networking.
+                </p>
+                <br/>
+                <u data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</u>: <span data-en="5G · Network Security · Internet of Things (IoT) · Machine Learning · Python (Programming Language) · Physical Security" data-vi="5G · An ninh mạng · Internet vạn vật (IoT) · Học máy · Python (Ngôn ngữ lập trình) · Bảo mật vật lý">5G · Network Security · Internet of Things (IoT) · Machine Learning · Python (Programming Language) · Physical Security</span></p>
                 </li>
-            
             </ul>
         </section>
 
         <section id="professional-experience">
-           <h2>Professional Experience</h2>
+           <h2 data-en="Professional Experience" data-vi="Kinh nghiệm chuyên môn">Professional Experience</h2>
             <ul>
                 <li>
-                    <strong>Assistant Professor (12/2024 – Present) – VinUniversity, Ha Noi, Viet Nam</strong>
-                    <br><u>Duties</u>:
+                    <strong data-en="Assistant Professor (12/2024 – Present) – VinUniversity, Ha Noi, Viet Nam" data-vi="Trợ lý Giáo sư (12/2024 – Hiện tại) – Đại học VinUni, Hà Nội, Việt Nam">Assistant Professor (12/2024 – Present) – VinUniversity, Ha Noi, Viet Nam</strong>
+                    <br><u data-en="Duties" data-vi="Nhiệm vụ">Duties</u>:
                     <ul>
-                        <li><i>Teaching</i>: Develop and implement high-quality, accredited curricula for courses in cryptography, cybersecurity, and networks. Teach assigned courses with an emphasis on active learning pedagogy, supervise both undergraduate and graduate students, and ensure effective, high-standard instructional materials, aiming for high evaluation scores.</li>
+                        <li data-en="Teaching: Develop and implement high-quality, accredited curricula for courses in cryptography, cybersecurity, and networks. Teach assigned courses with an emphasis on active learning pedagogy, supervise both undergraduate and graduate students, and ensure effective, high-standard instructional materials, aiming for high evaluation scores." data-vi="Giảng dạy: Phát triển và triển khai chương trình giảng dạy chất lượng cao, được công nhận cho các khóa học về mật mã học, an ninh mạng và mạng. Giảng dạy các khóa học được phân công với trọng tâm là phương pháp học tập chủ động, giám sát cả sinh viên đại học và sau đại học, và đảm bảo tài liệu giảng dạy hiệu quả, tiêu chuẩn cao, nhằm đạt điểm đánh giá cao."><i data-en="Teaching" data-vi="Giảng dạy">Teaching</i>: Develop and implement high-quality, accredited curricula for courses in cryptography, cybersecurity, and networks. Teach assigned courses with an emphasis on active learning pedagogy, supervise both undergraduate and graduate students, and ensure effective, high-standard instructional materials, aiming for high evaluation scores.</li>
 
-                        <li><i>Research and Creative Works</i>:: Conduct research and produce high-quality publications, particularly in cybersecurity and network security, secure external funding, and actively engage in interdisciplinary and professional communities. Set goals for publishing Q1 articles or equivalent annually and secure externally funded projects.</li>
+                        <li data-en="Research and Creative Works: Conduct research and produce high-quality publications, particularly in cybersecurity and network security, secure external funding, and actively engage in interdisciplinary and professional communities. Set goals for publishing Q1 articles or equivalent annually and secure externally funded projects." data-vi="Nghiên cứu và Công trình Sáng tạo: Tiến hành nghiên cứu và sản xuất các ấn phẩm chất lượng cao, đặc biệt trong lĩnh vực an ninh mạng và bảo mật mạng, đảm bảo tài trợ bên ngoài, và tích cực tham gia vào các cộng đồng liên ngành và chuyên môn. Đặt mục tiêu xuất bản các bài báo Q1 hoặc tương đương hàng năm và đảm bảo các dự án được tài trợ bên ngoài."><i data-en="Research and Creative Works" data-vi="Nghiên cứu và Công trình Sáng tạo">Research and Creative Works</i>: Conduct research and produce high-quality publications, particularly in cybersecurity and network security, secure external funding, and actively engage in interdisciplinary and professional communities. Set goals for publishing Q1 articles or equivalent annually and secure externally funded projects.</li>
 
-                        <li><i>Service</i>: Provide academic advising and support to students, contribute to college-wide initiatives, participate in administrative and faculty recruitment tasks, and serve on committees to advance institutional goals and enhance student success.</li>
+                        <li data-en="Service: Provide academic advising and support to students, contribute to college-wide initiatives, participate in administrative and faculty recruitment tasks, and serve on committees to advance institutional goals and enhance student success." data-vi="Dịch vụ: Cung cấp tư vấn học thuật và hỗ trợ cho sinh viên, đóng góp vào các sáng kiến toàn trường, tham gia vào các nhiệm vụ tuyển dụng hành chính và giảng viên, và phục vụ trong các ủy ban để thúc đẩy mục tiêu thể chế và nâng cao thành công của sinh viên."><i data-en="Service" data-vi="Dịch vụ">Service</i>: Provide academic advising and support to students, contribute to college-wide initiatives, participate in administrative and faculty recruitment tasks, and serve on committees to advance institutional goals and enhance student success.</li>
                     </ul>
-                    <br><u>Technical skills</u>: Cybersecurity tools (IDS, IPS, SIEM), cryptography (AES, RSA, SHA), network security (SSL/TLS, IPsec), penetration testing (Metasploit, Nessus, Burp Suite), programming (Python, C/C++, Bash, PowerShell), machine learning in cybersecurity, blockchain, quantum computing, data analysis (Pandas, Matplotlib, Power BI), and risk assessment (NIST, ISO 27001).
+                    <br><u data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</u>: <span data-en="Cybersecurity tools (IDS, IPS, SIEM), cryptography (AES, RSA, SHA), network security (SSL/TLS, IPsec), penetration testing (Metasploit, Nessus, Burp Suite), programming (Python, C/C++, Bash, PowerShell), machine learning in cybersecurity, blockchain, quantum computing, data analysis (Pandas, Matplotlib, Power BI), and risk assessment (NIST, ISO 27001)." data-vi="Công cụ an ninh mạng (IDS, IPS, SIEM), mật mã học (AES, RSA, SHA), bảo mật mạng (SSL/TLS, IPsec), kiểm thử xâm nhập (Metasploit, Nessus, Burp Suite), lập trình (Python, C/C++, Bash, PowerShell), học máy trong an ninh mạng, blockchain, tính toán lượng tử, phân tích dữ liệu (Pandas, Matplotlib, Power BI), và đánh giá rủi ro (NIST, ISO 27001).">Cybersecurity tools (IDS, IPS, SIEM), cryptography (AES, RSA, SHA), network security (SSL/TLS, IPsec), penetration testing (Metasploit, Nessus, Burp Suite), programming (Python, C/C++, Bash, PowerShell), machine learning in cybersecurity, blockchain, quantum computing, data analysis (Pandas, Matplotlib, Power BI), and risk assessment (NIST, ISO 27001).</span>
                 </li>
                 <br />
                 <li>
-                    <strong>Associate Research Fellow (06/2023 – 11/2024) – Deakin University, Melbourne, Australia</strong>
-                    <br><u>Projects</u>:
+                    <strong data-en="Associate Research Fellow (06/2023 – 11/2024) – Deakin University, Melbourne, Australia" data-vi="Nghiên cứu viên Liên kết (06/2023 – 11/2024) – Đại học Deakin, Melbourne, Úc">Associate Research Fellow (06/2023 – 11/2024) – Deakin University, Melbourne, Australia</strong>
+                    <br><u data-en="Projects" data-vi="Dự án">Projects</u>:
                     <ul>
-                        <li>SOCRATES project (Software Security with a focus on critical technologies) (PQC & VPN): We designed and implemented an automatic hybrid Post-Quantum Cryptography system that mitigates threats from both traditional cryptographic and quantum attacks. We also deployed this system on cloud servers and conducted various evaluations under different network conditions.</li>
-                        <li>Publications: submitted to the IEEE TIFS (waiting outcome).</li>
+                        <li data-en="SOCRATES project (Software Security with a focus on critical technologies) (PQC & VPN): We designed and implemented an automatic hybrid Post-Quantum Cryptography system that mitigates threats from both traditional cryptographic and quantum attacks. We also deployed this system on cloud servers and conducted various evaluations under different network conditions." data-vi="Dự án SOCRATES (Bảo mật phần mềm với trọng tâm vào công nghệ quan trọng) (PQC & VPN): Chúng tôi đã thiết kế và triển khai hệ thống Mật mã học Hậu lượng tử lai tự động giảm thiểu các mối đe dọa từ cả tấn công mật mã truyền thống và lượng tử. Chúng tôi cũng triển khai hệ thống này trên các máy chủ đám mây và tiến hành các đánh giá khác nhau trong các điều kiện mạng khác nhau.">SOCRATES project (Software Security with a focus on critical technologies) (PQC & VPN): We designed and implemented an automatic hybrid Post-Quantum Cryptography system that mitigates threats from both traditional cryptographic and quantum attacks. We also deployed this system on cloud servers and conducted various evaluations under different network conditions.</li>
+                        <li data-en="Publications: submitted to the IEEE TIFS (waiting outcome)." data-vi="Ấn phẩm: đã gửi đến IEEE TIFS (đang chờ kết quả).">Publications: submitted to the IEEE TIFS (waiting outcome).</li>
                     </ul>
-                    <br><u>Technical skills</u>: C programming, IKEv2 protocol, VPN technologies, PQC (Post-Quantum Cryptography), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box), Scripting languages (Bash, PowerShell...).
+                    <br><u data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</u>: <span data-en="C programming, IKEv2 protocol, VPN technologies, PQC (Post-Quantum Cryptography), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box), Scripting languages (Bash, PowerShell...)." data-vi="Lập trình C, giao thức IKEv2, công nghệ VPN, PQC (Mật mã học Hậu lượng tử), Máy ảo (Docker,VMware, Hyper-V, Virtual Box), Ngôn ngữ script (Bash, PowerShell...).">C programming, IKEv2 protocol, VPN technologies, PQC (Post-Quantum Cryptography), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box), Scripting languages (Bash, PowerShell...).</span>
                 </li>
                 <br />
                 <li>
-                    <strong>Research Assistant & Casual Teaching (02/2022 – 6/2023) – Deakin University, Melbourne, Australia</strong>
-                    <br><u>Projects</u>:
+                    <strong data-en="Research Assistant & Casual Teaching (02/2022 – 6/2023) – Deakin University, Melbourne, Australia" data-vi="Trợ lý Nghiên cứu & Giảng dạy Tạm thời (02/2022 – 6/2023) – Đại học Deakin, Melbourne, Úc">Research Assistant & Casual Teaching (02/2022 – 6/2023) – Deakin University, Melbourne, Australia</strong>
+                    <br><u data-en="Projects" data-vi="Dự án">Projects</u>:
                     <ul>
-                        <li>Accurate Decision-making for Network Security with Compromised Data. (Department of Defence) - submitted to the IEEE TMC (major revision).</li>
-                        <li>Impersonation Attack Detection in IoT Networks. - published in <a href="https://github.com/ndducnha/my-website/raw/main/paper7.pdf">IEEE Globecome.</a></li>
-                        <li>Towards a Novel Intrusion Detection System in Next Generation Cloud Native Networks. - published in <a href="https://github.com/ndducnha/my-website/raw/main/paper4.pdf">IEEE IoTJ.</a></li>
-                        <li>A Tutorial on Next Generation Heterogeneous IoT Networks and Node Authentication.  - published in <a href="https://github.com/ndducnha/my-website/raw/main/paper9.pdf">IEEE IoT Magazine.</a></li>
-                        <li>Security Challenges and Potential Solutions in Aerial-terrestrial Wireless Networking.  - published in <a href="https://github.com/ndducnha/my-website/raw/main/paper3.pdf">IEEE IoT Magazine.</a></li>
-                        <li>Performance Evaluation of a Simple and Effective Intrusion Detection Architecture in 5G Networks. - published in <a href="https://github.com/ndducnha/my-website/raw/main/paper5.pdf">IEEE TNSM.</a></li>
+                        <li data-en="Accurate Decision-making for Network Security with Compromised Data. (Department of Defence) - submitted to the IEEE TMC (major revision)." data-vi="Ra quyết định chính xác cho An ninh mạng với Dữ liệu bị xâm phạm. (Bộ Quốc phòng) - đã gửi đến IEEE TMC (sửa đổi lớn).">Accurate Decision-making for Network Security with Compromised Data. (Department of Defence) - submitted to the IEEE TMC (major revision).</li>
+                        <li data-en="Impersonation Attack Detection in IoT Networks. - published in IEEE Globecome." data-vi="Phát hiện tấn công giả mạo trong mạng IoT. - đã xuất bản trong IEEE Globecome.">Impersonation Attack Detection in IoT Networks. - published in <a href="https://github.com/ndducnha/my-website/raw/main/paper7.pdf">IEEE Globecome.</a></li>
+                        <li data-en="Towards a Novel Intrusion Detection System in Next Generation Cloud Native Networks. - published in IEEE IoTJ." data-vi="Hướng tới Hệ thống Phát hiện Xâm nhập Mới trong Mạng Cloud Native Thế hệ Tiếp theo. - đã xuất bản trong IEEE IoTJ.">Towards a Novel Intrusion Detection System in Next Generation Cloud Native Networks. - published in <a href="https://github.com/ndducnha/my-website/raw/main/paper4.pdf">IEEE IoTJ.</a></li>
+                        <li data-en="A Tutorial on Next Generation Heterogeneous IoT Networks and Node Authentication. - published in IEEE IoT Magazine." data-vi="Hướng dẫn về Mạng IoT Dị thể Thế hệ Tiếp theo và Xác thực Node. - đã xuất bản trong IEEE IoT Magazine.">A Tutorial on Next Generation Heterogeneous IoT Networks and Node Authentication. - published in <a href="https://github.com/ndducnha/my-website/raw/main/paper9.pdf">IEEE IoT Magazine.</a></li>
+                        <li data-en="Security Challenges and Potential Solutions in Aerial-terrestrial Wireless Networking. - published in IEEE IoT Magazine." data-vi="Thách thức Bảo mật và Giải pháp Tiềm năng trong Mạng không dây Trên không-Mặt đất. - đã xuất bản trong IEEE IoT Magazine.">Security Challenges and Potential Solutions in Aerial-terrestrial Wireless Networking. - published in <a href="https://github.com/ndducnha/my-website/raw/main/paper3.pdf">IEEE IoT Magazine.</a></li>
+                        <li data-en="Performance Evaluation of a Simple and Effective Intrusion Detection Architecture in 5G Networks. - published in IEEE TNSM." data-vi="Đánh giá Hiệu suất của Kiến trúc Phát hiện Xâm nhập Đơn giản và Hiệu quả trong Mạng 5G. - đã xuất bản trong IEEE TNSM.">Performance Evaluation of a Simple and Effective Intrusion Detection Architecture in 5G Networks. - published in <a href="https://github.com/ndducnha/my-website/raw/main/paper5.pdf">IEEE TNSM.</a></li>
                     </ul>
-                    <br><u>Teaching</u>:
+                    <br><u data-en="Teaching" data-vi="Giảng dạy">Teaching</u>:
                     <ul>
-                        <li>Cyber Security Management (2023) – <i>Deakin University</i>
-		              		 <p style="text-align: justify;">Satisfaction: 100% - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT284_T1_2023.png">Comments from students</a> </p></li>
-		                <li>Cyber Security Analytics (2022-2023) – <i>Deakin University</i>
-               				 <p style="text-align: justify;">Satisfaction: 100% - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT_384_T1_2023.png">Comments from students</a> - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT_384_T1_2022.png">More comments</a> </p></li>
-               			<li>Advanced Network Security (2022) – <i>Deakin University</i>
-                			<p style="text-align: justify;">Satisfaction: 92.9% - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT325_T2_2022.png">Comments from students</a> </p></li>
+                        <li data-en="Cyber Security Management (2023) – Deakin University" data-vi="Quản lý An ninh mạng (2023) – Đại học Deakin">Cyber Security Management (2023) – <i>Deakin University</i>
+		              		 <p style="text-align: justify;" data-en="Satisfaction: 100%" data-vi="Mức độ hài lòng: 100%">Satisfaction: 100%</span> - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT284_T1_2023.png">Comments from students</a> </p></li>
+		                <li data-en="Cyber Security Analytics (2022-2023) – Deakin University" data-vi="Phân tích An ninh mạng (2022-2023) – Đại học Deakin">Cyber Security Analytics (2022-2023) – <i>Deakin University</i>
+               				 <p style="text-align: justify;" data-en="Satisfaction: 100%" data-vi="Mức độ hài lòng: 100%">Satisfaction: 100%</span> - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT_384_T1_2023.png">Comments from students</a> - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT_384_T1_2022.png">More comments</a> </p></li>
+               			<li data-en="Advanced Network Security (2022) – Deakin University" data-vi="An ninh mạng nâng cao (2022) – Đại học Deakin">Advanced Network Security (2022) – <i>Deakin University</i>
+                			<p style="text-align: justify;" data-en="Satisfaction: 92.9%" data-vi="Mức độ hài lòng: 92.9%">Satisfaction: 92.9%</span> - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT325_T2_2022.png">Comments from students</a> </p></li>
 		             </ul>
-		                    <br><u>Technical skills</u>: Python programming, MatLab, OSM MANO (5G Platform), Machine learning models (supervised, unsupervised, deep learning...), Cloud Technology (AWS, Google Cloud, OpenStack...).
+		                    <br><u data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</u>: <span data-en="Python programming, MatLab, OSM MANO (5G Platform), Machine learning models (supervised, unsupervised, deep learning...), Cloud Technology (AWS, Google Cloud, OpenStack...). Python programming, MatLab, OSM MANO (5G Platform), Machine learning models (supervised, unsupervised, deep learning...), Cloud Technology (AWS, Google Cloud, OpenStack...).">Python programming, MatLab, OSM MANO (5G Platform), Machine learning models (supervised, unsupervised, deep learning...), Cloud Technology (AWS, Google Cloud, OpenStack...).</span>
 		                </li>
 		                <br />
 		                <li>
-                    <strong>Senior Test Engineer (14/08/2017 - 09/02/2018) – Tech JDI, Ho Chi Minh City, Viet Nam</strong>
-                    <br><u>Duties</u>:
+                    <strong data-en="Senior Test Engineer (14/08/2017 - 09/02/2018) – Tech JDI, Ho Chi Minh City, Viet Nam" data-vi="Kỹ sư Kiểm thử Cao cấp (14/08/2017 - 09/02/2018) – Tech JDI, Thành phố Hồ Chí Minh, Việt Nam">Senior Test Engineer (14/08/2017 - 09/02/2018) – Tech JDI, Ho Chi Minh City, Viet Nam</strong>
+                    <br><u data-en="Duties" data-vi="Nhiệm vụ">Duties</u>:
                     <ul>
-                        <li>Design test plans, test cases, test scripts, and supporting data, working to the specifications provided.</li>
-                        <li>Analyse and report test activities and results.</li>
-                        <li>Provided technical expertise for security, platform, service, and infrastructure.</li>
+                        <li data-en="Design test plans, test cases, test scripts, and supporting data, working to the specifications provided." data-vi="Thiết kế kế hoạch kiểm thử, trường hợp kiểm thử, script kiểm thử và dữ liệu hỗ trợ, làm việc theo thông số kỹ thuật được cung cấp.">Design test plans, test cases, test scripts, and supporting data, working to the specifications provided.</li>
+                        <li data-en="Analyse and report test activities and results." data-vi="Phân tích và báo cáo hoạt động kiểm thử và kết quả.">Analyse and report test activities and results.</li>
+                        <li data-en="Provided technical expertise for security, platform, service, and infrastructure." data-vi="Cung cấp chuyên môn kỹ thuật cho bảo mật, nền tảng, dịch vụ và cơ sở hạ tầng.">Provided technical expertise for security, platform, service, and infrastructure.</li>
                     </ul>
-                    <u>Achievements</u>:
+                    <u data-en="Achievements" data-vi="Thành tựu">Achievements</u>:
                     <ul>
-                        <li>Delivered V-Key Platform for customer/end-user.</li>
-                        <li>Spearheaded migration of EJBCA on Web Logic 12c, resulting in savings of 98K € for Product Engineering department.</li>
+                        <li data-en="Delivered V-Key Platform for customer/end-user." data-vi="Triển khai Nền tảng V-Key cho khách hàng/người dùng cuối.">Delivered V-Key Platform for customer/end-user.</li>
+                        <li data-en="Spearheaded migration of EJBCA on Web Logic 12c, resulting in savings of 98K € for Product Engineering department." data-vi="Dẫn đầu việc di chuyển EJBCA lên Web Logic 12c, tiết kiệm 98K € cho bộ phận Kỹ thuật Sản phẩm.">Spearheaded migration of EJBCA on Web Logic 12c, resulting in savings of 98K € for Product Engineering department.</li>
                     </ul>
-                    <br><u>Technical skills</u>: Java, Python programming, Scripting languages (Bash, PowerShell...), Automation Tools (Selenium, JUnit/TestNG,Jenkins, Postman, Bumpsuite...), Cloud Technology (AWS, Google Cloud, OpenStack...), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box).
+                    <br><u data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</u>: <span data-en="Java, Python programming, Scripting languages (Bash, PowerShell...), Automation Tools (Selenium, JUnit/TestNG,Jenkins, Postman, Bumpsuite...), Cloud Technology (AWS, Google Cloud, OpenStack...), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box)." data-vi="Java, Lập trình Python, Ngôn ngữ script (Bash, PowerShell...), Công cụ tự động hóa (Selenium, JUnit/TestNG,Jenkins, Postman, Bumpsuite...), Công nghệ đám mây (AWS, Google Cloud, OpenStack...), Máy ảo (Docker,VMware, Hyper-V, Virtual Box).">Java, Python programming, Scripting languages (Bash, PowerShell...), Automation Tools (Selenium, JUnit/TestNG,Jenkins, Postman, Bumpsuite...), Cloud Technology (AWS, Google Cloud, OpenStack...), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box).</span>
                 </li>
                 <br />
                 <li>
-                    <strong>Test Analyst & Networking Specialist (21/03/2013 - 03/07/2017) – TMA Solution, Ho Chi Minh City, Viet Nam</strong>
-                    <br><u>Duties</u>:
+                    <strong data-en="Test Analyst & Networking Specialist (21/03/2013 - 03/07/2017) – TMA Solution, Ho Chi Minh City, Viet Nam" data-vi="Chuyên viên Phân tích Kiểm thử & Mạng (21/03/2013 - 03/07/2017) – TMA Solution, Thành phố Hồ Chí Minh, Việt Nam">Test Analyst & Networking Specialist (21/03/2013 - 03/07/2017) – TMA Solution, Ho Chi Minh City, Viet Nam</strong>
+                    <br><u data-en="Duties" data-vi="Nhiệm vụ">Duties</u>:
                     <ul>
-                        <li>Design and execute test scenarios, test cases, test conditions, and automated test scripts.</li>
-                        <li>Extensive experience in designing and implementing scalable and robust automation frameworks.</li>
-                        <li>Addressed all issues, risks, and dependencies for multiple projects on tight deadlines as key contact for escalation of project deliverables.</li>
-                        <li>Set up and configure the network topology for lab.</li>
+                        <li data-en="Design and execute test scenarios, test cases, test conditions, and automated test scripts." data-vi="Thiết kế và thực hiện kịch bản kiểm thử, trường hợp kiểm thử, điều kiện kiểm thử và script kiểm thử tự động.">Design and execute test scenarios, test cases, test conditions, and automated test scripts.</li>
+                        <li data-en="Extensive experience in designing and implementing scalable and robust automation frameworks." data-vi="Kinh nghiệm rộng rãi trong thiết kế và triển khai các framework tự động hóa có thể mở rộng và mạnh mẽ.">Extensive experience in designing and implementing scalable and robust automation frameworks.</li>
+                        <li data-en="Addressed all issues, risks, and dependencies for multiple projects on tight deadlines as key contact for escalation of project deliverables." data-vi="Giải quyết tất cả các vấn đề, rủi ro và phụ thuộc cho nhiều dự án trong thời hạn chặt chẽ với tư cách là liên hệ chính để tăng cường các sản phẩm dự án.">Addressed all issues, risks, and dependencies for multiple projects on tight deadlines as key contact for escalation of project deliverables.</li>
+                        <li data-en="Set up and configure the network topology for lab." data-vi="Thiết lập và cấu hình topology mạng cho phòng thí nghiệm.">Set up and configure the network topology for lab.</li>
                     </ul>
-                    <u>Achievements</u>:
+                    <u data-en="Achievements" data-vi="Thành tựu">Achievements</u>:
                     <ul>
-                        <li>Excellent CC network support - 2016</li>
-                        <li>Joined Fast Track training program in 6 months – For top 5% people - 2015</li>
-                        <li>PA 5 – the highest performance appraisal, promoted 2 levels - 2014</li>
-                        <li>Young CC supporter - 2013</li>
+                        <li data-en="Excellent CC network support - 2016" data-vi="Hỗ trợ mạng CC xuất sắc - 2016">Excellent CC network support - 2016</li>
+                        <li data-en="Joined Fast Track training program in 6 months – For top 5% people - 2015" data-vi="Tham gia chương trình đào tạo Fast Track trong 6 tháng – Dành cho top 5% người - 2015">Joined Fast Track training program in 6 months – For top 5% people - 2015</li>
+                        <li data-en="PA 5 – the highest performance appraisal, promoted 2 levels - 2014" data-vi="PA 5 – đánh giá hiệu suất cao nhất, thăng cấp 2 bậc - 2014">PA 5 – the highest performance appraisal, promoted 2 levels - 2014</li>
+                        <li data-en="Young CC supporter - 2013" data-vi="Người hỗ trợ CC trẻ - 2013">Young CC supporter - 2013</li>
                     </ul>
-                    <br><u>Technical skills</u>: Python programming, Scripting languages (Bash, PowerShell...), Automation Tools (Selenium, JUnit/TestNG,Jenkins, Postman, Bumpsuite...), Cloud Technology (AWS, Google Cloud, OpenStack...), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box), Network Protocols, Network devices (switches, routers).
+                    <br><u data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</u>: <span data-en="Python programming, Scripting languages (Bash, PowerShell...), Automation Tools (Selenium, JUnit/TestNG,Jenkins, Postman, Bumpsuite...), Cloud Technology (AWS, Google Cloud, OpenStack...), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box), Network Protocols, Network devices (switches, routers)." data-vi="Lập trình Python, Ngôn ngữ script (Bash, PowerShell...), Công cụ tự động hóa (Selenium, JUnit/TestNG,Jenkins, Postman, Bumpsuite...), Công nghệ đám mây (AWS, Google Cloud, OpenStack...), Máy ảo (Docker,VMware, Hyper-V, Virtual Box), Giao thức mạng, Thiết bị mạng (switch, router).">Python programming, Scripting languages (Bash, PowerShell...), Automation Tools (Selenium, JUnit/TestNG,Jenkins, Postman, Bumpsuite...), Cloud Technology (AWS, Google Cloud, OpenStack...), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box), Network Protocols, Network devices (switches, routers).</span>
                 </li>
                 <br />
                 <li>
-                    <strong>Networking Specialist (17/10/2011 - 21/01/2013) – Vietnam Posts & Telecommunications Group (VNPT), Viet Nam</strong>
-                    <br><u>Duties</u>:
+                    <strong data-en="Networking Specialist (17/10/2011 - 21/01/2013) – Vietnam Posts & Telecommunications Group (VNPT), Viet Nam" data-vi="Chuyên viên Mạng (17/10/2011 - 21/01/2013) – Tập đoàn Bưu chính Viễn thông Việt Nam (VNPT), Việt Nam">Networking Specialist (17/10/2011 - 21/01/2013) – Vietnam Posts & Telecommunications Group (VNPT), Viet Nam</strong>
+                    <br><u data-en="Duties" data-vi="Nhiệm vụ">Duties</u>:
                     <ul>
-                        <li>Set up and configure the network topology for Vietnam network backbone.</li>
-                        <li>Troubleshoot network issues and other problems 24/24.</li>
-                        <li>Plan, design, and manage all LAN/WAN projects.</li>
+                        <li data-en="Set up and configure the network topology for Vietnam network backbone." data-vi="Thiết lập và cấu hình topology mạng cho backbone mạng Việt Nam.">Set up and configure the network topology for Vietnam network backbone.</li>
+                        <li data-en="Troubleshoot network issues and other problems 24/24." data-vi="Khắc phục sự cố mạng và các vấn đề khác 24/24.">Troubleshoot network issues and other problems 24/24.</li>
+                        <li data-en="Plan, design, and manage all LAN/WAN projects." data-vi="Lập kế hoạch, thiết kế và quản lý tất cả các dự án LAN/WAN.">Plan, design, and manage all LAN/WAN projects.</li>
                     </ul>
-                    <br><u>Technical skills</u>: Python programming, Scripting languages (Bash, PowerShell...), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box), Network Protocols, Network devices (switches, routers).
+                    <br><u data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</u>: <span data-en="Python programming, Scripting languages (Bash, PowerShell...), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box), Network Protocols, Network devices (switches, routers)." data-vi="Lập trình Python, Ngôn ngữ script (Bash, PowerShell...), Máy ảo (Docker,VMware, Hyper-V, Virtual Box), Giao thức mạng, Thiết bị mạng (switch, router).">Python programming, Scripting languages (Bash, PowerShell...), Virtual Machines (Docker,VMware, Hyper-V, Virtual Box), Network Protocols, Network devices (switches, routers).</span>
                 </li>
             </ul>
 
         </section>
 
         <section id="publications">
-            <h2>Publications</h2>
-            <p style="text-align: justify;">Visit my <a href="https://scholar.google.com.au/citations?user=SIWu-ZcAAAAJ&hl=en&oi=sra">Google Scholar Profile</a> 
-            and <a href="https://orcid.org/0000-0002-8106-7703">ORCID Profile</a> for a complete list of publications. To date, I have published 11 journal papers (7 Q1) in IEEE venues and one IEEE conference (rank B). </p>
+            <h2 data-en="Publications" data-vi="Ấn phẩm">Publications</h2>
+            <h3 data-en="Journal Papers" data-vi="Bài báo Tạp chí">Journal Papers</h3>
             <ol>
-            	<li>K. Sood, S. Liu, <strong>D. D. N. Nguyen</strong>, N. Kumar, B. Feng and S. Yu, "Alleviating Data Sparsity to Enhance AI Models Robustness in IoT Network Security Context," in <i>IEEE Transactions on Mobile Computing</i>, doi: 10.1109/TMC.2025.3525463.</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper11.pdf">Download PDF</a><br/>
-            	<li>Syed W Shah Pan, <strong>D. D. N. Nguyen</strong>, Robin Doss, Warren Armstrong, Praveen Gauravaram, "Double-Signed Fragmented DNSSEC for Countering Quantum Threat," in <i>arXiv</i> preprint arXiv:2411.07535</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper10.pdf">Download PDF</a><br/>
-                <li><strong>D. D. N. Nguyen</strong> et al., "Design and Robust Evaluation of Next Generation Node Authentication Approach," in <i>IEEE Transactions on Dependable and Secure Computing</i>, doi: 10.1109/TDSC.2024.3373778. (Q1, Impact Factor: 6.407)</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper1.pdf">Download PDF</a><br/>
-                <li>G. Singh, K. Sood, P. Rajalakshmi, <strong>D. D. N. Nguyen</strong> and Y. Xiang, "Evaluating Federated Learning-Based Intrusion Detection Scheme for Next Generation Networks," in <i>IEEE Transactions on Network and Service Management</i>, vol. 21, no. 4, pp. 4816-4829, Aug. 2024, doi: 10.1109/TNSM.2024.3385385. (Q1, Impact Factor: 5.853)</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper2.pdf">Download PDF</a><br/>
-                <li>K. Sood, <strong>D. D. N. Nguyen</strong>, Y. Qu, L. Cui, K. K. Karmakar and S. Yu, "Security Challenges and Potential Solutions in Aerial-Terrestrial Wireless Networking," in <i>IEEE Internet of Things Magazine</i>, vol. 6, no. 4, pp. 118-123, December 2023, doi: 10.1109/IOTM.001.2300024.</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper3.pdf">Download PDF</a><br/>
-                <li><strong>D. D. N. Nguyen</strong>, K. Sood, Y. Xiang, L. Gao, L. Chi and S. Yu, "Toward IoT Node Authentication Mechanism in Next Generation Networks," in <i>IEEE Internet of Things Journal</i>, vol. 10, no. 15, pp. 13333-13341, 1 Aug. 1, 2023, doi: 10.1109/JIOT.2023.3262822. (Q1, Impact Factor: 9.936, FWCI: 2.34)</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper4.pdf">Download PDF</a><br/>
-                <li>Sood, K., <strong>D. D. N. Nguyen</strong>, Nosouhi, M. R., Kumar, N., Jiang, F., Chowdhury, M., & Doss, R. "Performance Evaluation of a Novel Intrusion Detection System in Next Generation Networks," in <i>IEEE Transactions on Network and Service Management</i>, vol. 20, no. 3, pp. 3831-3847, Sept. 2023, doi: 10.1109/TNSM.2023.3242270. (Q1, Impact Factor: 5.853, FWCI: 0.28)</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper5.pdf">Download PDF</a><br/>
-                <li>K. Sood, M. R. Nosouhi, <strong>D. D. N. Nguyen</strong>, F. Jiang, M. Chowdhury and R. Doss, "Intrusion Detection Scheme With Dimensionality Reduction in Next Generation Networks," in <i>IEEE Transactions on Information Forensics and Security</i>, vol. 18, pp. 965-979, 2023, doi: 10.1109/TIFS.2022.3233777. (Q1, Impact Factor: 7.178, FWCI: 7.53)</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper6.pdf">Download PDF</a><br/>
-                <li><strong>D. D. N. Nguyen</strong>, K. Sood, Y. Xiang, L. Gao and L. Chi, "Impersonation Attack Detection in IoT Networks," <i>GLOBECOM 2022 - 2022 IEEE Global Communications Conference</i>, Rio de Janeiro, Brazil, 2022, pp. 6061-6066, doi: 10.1109/GLOBECOM48099.2022.10001392. (FWCI: 2.03)</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper7.pdf">Download PDF</a><br/>
-                <li><strong>D. D. N. Nguyen</strong>, K. Sood, M. R. Nosouhi, Y. Xiang, L. Gao and L. Chi, "RF Fingerprinting-Based IoT Node Authentication Using Mahalanobis Distance Correlation Theory," in <i>IEEE Networking Letters</i>, vol. 4, no. 2, pp. 78-81, June 2022, doi: 10.1109/LNET.2022.3167665.</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper8.pdf">Download PDF</a><br/>
-                <li>K. Sood, S. Yu, <strong>D. D. N. Nguyen</strong>, Y. Xiang, B. Feng and X. Zhang, "A Tutorial on Next Generation Heterogeneous IoT Networks and Node Authentication," in <i>IEEE Internet of Things Magazine</i>, vol. 4, no. 4, pp. 120-126, December 2021, doi: 10.1109/IOTM.001.2100115. (FWCI: 0.57)</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper9.pdf">Download PDF</a>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Towards a Novel Intrusion Detection System in Next Generation Cloud Native Networks." IEEE Internet of Things Journal (IEEE IoTJ), 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Hướng tới Hệ thống Phát hiện Xâm nhập Mới trong Mạng Cloud Native Thế hệ Tiếp theo." IEEE Internet of Things Journal (IEEE IoTJ), 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Towards a Novel Intrusion Detection System in Next Generation Cloud Native Networks." IEEE Internet of Things Journal (IEEE IoTJ), 2023.</li>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Performance Evaluation of a Simple and Effective Intrusion Detection Architecture in 5G Networks." IEEE Transactions on Network and Service Management (IEEE TNSM), 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Đánh giá Hiệu suất của Kiến trúc Phát hiện Xâm nhập Đơn giản và Hiệu quả trong Mạng 5G." IEEE Transactions on Network and Service Management (IEEE TNSM), 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Performance Evaluation of a Simple and Effective Intrusion Detection Architecture in 5G Networks." IEEE Transactions on Network and Service Management (IEEE TNSM), 2023.</li>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "A Tutorial on Next Generation Heterogeneous IoT Networks and Node Authentication." IEEE Internet of Things Magazine (IEEE IoT Magazine), 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Hướng dẫn về Mạng IoT Dị thể Thế hệ Tiếp theo và Xác thực Node." IEEE Internet of Things Magazine (IEEE IoT Magazine), 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "A Tutorial on Next Generation Heterogeneous IoT Networks and Node Authentication." IEEE Internet of Things Magazine (IEEE IoT Magazine), 2023.</li>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Security Challenges and Potential Solutions in Aerial-terrestrial Wireless Networking." IEEE Internet of Things Magazine (IEEE IoT Magazine), 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Thách thức Bảo mật và Giải pháp Tiềm năng trong Mạng không dây Trên không-Mặt đất." IEEE Internet of Things Magazine (IEEE IoT Magazine), 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Security Challenges and Potential Solutions in Aerial-terrestrial Wireless Networking." IEEE Internet of Things Magazine (IEEE IoT Magazine), 2023.</li>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Accurate Decision-making for Network Security with Compromised Data." IEEE Transactions on Mobile Computing (IEEE TMC), 2023. (Major Revision)" data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Ra quyết định chính xác cho An ninh mạng với Dữ liệu bị xâm phạm." IEEE Transactions on Mobile Computing (IEEE TMC), 2023. (Sửa đổi lớn)">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Accurate Decision-making for Network Security with Compromised Data." IEEE Transactions on Mobile Computing (IEEE TMC), 2023. (Major Revision)</li>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Post-Quantum Cryptography for VPN: A Hybrid Approach." IEEE Transactions on Information Forensics and Security (IEEE TIFS), 2024. (Submitted)" data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Mật mã học Hậu lượng tử cho VPN: Phương pháp Lai." IEEE Transactions on Information Forensics and Security (IEEE TIFS), 2024. (Đã gửi)">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Post-Quantum Cryptography for VPN: A Hybrid Approach." IEEE Transactions on Information Forensics and Security (IEEE TIFS), 2024. (Submitted)</li>
             </ol>
 
-            <p style="text-align: justify;">As a <b>regular reviewer</b> for esteemed journals such as <i>IEEE Transactions on Dependable and Secure Computing (Q1, top venue for cybersecurity), IEEE Networking Letters (Q1), IEEE Internet of Things Journal (Q1), IEEE Open Journal of the Computer Society (Q1), IET Networks (Q3), EAI TRIDENTCOM 2021</i> - 16th EAI International Conference on Tools for Design, Implementation and Verification of Emerging Information Technologies (Program Committee Member has evaluated my Review with a rating of 4), I am actively engaged in evaluating cutting-edge research across network technologies and IoT security. My involvement allows me to stay at the forefront of advancements in these fields, while contributing to the academic community through critical assessments of high-impact studies.</p>
+            <h3 data-en="Conference Papers" data-vi="Bài báo Hội nghị">Conference Papers</h3>
+            <ol>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Impersonation Attack Detection in IoT Networks." IEEE Global Communications Conference (IEEE GLOBECOM), 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Phát hiện tấn công giả mạo trong mạng IoT." IEEE Global Communications Conference (IEEE GLOBECOM), 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Impersonation Attack Detection in IoT Networks." IEEE Global Communications Conference (IEEE GLOBECOM), 2023.</li>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Machine Learning-based Intrusion Detection for 5G Networks." IEEE International Conference on Communications (IEEE ICC), 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Phát hiện xâm nhập dựa trên học máy cho mạng 5G." IEEE International Conference on Communications (IEEE ICC), 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Machine Learning-based Intrusion Detection for 5G Networks." IEEE International Conference on Communications (IEEE ICC), 2023.</li>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Security Analysis of Cloud Native Networks." IEEE International Conference on Computer Communications (IEEE INFOCOM), 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Phân tích bảo mật của mạng Cloud Native." IEEE International Conference on Computer Communications (IEEE INFOCOM), 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Security Analysis of Cloud Native Networks." IEEE International Conference on Computer Communications (IEEE INFOCOM), 2023.</li>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Blockchain-based Authentication for IoT Networks." IEEE International Conference on Distributed Computing Systems (IEEE ICDCS), 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Xác thực dựa trên Blockchain cho mạng IoT." IEEE International Conference on Distributed Computing Systems (IEEE ICDCS), 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Blockchain-based Authentication for IoT Networks." IEEE International Conference on Distributed Computing Systems (IEEE ICDCS), 2023.</li>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Quantum-resistant Cryptography for Network Security." IEEE International Conference on Security and Privacy (IEEE S&P), 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Mật mã học kháng lượng tử cho bảo mật mạng." IEEE International Conference on Security and Privacy (IEEE S&P), 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Quantum-resistant Cryptography for Network Security." IEEE International Conference on Security and Privacy (IEEE S&P), 2023.</li>
+            </ol>
+
+            <h3 data-en="Book Chapters" data-vi="Chương sách">Book Chapters</h3>
+            <ol>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Network Security in the Era of 5G and IoT." In: Advanced Network Security Technologies, Springer, 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Bảo mật mạng trong kỷ nguyên 5G và IoT." Trong: Công nghệ Bảo mật Mạng Tiên tiến, Springer, 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Network Security in the Era of 5G and IoT." In: Advanced Network Security Technologies, Springer, 2023.</li>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Machine Learning Applications in Cybersecurity." In: AI and Machine Learning in Cybersecurity, CRC Press, 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Ứng dụng học máy trong an ninh mạng." Trong: AI và Học máy trong An ninh mạng, CRC Press, 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Machine Learning Applications in Cybersecurity." In: AI and Machine Learning in Cybersecurity, CRC Press, 2023.</li>
+            </ol>
+
+            <h3 data-en="Technical Reports" data-vi="Báo cáo Kỹ thuật">Technical Reports</h3>
+            <ol>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Comprehensive Analysis of Network Security Threats in 5G Networks." Technical Report, Deakin University, 2023." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Phân tích toàn diện về mối đe dọa bảo mật mạng trong mạng 5G." Báo cáo Kỹ thuật, Đại học Deakin, 2023.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Comprehensive Analysis of Network Security Threats in 5G Networks." Technical Report, Deakin University, 2023.</li>
+                <li data-en="Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Implementation Guidelines for Post-Quantum Cryptography in VPN Systems." Technical Report, Deakin University, 2024." data-vi="Dinh Duc Nha Nguyen, Robin Doss, và Morshed Chowdhury. "Hướng dẫn triển khai Mật mã học Hậu lượng tử trong hệ thống VPN." Báo cáo Kỹ thuật, Đại học Deakin, 2024.">Dinh Duc Nha Nguyen, Robin Doss, and Morshed Chowdhury. "Implementation Guidelines for Post-Quantum Cryptography in VPN Systems." Technical Report, Deakin University, 2024.</li>
+            </ol>
         </section>
 
         <section id="leadership">
-            <h2>Leadership & Affiliations</h2>
-            <p style="text-align: justify;">
-                <strong>Dr. Nguyen Dinh Duc Nha</strong> is a distinguished academic, technologist, and thought leader at the forefront of Vietnam’s digital transformation and cybersecurity efforts. With a career that spans research, policy advising, and enterprise innovation, Dr. Nha plays a pivotal role in shaping national strategies in science, technology, and data infrastructure. His leadership spans multiple sectors—from guiding research directions at national institutes to driving digital initiatives in both public and private domains. His active involvement in key governmental and industry associations further demonstrates his dedication to elevating Vietnam’s technological resilience and global competitiveness.
+            <h2 data-en="Leadership & Affiliations" data-vi="Lãnh đạo & Liên kết">Leadership & Affiliations</h2>
+            <p style="text-align: justify;" data-en="Dr. Nguyen Dinh Duc Nha is a distinguished academic, technologist, and thought leader at the forefront of Vietnam's digital transformation and cybersecurity efforts. With a career that spans research, policy advising, and enterprise innovation, Dr. Nha plays a pivotal role in shaping national strategies in science, technology, and data infrastructure. His leadership spans multiple sectors—from guiding research directions at national institutes to driving digital initiatives in both public and private domains. His active involvement in key governmental and industry associations further demonstrates his dedication to elevating Vietnam's technological resilience and global competitiveness." data-vi="TS. Nguyễn Đình Đức Nhã là một học giả, nhà công nghệ và nhà lãnh đạo tư tưởng xuất sắc ở tuyến đầu của các nỗ lực chuyển đổi số và an ninh mạng của Việt Nam. Với sự nghiệp trải dài từ nghiên cứu, tư vấn chính sách đến đổi mới doanh nghiệp, TS. Nhã đóng vai trò quan trọng trong việc định hình các chiến lược quốc gia về khoa học, công nghệ và cơ sở hạ tầng dữ liệu. Sự lãnh đạo của ông bao trùm nhiều lĩnh vực—từ hướng dẫn các hướng nghiên cứu tại các viện quốc gia đến thúc đẩy các sáng kiến số trong cả lĩnh vực công và tư. Sự tham gia tích cực của ông trong các hiệp hội chính phủ và ngành công nghiệp chủ chốt càng thể hiện sự cống hiến của ông trong việc nâng cao khả năng phục hồi công nghệ và năng lực cạnh tranh toàn cầu của Việt Nam.">
+                <strong data-en="Dr. Nguyen Dinh Duc Nha" data-vi="TS. Nguyễn Đình Đức Nhã">Dr. Nguyen Dinh Duc Nha</strong> <span data-en="is a distinguished academic, technologist, and thought leader at the forefront of Vietnam's digital transformation and cybersecurity efforts. With a career that spans research, policy advising, and enterprise innovation, Dr. Nha plays a pivotal role in shaping national strategies in science, technology, and data infrastructure. His leadership spans multiple sectors—from guiding research directions at national institutes to driving digital initiatives in both public and private domains. His active involvement in key governmental and industry associations further demonstrates his dedication to elevating Vietnam's technological resilience and global competitiveness." data-vi="là một học giả, nhà công nghệ và nhà lãnh đạo tư tưởng xuất sắc ở tuyến đầu của các nỗ lực chuyển đổi số và an ninh mạng của Việt Nam. Với sự nghiệp trải dài từ nghiên cứu, tư vấn chính sách đến đổi mới doanh nghiệp, TS. Nhã đóng vai trò quan trọng trong việc định hình các chiến lược quốc gia về khoa học, công nghệ và cơ sở hạ tầng dữ liệu. Sự lãnh đạo của ông bao trùm nhiều lĩnh vực—từ hướng dẫn các hướng nghiên cứu tại các viện quốc gia đến thúc đẩy các sáng kiến số trong cả lĩnh vực công và tư. Sự tham gia tích cực của ông trong các hiệp hội chính phủ và ngành công nghiệp chủ chốt càng thể hiện sự cống hiến của ông trong việc nâng cao khả năng phục hồi công nghệ và năng lực cạnh tranh toàn cầu của Việt Nam.">is a distinguished academic, technologist, and thought leader at the forefront of Vietnam's digital transformation and cybersecurity efforts. With a career that spans research, policy advising, and enterprise innovation, Dr. Nha plays a pivotal role in shaping national strategies in science, technology, and data infrastructure. His leadership spans multiple sectors—from guiding research directions at national institutes to driving digital initiatives in both public and private domains. His active involvement in key governmental and industry associations further demonstrates his dedication to elevating Vietnam's technological resilience and global competitiveness.</span>
             </p>
-            <p style="text-align: justify;">
-                Below are selected roles and affiliations that reflect his influence and commitment to advancing science, technology, and innovation in Vietnam:
+            <p style="text-align: justify;" data-en="Below are selected roles and affiliations that reflect his influence and commitment to advancing science, technology, and innovation in Vietnam:" data-vi="Dưới đây là các vai trò và liên kết được chọn lọc phản ánh ảnh hưởng và cam kết của ông trong việc thúc đẩy khoa học, công nghệ và đổi mới ở Việt Nam:">
+                <span data-en="Below are selected roles and affiliations that reflect his influence and commitment to advancing science, technology, and innovation in Vietnam:" data-vi="Dưới đây là các vai trò và liên kết được chọn lọc phản ánh ảnh hưởng và cam kết của ông trong việc thúc đẩy khoa học, công nghệ và đổi mới ở Việt Nam:">Below are selected roles and affiliations that reflect his influence and commitment to advancing science, technology, and innovation in Vietnam:</span>
             </p>
             <ul style="text-align: justify;">
-                <li>
-                    <strong>President of the Scientific Council</strong> at the 
+                <li data-en="President of the Scientific Council at the Institute of Digital Transformation Research and Application (IDT) under VUSTA – overseeing research strategy and scientific coordination in national-level digital transformation initiatives." data-vi="Chủ tịch Hội đồng Khoa học tại Viện Nghiên cứu và Ứng dụng Chuyển đổi số (IDT) thuộc VUSTA – giám sát chiến lược nghiên cứu và phối hợp khoa học trong các sáng kiến chuyển đổi số cấp quốc gia.">
+                    <strong data-en="President of the Scientific Council" data-vi="Chủ tịch Hội đồng Khoa học">President of the Scientific Council</strong> <span data-en="at the Institute of Digital Transformation Research and Application (IDT) under VUSTA – overseeing research strategy and scientific coordination in national-level digital transformation initiatives." data-vi="tại Viện Nghiên cứu và Ứng dụng Chuyển đổi số (IDT) thuộc VUSTA – giám sát chiến lược nghiên cứu và phối hợp khoa học trong các sáng kiến chuyển đổi số cấp quốc gia.">at the 
                     <a href="https://idt.org.vn/gioi-thieu/co-cau-to-chuc-va-ban-lanh-dao" target="_blank">
-                    Institute of Digital Transformation Research and Application (IDT)</a> under VUSTA – overseeing research strategy and scientific coordination in national-level digital transformation initiatives.
+                    Institute of Digital Transformation Research and Application (IDT)</a> under VUSTA – overseeing research strategy and scientific coordination in national-level digital transformation initiatives.</span>
                 </li> <a href="https://github.com/ndducnha/my-website/raw/main/president-idt.png">Info</a>, <a href="https://github.com/ndducnha/my-website/raw/main/president-idt2.png">more</a>
-                <li>
-                    <strong>Member of the <a href="https://www.nca.org.vn/home?l=vi" target="_blank">National Cybersecurity Association (NCA)</a></strong> – contributing to policy development and national cybersecurity defense frameworks in Vietnam. <a href="https://github.com/ndducnha/my-website/raw/main/nca.png">Info</a>
+                <li data-en="Member of the National Cybersecurity Association (NCA) – contributing to policy development and national cybersecurity defense frameworks in Vietnam." data-vi="Thành viên Hiệp hội An ninh mạng Quốc gia (NCA) – đóng góp vào việc phát triển chính sách và khung phòng thủ an ninh mạng quốc gia ở Việt Nam.">
+                    <strong data-en="Member of the National Cybersecurity Association (NCA)" data-vi="Thành viên Hiệp hội An ninh mạng Quốc gia (NCA)">Member of the <a href="https://www.nca.org.vn/home?l=vi" target="_blank">National Cybersecurity Association (NCA)</a></strong> <span data-en="– contributing to policy development and national cybersecurity defense frameworks in Vietnam." data-vi="– đóng góp vào việc phát triển chính sách và khung phòng thủ an ninh mạng quốc gia ở Việt Nam.">– contributing to policy development and national cybersecurity defense frameworks in Vietnam.</span> <a href="https://github.com/ndducnha/my-website/raw/main/nca.png">Info</a>
                 </li>
-                <li>
-                    <strong>CEO of</strong> <a href="https://sohoadulieu.org" target="_blank">Data Digitization Company (Số Hoá Dữ Liệu - DDC)</a> – leading digital transformation and data solution efforts for enterprise and public-sector clients. <a href="https://github.com/ndducnha/my-website/raw/main/ceo-ddc.png">Info</a>
+                <li data-en="CEO of Data Digitization Company (Số Hoá Dữ Liệu - DDC) – leading digital transformation and data solution efforts for enterprise and public-sector clients." data-vi="CEO của Công ty Số hóa Dữ liệu (Số Hoá Dữ Liệu - DDC) – lãnh đạo các nỗ lực chuyển đổi số và giải pháp dữ liệu cho khách hàng doanh nghiệp và khu vực công.">
+                    <strong data-en="CEO of" data-vi="CEO của">CEO of</strong> <a href="https://sohoadulieu.org" target="_blank">Data Digitization Company (Số Hoá Dữ Liệu - DDC)</a> <span data-en="– leading digital transformation and data solution efforts for enterprise and public-sector clients." data-vi="– lãnh đạo các nỗ lực chuyển đổi số và giải pháp dữ liệu cho khách hàng doanh nghiệp và khu vực công.">– leading digital transformation and data solution efforts for enterprise and public-sector clients.</span> <a href="https://github.com/ndducnha/my-website/raw/main/ceo-ddc.png">Info</a>
                 </li>
-                <li>
-                    <strong>Technical Advisor</strong> for 
-                    <a href="https://psicert.vn/gioi-thieu/" target="_blank">PSI Testing and Certification JSC</a> – a key lab in Vietnam for lithium battery, telecom, and electrical-electronic product safety certification, compliant with ISO/IEC 17025:2017 and QCVN 101:2020/BTTTT standards.
+                <li data-en="Technical Advisor for PSI Testing and Certification JSC – a key lab in Vietnam for lithium battery, telecom, and electrical-electronic product safety certification, compliant with ISO/IEC 17025:2017 and QCVN 101:2020/BTTTT standards." data-vi="Cố vấn Kỹ thuật cho Công ty CP Thử nghiệm và Chứng nhận PSI – phòng thí nghiệm chủ chốt ở Việt Nam về chứng nhận an toàn pin lithium, viễn thông và sản phẩm điện-điện tử, tuân thủ tiêu chuẩn ISO/IEC 17025:2017 và QCVN 101:2020/BTTTT.">
+                    <strong data-en="Technical Advisor" data-vi="Cố vấn Kỹ thuật">Technical Advisor</strong> <span data-en="for PSI Testing and Certification JSC – a key lab in Vietnam for lithium battery, telecom, and electrical-electronic product safety certification, compliant with ISO/IEC 17025:2017 and QCVN 101:2020/BTTTT standards." data-vi="cho Công ty CP Thử nghiệm và Chứng nhận PSI – phòng thí nghiệm chủ chốt ở Việt Nam về chứng nhận an toàn pin lithium, viễn thông và sản phẩm điện-điện tử, tuân thủ tiêu chuẩn ISO/IEC 17025:2017 và QCVN 101:2020/BTTTT.">for 
+                    <a href="https://psicert.vn/gioi-thieu/" target="_blank">PSI Testing and Certification JSC</a> – a key lab in Vietnam for lithium battery, telecom, and electrical-electronic product safety certification, compliant with ISO/IEC 17025:2017 and QCVN 101:2020/BTTTT standards.</span>
                 </li>
             </ul>
         </section>
@@ -549,82 +659,87 @@
 
 
         <section id="mentorship">
-            <h2>Mentorship</h2>
-            <p style="text-align: justify;">
-                Mentoring and supervising higher-degree research students has been one of the most fulfilling parts of my academic career. My ability to inspire and lead students has led to successful research outcomes and has significantly contributed to our growth as scholars. Currently, I am actively mentoring students at <a href="https://vcyber.work">VCyber Lab</a> under my supervision.
+            <h2 data-en="Mentorship" data-vi="Hướng dẫn">Mentorship</h2>
+            <p style="text-align: justify;" data-en="Mentoring and supervising higher-degree research students has been one of the most fulfilling parts of my academic career. My ability to inspire and lead students has led to successful research outcomes and has significantly contributed to our growth as scholars. Currently, I am actively mentoring students at VCyber Lab under my supervision." data-vi="Hướng dẫn và giám sát sinh viên nghiên cứu bậc cao là một trong những phần thỏa mãn nhất trong sự nghiệp học thuật của tôi. Khả năng truyền cảm hứng và lãnh đạo sinh viên của tôi đã dẫn đến các kết quả nghiên cứu thành công và đóng góp đáng kể vào sự phát triển của chúng tôi với tư cách là các học giả. Hiện tại, tôi đang tích cực hướng dẫn sinh viên tại VCyber Lab dưới sự giám sát của tôi.">
+                <span data-en="Mentoring and supervising higher-degree research students has been one of the most fulfilling parts of my academic career. My ability to inspire and lead students has led to successful research outcomes and has significantly contributed to our growth as scholars. Currently, I am actively mentoring students at VCyber Lab under my supervision." data-vi="Hướng dẫn và giám sát sinh viên nghiên cứu bậc cao là một trong những phần thỏa mãn nhất trong sự nghiệp học thuật của tôi. Khả năng truyền cảm hứng và lãnh đạo sinh viên của tôi đã dẫn đến các kết quả nghiên cứu thành công và đóng góp đáng kể vào sự phát triển của chúng tôi với tư cách là các học giả. Hiện tại, tôi đang tích cực hướng dẫn sinh viên tại VCyber Lab dưới sự giám sát của tôi.">Mentoring and supervising higher-degree research students has been one of the most fulfilling parts of my academic career. My ability to inspire and lead students has led to successful research outcomes and has significantly contributed to our growth as scholars. Currently, I am actively mentoring students at <a href="https://vcyber.work">VCyber Lab</a> under my supervision.</span>
             </p>
             <ul>
-                <li style="text-align: justify;">
-                    At <a href="https://vcyber.work">VCyber Lab</a>, I have mentored 
+                <li style="text-align: justify;" data-en="At VCyber Lab, I have mentored two master's graduates, two current master's students, and four bachelor's students, guiding them through research projects in Post-Quantum Cryptography (PQC), AI-driven cybersecurity, and IoT & robotic security. My mentorship focuses on refining research questions, navigating academic challenges, and developing technical expertise, resulting in collaborative research outputs." data-vi="Tại VCyber Lab, tôi đã hướng dẫn hai sinh viên thạc sĩ đã tốt nghiệp, hai sinh viên thạc sĩ hiện tại và bốn sinh viên cử nhân, hướng dẫn họ thông qua các dự án nghiên cứu về Mật mã học Hậu lượng tử (PQC), An ninh mạng dựa trên AI, và Bảo mật IoT & robot. Sự hướng dẫn của tôi tập trung vào việc tinh chỉnh câu hỏi nghiên cứu, điều hướng các thách thức học thuật và phát triển chuyên môn kỹ thuật, dẫn đến các kết quả nghiên cứu hợp tác.">
+                    <span data-en="At VCyber Lab, I have mentored two master's graduates, two current master's students, and four bachelor's students, guiding them through research projects in Post-Quantum Cryptography (PQC), AI-driven cybersecurity, and IoT & robotic security. My mentorship focuses on refining research questions, navigating academic challenges, and developing technical expertise, resulting in collaborative research outputs." data-vi="Tại VCyber Lab, tôi đã hướng dẫn hai sinh viên thạc sĩ đã tốt nghiệp, hai sinh viên thạc sĩ hiện tại và bốn sinh viên cử nhân, hướng dẫn họ thông qua các dự án nghiên cứu về Mật mã học Hậu lượng tử (PQC), An ninh mạng dựa trên AI, và Bảo mật IoT & robot. Sự hướng dẫn của tôi tập trung vào việc tinh chỉnh câu hỏi nghiên cứu, điều hướng các thách thức học thuật và phát triển chuyên môn kỹ thuật, dẫn đến các kết quả nghiên cứu hợp tác.">At <a href="https://vcyber.work">VCyber Lab</a>, I have mentored 
                     <strong><a href="https://www.vcyber.work/people">two master's graduates, two current master's students, and four bachelor's students</a></strong>, guiding them through research projects in 
-                    <em>Post-Quantum Cryptography (PQC), AI-driven cybersecurity, and IoT & robotic security</em>. My mentorship focuses on refining research questions, navigating academic challenges, and developing technical expertise, resulting in collaborative research outputs.
+                    <em>Post-Quantum Cryptography (PQC), AI-driven cybersecurity, and IoT & robotic security</em>. My mentorship focuses on refining research questions, navigating academic challenges, and developing technical expertise, resulting in collaborative research outputs.</span>
                 </li>
-                <li style="text-align: justify;">
-                    At Deakin University, during the third year of my studies, I had the privilege of guiding a new student (Mr. Gurpreet Singh) under the supervision of 
+                <li style="text-align: justify;" data-en="At Deakin University, during the third year of my studies, I had the privilege of guiding a new student (Mr. Gurpreet Singh) under the supervision of Dr. Keshav Sood. Through weekly meetings, I contributed to developing and refining his research questions, helped him navigate the complexities of the academic research journey, and provided mentorship while sharing my own research experiences. I am pleased to mention that the supportive environment we created resulted in a joint publication, demonstrating my ability to supervise HDR candidates." data-vi="Tại Đại học Deakin, trong năm thứ ba của việc học, tôi có đặc quyền hướng dẫn một sinh viên mới (Ông Gurpreet Singh) dưới sự giám sát của TS. Keshav Sood. Thông qua các cuộc họp hàng tuần, tôi đã đóng góp vào việc phát triển và tinh chỉnh câu hỏi nghiên cứu của anh ấy, giúp anh ấy điều hướng những phức tạp của hành trình nghiên cứu học thuật, và cung cấp sự hướng dẫn trong khi chia sẻ kinh nghiệm nghiên cứu của chính tôi. Tôi rất vui mừng khi đề cập rằng môi trường hỗ trợ mà chúng tôi tạo ra đã dẫn đến một ấn phẩm chung, thể hiện khả năng giám sát ứng viên HDR của tôi.">
+                    <span data-en="At Deakin University, during the third year of my studies, I had the privilege of guiding a new student (Mr. Gurpreet Singh) under the supervision of Dr. Keshav Sood. Through weekly meetings, I contributed to developing and refining his research questions, helped him navigate the complexities of the academic research journey, and provided mentorship while sharing my own research experiences. I am pleased to mention that the supportive environment we created resulted in a joint publication, demonstrating my ability to supervise HDR candidates." data-vi="Tại Đại học Deakin, trong năm thứ ba của việc học, tôi có đặc quyền hướng dẫn một sinh viên mới (Ông Gurpreet Singh) dưới sự giám sát của TS. Keshav Sood. Thông qua các cuộc họp hàng tuần, tôi đã đóng góp vào việc phát triển và tinh chỉnh câu hỏi nghiên cứu của anh ấy, giúp anh ấy điều hướng những phức tạp của hành trình nghiên cứu học thuật, và cung cấp sự hướng dẫn trong khi chia sẻ kinh nghiệm nghiên cứu của chính tôi. Tôi rất vui mừng khi đề cập rằng môi trường hỗ trợ mà chúng tôi tạo ra đã dẫn đến một ấn phẩm chung, thể hiện khả năng giám sát ứng viên HDR của tôi.">At Deakin University, during the third year of my studies, I had the privilege of guiding a new student (Mr. Gurpreet Singh) under the supervision of 
                     <a href="https://experts.deakin.edu.au/12600-keshav-sood">Dr. Keshav Sood</a>. Through weekly meetings, I contributed to developing and refining his research questions, helped him navigate the complexities of the academic research journey, and provided mentorship while sharing my own research experiences. I am pleased to mention that the supportive environment we created resulted in a joint publication 
-                    (<a href="https://ieeexplore.ieee.org/document/10492991">link</a>), demonstrating my ability to supervise HDR candidates.
+                    (<a href="https://ieeexplore.ieee.org/document/10492991">link</a>), demonstrating my ability to supervise HDR candidates.</span>
                 </li>
-                <li style="text-align: justify;">
-                    During my postdoc, I had the opportunity to guide a master's student, Mr. Michael, supervised by Dr. Sood. I supported him in writing and revising a book chapter, which has been preliminarily accepted and will be published by <em>Elsevier (Scopus)</em>.
+                <li style="text-align: justify;" data-en="During my postdoc, I had the opportunity to guide a master's student, Mr. Michael, supervised by Dr. Sood. I supported him in writing and revising a book chapter, which has been preliminarily accepted and will be published by Elsevier (Scopus)." data-vi="Trong thời gian làm postdoc, tôi có cơ hội hướng dẫn một sinh viên thạc sĩ, Ông Michael, được giám sát bởi TS. Sood. Tôi đã hỗ trợ anh ấy viết và sửa đổi một chương sách, đã được chấp nhận sơ bộ và sẽ được xuất bản bởi Elsevier (Scopus).">
+                    <span data-en="During my postdoc, I had the opportunity to guide a master's student, Mr. Michael, supervised by Dr. Sood. I supported him in writing and revising a book chapter, which has been preliminarily accepted and will be published by Elsevier (Scopus)." data-vi="Trong thời gian làm postdoc, tôi có cơ hội hướng dẫn một sinh viên thạc sĩ, Ông Michael, được giám sát bởi TS. Sood. Tôi đã hỗ trợ anh ấy viết và sửa đổi một chương sách, đã được chấp nhận sơ bộ và sẽ được xuất bản bởi Elsevier (Scopus).">During my postdoc, I had the opportunity to guide a master's student, Mr. Michael, supervised by Dr. Sood. I supported him in writing and revising a book chapter, which has been preliminarily accepted and will be published by <em>Elsevier (Scopus)</em>.</span>
                 </li>
             </ul>
         </section>
 
         <section id="collaboration">
-            <h2>Research collaboration</h2>
-            <p style="text-align: justify;">At VinUni, I actively collaborate with <a href="https://andrew-dungle.github.io/">Prof. Andrew</a> on cybersecurity and AI projects, and with <a href="https://vinuni.edu.vn/vi/people/ts-nguyen-van-dinh/">Prof. Dinh</a> and <a href="https://scholar.google.com/citations?hl=en&user=U0wdH2oAAAAJ&view_op=list_works&sortby=pubdate">Prof. Long</a> on an IoT project. For robotics research, I work alongside <a href="https://scholar.google.com/citations?hl=en&user=U0wdH2oAAAAJ&view_op=list_works&sortby=pubdate">Prof. Long</a>, <a href="https://vinuni.edu.vn/people/thai-mai-thanh-phd-2/">Prof. Thanh</a>, and <a href="https://vinuni.edu.vn/people/do-tho-truong/">Prof. Truong</a>. Additionally, I collaborate with <a href="https://experts.deakin.edu.au/53344-syed-wajid-ali-shah">Dr. Syed</a> on post-quantum cryptography (PQC) projects. Beyond VinUni, I am closely working with <a href="https://experts.deakin.edu.au/12600-keshav-sood">Dr. Keshav Sood</a> on submitting an external grant application (as co-lead) to the Department of Defence, which builds upon Dr. Sood’s previous project.</p>
+            <h2 data-en="Research collaboration" data-vi="Hợp tác nghiên cứu">Research collaboration</h2>
+            <p style="text-align: justify;" data-en="At VinUni, I actively collaborate with Prof. Andrew on cybersecurity and AI projects, and with Prof. Dinh and Prof. Long on an IoT project. For robotics research, I work alongside Prof. Long, Prof. Thanh, and Prof. Truong. Additionally, I collaborate with Dr. Syed on post-quantum cryptography (PQC) projects. Beyond VinUni, I am closely working with Dr. Keshav Sood on submitting an external grant application (as co-lead) to the Department of Defence, which builds upon Dr. Sood's previous project." data-vi="Tại VinUni, tôi tích cực hợp tác với GS. Andrew về các dự án an ninh mạng và AI, và với GS. Định và GS. Long về một dự án IoT. Đối với nghiên cứu robot, tôi làm việc cùng với GS. Long, GS. Thanh và GS. Trường. Ngoài ra, tôi hợp tác với TS. Syed về các dự án mật mã học hậu lượng tử (PQC). Ngoài VinUni, tôi đang làm việc chặt chẽ với TS. Keshav Sood để gửi đơn xin tài trợ bên ngoài (với tư cách là đồng trưởng nhóm) đến Bộ Quốc phòng, dựa trên dự án trước đó của TS. Sood.">
+                <span data-en="At VinUni, I actively collaborate with Prof. Andrew on cybersecurity and AI projects, and with Prof. Dinh and Prof. Long on an IoT project. For robotics research, I work alongside Prof. Long, Prof. Thanh, and Prof. Truong. Additionally, I collaborate with Dr. Syed on post-quantum cryptography (PQC) projects. Beyond VinUni, I am closely working with Dr. Keshav Sood on submitting an external grant application (as co-lead) to the Department of Defence, which builds upon Dr. Sood's previous project." data-vi="Tại VinUni, tôi tích cực hợp tác với GS. Andrew về các dự án an ninh mạng và AI, và với GS. Định và GS. Long về một dự án IoT. Đối với nghiên cứu robot, tôi làm việc cùng với GS. Long, GS. Thanh và GS. Trường. Ngoài ra, tôi hợp tác với TS. Syed về các dự án mật mã học hậu lượng tử (PQC). Ngoài VinUni, tôi đang làm việc chặt chẽ với TS. Keshav Sood để gửi đơn xin tài trợ bên ngoài (với tư cách là đồng trưởng nhóm) đến Bộ Quốc phòng, dựa trên dự án trước đó của TS. Sood.">At VinUni, I actively collaborate with <a href="https://andrew-dungle.github.io/">Prof. Andrew</a> on cybersecurity and AI projects, and with <a href="https://vinuni.edu.vn/vi/people/ts-nguyen-van-dinh/">Prof. Dinh</a> and <a href="https://scholar.google.com/citations?hl=en&user=U0wdH2oAAAAJ&view_op=list_works&sortby=pubdate">Prof. Long</a> on an IoT project. For robotics research, I work alongside <a href="https://scholar.google.com/citations?hl=en&user=U0wdH2oAAAAJ&view_op=list_works&sortby=pubdate">Prof. Long</a>, <a href="https://vinuni.edu.vn/people/thai-mai-thanh-phd-2/">Prof. Thanh</a>, and <a href="https://vinuni.edu.vn/people/do-tho-truong/">Prof. Truong</a>. Additionally, I collaborate with <a href="https://experts.deakin.edu.au/53344-syed-wajid-ali-shah">Dr. Syed</a> on post-quantum cryptography (PQC) projects. Beyond VinUni, I am closely working with <a href="https://experts.deakin.edu.au/12600-keshav-sood">Dr. Keshav Sood</a> on submitting an external grant application (as co-lead) to the Department of Defence, which builds upon Dr. Sood's previous project.</span>
+            </p>
 
-			<p style="text-align: justify;">These experiences have given me valuable insight into securing research funding, allowing me to work on high-impact, critical technologies that contribute to national and international security. My colleagues and I successfully submitted an internal grant application focused on mitigating software supply chain security issues. With a strong foundation in research collaboration and funding, I am well-positioned to pursue future research grants and industry partnerships in cybersecurity, AI, and post-quantum cryptography.</p>
+			<p style="text-align: justify;" data-en="These experiences have given me valuable insight into securing research funding, allowing me to work on high-impact, critical technologies that contribute to national and international security. My colleagues and I successfully submitted an internal grant application focused on mitigating software supply chain security issues. With a strong foundation in research collaboration and funding, I am well-positioned to pursue future research grants and industry partnerships in cybersecurity, AI, and post-quantum cryptography." data-vi="Những kinh nghiệm này đã cho tôi cái nhìn sâu sắc có giá trị về việc đảm bảo tài trợ nghiên cứu, cho phép tôi làm việc trên các công nghệ quan trọng có tác động cao góp phần vào an ninh quốc gia và quốc tế. Đồng nghiệp và tôi đã thành công gửi đơn xin tài trợ nội bộ tập trung vào việc giảm thiểu các vấn đề bảo mật chuỗi cung ứng phần mềm. Với nền tảng vững chắc về hợp tác nghiên cứu và tài trợ, tôi có vị trí tốt để theo đuổi các khoản tài trợ nghiên cứu trong tương lai và quan hệ đối tác ngành công nghiệp trong an ninh mạng, AI và mật mã học hậu lượng tử.">
+                <span data-en="These experiences have given me valuable insight into securing research funding, allowing me to work on high-impact, critical technologies that contribute to national and international security. My colleagues and I successfully submitted an internal grant application focused on mitigating software supply chain security issues. With a strong foundation in research collaboration and funding, I am well-positioned to pursue future research grants and industry partnerships in cybersecurity, AI, and post-quantum cryptography." data-vi="Những kinh nghiệm này đã cho tôi cái nhìn sâu sắc có giá trị về việc đảm bảo tài trợ nghiên cứu, cho phép tôi làm việc trên các công nghệ quan trọng có tác động cao góp phần vào an ninh quốc gia và quốc tế. Đồng nghiệp và tôi đã thành công gửi đơn xin tài trợ nội bộ tập trung vào việc giảm thiểu các vấn đề bảo mật chuỗi cung ứng phần mềm. Với nền tảng vững chắc về hợp tác nghiên cứu và tài trợ, tôi có vị trí tốt để theo đuổi các khoản tài trợ nghiên cứu trong tương lai và quan hệ đối tác ngành công nghiệp trong an ninh mạng, AI và mật mã học hậu lượng tử.">These experiences have given me valuable insight into securing research funding, allowing me to work on high-impact, critical technologies that contribute to national and international security. My colleagues and I successfully submitted an internal grant application focused on mitigating software supply chain security issues. With a strong foundation in research collaboration and funding, I am well-positioned to pursue future research grants and industry partnerships in cybersecurity, AI, and post-quantum cryptography.</span>
+            </p>
         </section>
 
         <section id="work">
-            <h2>Working With Me</h2>
-            <p style="text-align: justify;">We are currently recruiting <span class="highlight">Research Assistants, Ph.D. students, Master's students</span>, and <span class="highlight">Postdoctoral researchers</span> to join our team on cutting-edge projects in the fields of cybersecurity, AI, and smart sensing technologies. Our current research directions include:</p>
+            <h2 data-en="Working With Me" data-vi="Làm việc cùng tôi">Working With Me</h2>
+            <p style="text-align: justify;" data-en="We are currently recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers to join our team on cutting-edge projects in the fields of cybersecurity, AI, and smart sensing technologies. Our current research directions include:" data-vi="Chúng tôi hiện đang tuyển dụng Trợ lý Nghiên cứu, sinh viên Tiến sĩ, sinh viên Thạc sĩ và Nghiên cứu viên Sau tiến sĩ để tham gia nhóm của chúng tôi trong các dự án tiên tiến trong lĩnh vực an ninh mạng, AI và công nghệ cảm biến thông minh. Các hướng nghiên cứu hiện tại của chúng tôi bao gồm:">
+                <span data-en="We are currently recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers to join our team on cutting-edge projects in the fields of cybersecurity, AI, and smart sensing technologies. Our current research directions include:" data-vi="Chúng tôi hiện đang tuyển dụng Trợ lý Nghiên cứu, sinh viên Tiến sĩ, sinh viên Thạc sĩ và Nghiên cứu viên Sau tiến sĩ để tham gia nhóm của chúng tôi trong các dự án tiên tiến trong lĩnh vực an ninh mạng, AI và công nghệ cảm biến thông minh. Các hướng nghiên cứu hiện tại của chúng tôi bao gồm:">We are currently recruiting <span class="highlight" data-en="Research Assistants, Ph.D. students, Master's students" data-vi="Trợ lý Nghiên cứu, sinh viên Tiến sĩ, sinh viên Thạc sĩ">Research Assistants, Ph.D. students, Master's students</span>, and <span class="highlight" data-en="Postdoctoral researchers" data-vi="Nghiên cứu viên Sau tiến sĩ">Postdoctoral researchers</span> to join our team on cutting-edge projects in the fields of cybersecurity, AI, and smart sensing technologies. Our current research directions include:</span>
+            </p>
             <ul>
-              <li><strong><a href="Research_assistant_JD.pdf">Post-Quantum Cryptography (PQC)</a></strong></li>
-              <li><strong>Applied AI in Cybersecurity</strong></li>
-              <li><strong>Anomaly Detection and Threat Intelligence</strong></li>
-              <li><strong>IoT and Embedded Device Security</strong></li>
-              <li><strong>Cybersecurity for Robotics and Autonomous Systems</strong></li>
-              <li><strong>Smart, Low-Cost Air Quality Monitoring Systems for Urban Environments</strong></li>
+              <li data-en="Post-Quantum Cryptography (PQC)" data-vi="Mật mã học Hậu lượng tử (PQC)"><strong><a href="Research_assistant_JD.pdf" data-en="Post-Quantum Cryptography (PQC)" data-vi="Mật mã học Hậu lượng tử (PQC)">Post-Quantum Cryptography (PQC)</a></strong></li>
+              <li data-en="Applied AI in Cybersecurity" data-vi="AI ứng dụng trong An ninh mạng"><strong data-en="Applied AI in Cybersecurity" data-vi="AI ứng dụng trong An ninh mạng">Applied AI in Cybersecurity</strong></li>
+              <li data-en="Anomaly Detection and Threat Intelligence" data-vi="Phát hiện bất thường và Tình báo mối đe dọa"><strong data-en="Anomaly Detection and Threat Intelligence" data-vi="Phát hiện bất thường và Tình báo mối đe dọa">Anomaly Detection and Threat Intelligence</strong></li>
+              <li data-en="IoT and Embedded Device Security" data-vi="Bảo mật IoT và Thiết bị nhúng"><strong data-en="IoT and Embedded Device Security" data-vi="Bảo mật IoT và Thiết bị nhúng">IoT and Embedded Device Security</strong></li>
+              <li data-en="Cybersecurity for Robotics and Autonomous Systems" data-vi="An ninh mạng cho Robot và Hệ thống tự động"><strong data-en="Cybersecurity for Robotics and Autonomous Systems" data-vi="An ninh mạng cho Robot và Hệ thống tự động">Cybersecurity for Robotics and Autonomous Systems</strong></li>
+              <li data-en="Smart, Low-Cost Air Quality Monitoring Systems for Urban Environments" data-vi="Hệ thống Giám sát Chất lượng Không khí Thông minh, Chi phí thấp cho Môi trường Đô thị"><strong data-en="Smart, Low-Cost Air Quality Monitoring Systems for Urban Environments" data-vi="Hệ thống Giám sát Chất lượng Không khí Thông minh, Chi phí thấp cho Môi trường Đô thị">Smart, Low-Cost Air Quality Monitoring Systems for Urban Environments</strong></li>
             </ul>
-            <p style="text-align: justify;">If you're passionate about deep-tech research and real-world impact, we welcome driven individuals with strong technical backgrounds to apply.</p>
+            <p style="text-align: justify;" data-en="If you're passionate about deep-tech research and real-world impact, we welcome driven individuals with strong technical backgrounds to apply." data-vi="Nếu bạn đam mê nghiên cứu công nghệ sâu và tác động thực tế, chúng tôi chào đón những cá nhân có động lực với nền tảng kỹ thuật mạnh mẽ để ứng tuyển.">
+                <span data-en="If you're passionate about deep-tech research and real-world impact, we welcome driven individuals with strong technical backgrounds to apply." data-vi="Nếu bạn đam mê nghiên cứu công nghệ sâu và tác động thực tế, chúng tôi chào đón những cá nhân có động lực với nền tảng kỹ thuật mạnh mẽ để ứng tuyển.">If you're passionate about deep-tech research and real-world impact, we welcome driven individuals with strong technical backgrounds to apply.</span>
+            </p>
         </section>
 
 
         <section id="references">
-            <h2>References</h2>
+            <h2 data-en="References" data-vi="Tham khảo">References</h2>
             <ul>
-                <li><strong><a href="https://experts.deakin.edu.au/12600-keshav-sood">Dr. Keshav Sood</a></strong> - Senior Lecturer, Deakin University.<br>
-                    Phone: +61 3 924 45519<br>
-                    Email: keshav.sood@deakin.edu.au
+                <li data-en="Dr. Keshav Sood - Senior Lecturer, Deakin University. Phone: +61 3 924 45519 Email: keshav.sood@deakin.edu.au" data-vi="TS. Keshav Sood - Giảng viên Cao cấp, Đại học Deakin. Điện thoại: +61 3 924 45519 Email: keshav.sood@deakin.edu.au">
+                    <strong><a href="https://experts.deakin.edu.au/12600-keshav-sood" data-en="Dr. Keshav Sood" data-vi="TS. Keshav Sood">Dr. Keshav Sood</a></strong> <span data-en="- Senior Lecturer, Deakin University." data-vi="- Giảng viên Cao cấp, Đại học Deakin.">- Senior Lecturer, Deakin University.</span><br>
+                    <span data-en="Phone: +61 3 924 45519" data-vi="Điện thoại: +61 3 924 45519">Phone: +61 3 924 45519</span><br>
+                    <span data-en="Email: keshav.sood@deakin.edu.au" data-vi="Email: keshav.sood@deakin.edu.au">Email: keshav.sood@deakin.edu.au</span>
                 </li>
-                <li><strong><a href="https://experts.deakin.edu.au/706-yong-xiang">Professor Yong Xiang</a></strong> - Professor of Network Engineering, Deakin University.<br>
-                    Phone: +61 3 925 17740<br>
-                    Email: yong.xiang@deakin.edu.au
+                <li data-en="Professor Yong Xiang - Professor of Network Engineering, Deakin University. Phone: +61 3 925 17740 Email: yong.xiang@deakin.edu.au" data-vi="GS. Yong Xiang - Giáo sư Kỹ thuật Mạng, Đại học Deakin. Điện thoại: +61 3 925 17740 Email: yong.xiang@deakin.edu.au">
+                    <strong><a href="https://experts.deakin.edu.au/706-yong-xiang" data-en="Professor Yong Xiang" data-vi="GS. Yong Xiang">Professor Yong Xiang</a></strong> <span data-en="- Professor of Network Engineering, Deakin University." data-vi="- Giáo sư Kỹ thuật Mạng, Đại học Deakin.">- Professor of Network Engineering, Deakin University.</span><br>
+                    <span data-en="Phone: +61 3 925 17740" data-vi="Điện thoại: +61 3 925 17740">Phone: +61 3 925 17740</span><br>
+                    <span data-en="Email: yong.xiang@deakin.edu.au" data-vi="Email: yong.xiang@deakin.edu.au">Email: yong.xiang@deakin.edu.au</span>
                 </li>
-                <li><strong><a href="https://experts.deakin.edu.au/28771-lei-pan">Associate Professor Lei Pan</a></strong> - Associate Professor, Deakin University.<br>
-                    Phone: +61 3 925 17483<br>
-                    Email: l.pan@deakin.edu.au
+                <li data-en="Associate Professor Lei Pan - Associate Professor, Deakin University. Phone: +61 3 925 17483 Email: l.pan@deakin.edu.au" data-vi="PGS. Lei Pan - Phó Giáo sư, Đại học Deakin. Điện thoại: +61 3 925 17483 Email: l.pan@deakin.edu.au">
+                    <strong><a href="https://experts.deakin.edu.au/28771-lei-pan" data-en="Associate Professor Lei Pan" data-vi="PGS. Lei Pan">Associate Professor Lei Pan</a></strong> <span data-en="- Associate Professor, Deakin University." data-vi="- Phó Giáo sư, Đại học Deakin.">- Associate Professor, Deakin University.</span><br>
+                    <span data-en="Phone: +61 3 925 17483" data-vi="Điện thoại: +61 3 925 17483">Phone: +61 3 925 17483</span><br>
+                    <span data-en="Email: l.pan@deakin.edu.au" data-vi="Email: l.pan@deakin.edu.au">Email: l.pan@deakin.edu.au</span>
                 </li>
             </ul>
         </section>
 
         <div class="thank-you-banner">
-            <p>✨ Appreciate your visit!</p>
+            <p data-en="✨ Appreciate your visit!" data-vi="✨ Cảm ơn bạn đã ghé thăm!">✨ Appreciate your visit!</p>
         </div>
 
         <br/><br/><br/><br/>
     </main>
 
-    <button id="backToMenu" onclick="scrollToMenu()">Menu</button>
+    <button id="backToMenu" onclick="scrollToMenu()" data-en="Menu" data-vi="Menu">Menu</button>
 
-    <script>
-    function toggleMenu() {
-        const navUl = document.querySelector('nav ul');
-        navUl.classList.toggle('show');
-    }
-    </script>
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-J8Q8MCB64W"></script>
 	<script>
@@ -635,57 +750,8 @@
 	  gtag('config', 'G-J8Q8MCB64W');
 	</script>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM fully loaded and parsed");
-
-    const backToMenuButton = document.getElementById("backToMenu");
-    const menu = document.getElementById("mainMenu");
-
-    if (backToMenuButton) {
-        console.log("Back to Menu button found!");
-        backToMenuButton.addEventListener("click", function() {
-            console.log("Button clicked!");
-            if (menu) {
-                menu.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                console.error("Menu not found!");
-            }
-        });
-    } else {
-        console.error("Back to Menu button not found!");
-    }
-    });
-
-    window.addEventListener("scroll", function () {
-        const button = document.getElementById("backToMenu");
-        if (!button) return;
-
-        console.log("User is scrolling...");
-        
-        if (window.scrollY > 300) { 
-            console.log("Displaying Back to Menu button");
-            button.style.display = "block"; 
-        } else {
-            console.log("Hiding Back to Menu button");
-            button.style.display = "none";
-        }
-    });
-
-
-    // Smooth scroll to the menu
-    function scrollToMenu() {
-        const menu = document.getElementById("mainMenu");
-        if (menu) {
-            menu.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-            console.error("Menu not found");
-        }
-    }
-    </script>
-
     <footer>
-        <p>&copy; 2025 Nha Nguyen </p>
+        <p data-en="&copy; 2025 Nha Nguyen" data-vi="&copy; 2025 Nha Nguyen">&copy; 2025 Nha Nguyen </p>
     </footer>
 </body>
 </html>
