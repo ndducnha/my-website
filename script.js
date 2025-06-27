@@ -4,10 +4,36 @@ function toggleMenu() {
     navUl.classList.toggle('show');
 }
 
+// Function to set active button state
+function setActiveButton(lang) {
+    console.log('Setting active button for lang:', lang);
+    
+    // Remove active from all buttons first
+    const allButtons = document.querySelectorAll('.language-selector .lang-btn');
+    allButtons.forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+    
+    // Find and activate the correct button
+    allButtons.forEach(function(btn) {
+        const buttonText = btn.textContent.trim();
+        console.log('Checking button:', buttonText, 'for lang:', lang);
+        
+        if ((buttonText === 'English' && lang === 'en') || 
+            (buttonText === 'Tiếng Việt' && lang === 'vi')) {
+            btn.classList.add('active');
+            console.log('Added active to:', buttonText);
+        }
+    });
+}
+
 // Language switcher
 function changeLanguage(lang) {
+    console.log('Changing language to:', lang);
+    
     // Save preference
     localStorage.setItem('preferredLang', lang);
+    
     // Update all elements with data-en/data-vi
     document.querySelectorAll('[data-en], [data-vi]').forEach(function(el) {
         if (lang === 'vi' && el.getAttribute('data-vi')) {
@@ -16,11 +42,11 @@ function changeLanguage(lang) {
             el.textContent = el.getAttribute('data-en');
         }
     });
-    // Update active button
-    document.querySelectorAll('.lang-btn').forEach(function(btn) {
-        btn.classList.remove('active');
-    });
-    document.querySelector(`.lang-btn[onclick*="'${lang}'"]`).classList.add('active');
+    
+    // Set active button after content update
+    setTimeout(function() {
+        setActiveButton(lang);
+    }, 100);
 }
 
 // Show language modal if no language is set
@@ -57,6 +83,10 @@ document.addEventListener("DOMContentLoaded", function () {
     var lang = localStorage.getItem('preferredLang');
     if (lang) {
         changeLanguage(lang);
+        // Also set active button after a short delay to ensure content is updated
+        setTimeout(function() {
+            setActiveButton(lang);
+        }, 200);
     } else {
         showLangModalIfNeeded();
     }
