@@ -174,13 +174,15 @@
 
     /* Language selector styles */
     .language-selector {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        display: flex;
-        gap: 10px;
-        z-index: 1001;
-    }
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 1000;
+    background: #fff;
+    padding: 6px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
 
     .lang-btn {
         background-color: #1c3d76;
@@ -199,9 +201,10 @@
         border-color: #c4262b;
     }
 
-    .lang-btn.active {
-        background-color: #c4262b;
-        border-color: #c4262b;
+    .language-selector .lang-btn.active {
+        background-color: #28a745 !important;
+        border-color: #28a745 !important;
+        color: white !important;
     }
 
     @media (max-width: 768px) {
@@ -366,7 +369,7 @@
                 <li><strong style="font-size: 18px;" data-en="Master of Information Technology (Networks)" data-vi="Thạc sĩ Công nghệ Thông tin (Mạng)">Master of Information Technology (Networks)</strong> <a href="https://github.com/ndducnha/my-website/raw/main/Qualification_MasterOfIT_AwardCertificate.pdf">Certificate</a> <br>
                 Queensland University of Technology, Brisbane, Australia (2018-2020)<br>
                 <span data-en="Graduation with Distinction (GPA 6.118, equivalent to 81% WAM)." data-vi="Tốt nghiệp Xuất sắc (GPA 6.118, tương đương 81% WAM).">Graduation with Distinction (GPA 6.118, equivalent to 81% WAM).</span><br>
-                <i><strong data-en="Award: Awarded Dean's List for excellent academic performance in semester 2 in 2019 and semester 1 in 2020." data-vi="Giải thưởng: Được trao danh hiệu Dean’s List vì thành tích học tập xuất sắc trong học kỳ 2 năm 2019 và học kỳ 1 năm 2020.">Award: Awarded Dean's List for excellent academic performance in semester 2 in 2019 and semester 1 in 2020.</i></strong></li>
+                <i><strong data-en="Award: Awarded Dean's List for excellent academic performance in semester 2 in 2019 and semester 1 in 2020." data-vi="Giải thưởng: Được trao danh hiệu Dean's List vì thành tích học tập xuất sắc trong học kỳ 2 năm 2019 và học kỳ 1 năm 2020.">Award: Awarded Dean's List for excellent academic performance in semester 2 in 2019 and semester 1 in 2020.</i></strong></li>
                 <br/>
                 <li><strong style="font-size: 18px;" data-en="Bachelor Degree of Telecommunication and Electronic" data-vi="Cử nhân Viễn thông và Điện tử">Bachelor Degree of Telecommunication and Electronic</strong> <a href="https://github.com/ndducnha/my-website/raw/main/Dinh_Duc_Nha_Nguyen_bachelor_cert.pdf">Certificate</a><br>
                 Post and Telecommunications Institute of Technology, Ho Chi Minh City, Viet Nam (2006-2011)</li>
