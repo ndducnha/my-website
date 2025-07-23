@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quét lại QR để xác minh</title>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    #qr-reader { width: 100%; max-width: 400px; margin: auto; }
+    #status { margin-top: 20px; font-size: 18px; font-weight: bold; color: green; text-align: center; }
+  </style>
+</head>
+<body>
+  <h2>✅ Xác minh QR Code</h2>
+  <p>Bạn đã truy cập từ QR1. Vui lòng quét lại mã QR1 bằng camera dưới đây để xác thực.</p>
+
+  <div id="qr-reader"></div>
+  <div id="status">Đang chờ quét lại mã QR...</div>
+
+  <script>
+    // Lấy ID ban đầu từ URL QR1
+    const urlParams = new URLSearchParams(window.location.search);
+    const originalId = urlParams.get("id"); // ví dụ: ABC123
+    sessionStorage.setItem("qr_visit_id", originalId); // đánh dấu lần đầu
+
+    const resultDiv = document.getElementById("status");
+
+    function onScanSuccess(decodedText) {
+      try {
+        const scannedUrl = new URL(decodedText);
+        const scannedId = scannedUrl.searchParams.get("id");
+
+        if (scannedId === originalId) {
+          resultDiv.innerText = "✅ Quét lại chính xác mã QR1 – Đã xác minh thành công!";
+          resultDiv.style.color = "green";
+        } else {
+          resultDiv.innerText = "⚠️ Mã QR không khớp với QR1 – Vui lòng kiểm tra lại!";
+          resultDiv.style.color = "red";
+        }
+      } catch (e) {
+        resultDiv.innerText = "⚠️ Không nhận dạng được mã QR hợp lệ.";
+        resultDiv.style.color = "orange";
+      }
+    }
+
+    function onScanFailure(error) {
+      // không hiển thị lỗi nhỏ
+    }
+
+    const html5QrCode = new Html5Qrcode("qr-reader");
+    html5QrCode.start(
+      { facingMode: "environment" },
+      { fps: 10, qrbox: 250 },
+      onScanSuccess,
+      onScanFailure
+    );
+  </script>
+</body>
+</html>
