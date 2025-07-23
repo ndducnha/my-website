@@ -6,11 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <style>
-    body { font-family: sans-serif; padding: 20px; background: #f2f2f2; }
-    h2 { text-align: center; color: #0066cc; }
-    .gallery { display: flex; overflow-x: auto; gap: 10px; margin: 20px 0; }
-    .gallery img { height: 120px; border-radius: 8px; }
-    #start-btn { display: block; margin: 20px auto; padding: 12px 24px; font-size: 16px; }
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    h2 { color: #0066cc; text-align: center; }
+    #start-btn { display: block; margin: 20px auto; padding: 12px 24px; font-size: 16px; border-radius: 8px; background: #007bff; color: white; border: none; }
     #qr-reader { display: none; margin-top: 20px; }
     .info-box { background: white; border-radius: 10px; padding: 15px; margin-top: 20px; box-shadow: 0 0 5px #ccc; }
     .info-box strong { color: #333; }
@@ -22,11 +20,9 @@
   <h2>🔍 Chào mừng bạn đến với trang kiểm tra QR của <b>Vcyber</b></h2>
 
   <div class="info-box">
-    <strong>🖼️ Dưới đây là thông tin sản phẩm:</strong>
-    <div class="gallery">
-      <img src="https://via.placeholder.com/150x120.png?text=Hình+1" alt="Hình 1">
-      <img src="https://via.placeholder.com/150x120.png?text=Hình+2" alt="Hình 2">
-      <img src="https://via.placeholder.com/150x120.png?text=Hình+3" alt="Hình 3">
+    <strong>🖼️ Thông tin sản phẩm:</strong>
+    <div style="text-align: center; margin-top: 15px;">
+      <img src="qr_demo.png" alt="Hình sản phẩm" style="max-width: 100%; height: auto; border-radius: 8px;">
     </div>
   </div>
 
@@ -46,66 +42,73 @@
     const resultText = document.getElementById("result-text");
 
     const urlParams = new URLSearchParams(window.location.search);
-    const originalId = urlParams.get("id"); // từ QR1
+    const originalId = urlParams.get("id"); // ID từ QR1
     const deviceInfo = navigator.userAgent;
 
-    function getLocationAndShowResult(decodedText, isMatch) {
-      const id = new URL(decodedText).searchParams.get("id");
+    let html5QrCode;
+    let lastScanned = ""; // để chống duplicate
 
+    startBtn.onclick = () => {
+      startBtn.style.display = "none";
+      qrReaderDiv.style.display = "block";
+      resultText.innerText = "📸 Đang mở camera...";
+
+      html5QrCode = new Html5Qrcode("qr-reader");
+      html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        (decodedText) => {
+          if (decodedText === lastScanned) return;
+          lastScanned = decodedText;
+
+          let scannedId = "";
+          try {
+            const scannedUrl = new URL(decodedText);
+            scannedId = scannedUrl.searchParams.get("id");
+          } catch (e) {
+            showResult(false, "Không thể đọc ID từ QR", "?", "?");
+            return;
+          }
+
+          const isMatch = scannedId === originalId;
+          getLocationAndShowResult(scannedId, isMatch, decodedText);
+          html5QrCode.stop(); // tắt camera sau khi quét
+        },
+        (errorMsg) => {
+          // lỗi nhỏ khi không quét được, bỏ qua
+        }
+      );
+    };
+
+    function getLocationAndShowResult(scannedId, isMatch, rawQR) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (pos) => {
             const lat = pos.coords.latitude.toFixed(6);
             const lng = pos.coords.longitude.toFixed(6);
-            showResult(decodedText, isMatch, lat, lng, id);
+            showResult(isMatch, scannedId, lat, lng, rawQR);
           },
           (err) => {
-            showResult(decodedText, isMatch, "Lỗi GPS", "Lỗi GPS", id);
+            showResult(isMatch, scannedId, "Lỗi GPS", "Lỗi GPS", rawQR);
           }
         );
       } else {
-        showResult(decodedText, isMatch, "Không hỗ trợ", "Không hỗ trợ", id);
+        showResult(isMatch, scannedId, "Không hỗ trợ", "Không hỗ trợ", rawQR);
       }
     }
 
-    function showResult(decodedText, isMatch, lat, lng, id) {
+    function showResult(isMatch, id, lat, lng, rawQR) {
       const time = new Date().toLocaleString();
       resultLog.style.display = "block";
       resultText.innerHTML = `
         <strong>🔑 Kết quả:</strong> ${isMatch ? "✅ Hợp lệ" : "❌ Không khớp mã QR"}<br/>
+        <strong>📦 Mã QR:</strong> ${rawQR}<br/>
         <strong>🧾 ID trong QR:</strong> ${id}<br/>
         <strong>🌍 Vị trí:</strong> ${lat}, ${lng}<br/>
         <strong>📱 Thiết bị:</strong> ${deviceInfo}<br/>
         <strong>⏰ Thời gian:</strong> ${time}<br/>
       `;
     }
-
-    function onScanSuccess(decodedText) {
-      try {
-        const scannedUrl = new URL(decodedText);
-        const scannedId = scannedUrl.searchParams.get("id");
-        const isMatch = scannedId === originalId;
-        getLocationAndShowResult(decodedText, isMatch);
-        html5QrCode.stop(); // dừng camera sau khi quét
-      } catch {
-        resultText.innerText = "⚠️ Không nhận dạng được QR hợp lệ.";
-        resultLog.style.display = "block";
-      }
-    }
-
-    let html5QrCode;
-
-    startBtn.onclick = () => {
-      startBtn.style.display = "none";
-      qrReaderDiv.style.display = "block";
-
-      html5QrCode = new Html5Qrcode("qr-reader");
-      html5QrCode.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: 250 },
-        onScanSuccess
-      );
-    };
   </script>
 
 </body>
