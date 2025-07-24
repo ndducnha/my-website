@@ -16,7 +16,7 @@
 </head>
 <body>
 
-  <h2>🔒 Xác thực sản phẩm Vcyber</h2>
+  <h2>🔒 Xác thực sản phẩm Vcyber -  Dr. Nguyễn Đình Đức Nhã</h2>
 
   <div class="product" id="product-info">
     <p><strong>Đang tải thông tin sản phẩm...</strong></p>
@@ -28,7 +28,6 @@
   <div id="result"></div>
 
   <script>
-    // --- Lấy idEnc & keyEnc từ URL query ---
     const params = new URLSearchParams(window.location.search);
     const idEnc = params.get("idEnc");
     const keyEnc = params.get("keyEnc");
@@ -42,13 +41,12 @@
     }
 
     const productId = decodeBase64(idEnc);
-    const expectedSecret = decodeBase64(keyEnc)?.trim();
+    const expectedSecret = keyEnc?.trim(); // giữ nguyên base64, KHÔNG decode
 
-    // DB ảo
     const db = {
       "a81538749": {
         name: "Sữa hộp trẻ em",
-        color: "Mỹ",
+        origin: "Mỹ",
         price: "700,000đ"
       }
     };
@@ -63,13 +61,12 @@
       const p = db[productId];
       productBox.innerHTML = `
         <p><strong>Sản phẩm:</strong> ${p.name}</p>
-        <p><strong>Xuất xứ:</strong> ${p.color}</p>
+        <p><strong>Xuất xứ:</strong> ${p.origin}</p>
         <p><strong>Giá:</strong> ${p.price}</p>
         <p><strong>ID:</strong> ${productId}</p>
       `;
     }
 
-    // --- Quét QR và xác thực ---
     document.getElementById("verify-btn").onclick = () => {
       document.getElementById("qr-reader").style.display = "block";
       const html5QrCode = new Html5Qrcode("qr-reader");
@@ -81,12 +78,10 @@
           html5QrCode.stop();
 
           const scannedRaw = decodedText.trim();
-          const expectedRaw = keyEnc.trim(); // không decode
+          console.log("QR quét ra:", scannedRaw);
+          console.log("So với expected:", expectedSecret);
 
-          console.log("QR raw:", scannedRaw);
-          console.log("Expected:", expectedRaw);
-
-          if (scannedRaw === expectedRaw) {
+          if (scannedRaw === expectedSecret) {
             resultBox.innerHTML = "✅ Xác thực thành công! Đây là sản phẩm chính hãng.";
             resultBox.style.color = "green";
           } else {
