@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Xác thực sản phẩm - Vcyber</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f5f5f5; }
+    h2 { color: #0066cc; text-align: center; }
+    .product { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 0 5px #ccc; margin-bottom: 20px; }
+    #verify-btn { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; }
+    #qr-reader { width: 100%; max-width: 400px; margin: 20px auto; display: none; }
+    #result { font-size: 18px; font-weight: bold; margin-top: 20px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <h2>🔒 Xác thực sản phẩm Vcyber</h2>
+
+  <div class="product" id="product-info">
+    <p><strong>Đang tải thông tin sản phẩm...</strong></p>
+  </div>
+
+  <button id="verify-btn">🔍 Bấm để xác thực sản phẩm</button>
+
+  <div id="qr-reader"></div>
+  <div id="result"></div>
+
+  <script>
+    // --- Lấy idEnc & keyEnc từ URL query ---
+    const params = new URLSearchParams(window.location.search);
+    const idEnc = params.get("idEnc");
+    const keyEnc = params.get("keyEnc");
+
+    // --- Hàm giải mã base64 an toàn ---
+    function decodeBase64(str) {
+      try {
+        return atob(str);
+      } catch {
+        return null;
+      }
+    }
+
+    const productId = decodeBase64(idEnc);     // ví dụ: "a81538749"
+    const expectedSecret = decodeBase64(keyEnc); // ví dụ: "S3cud123"
+
+    // --- DB ảo ---
+    const db = {
+      "a81538749": {
+        name: "Áo sơ mi Vcyber",
+        color: "Xanh biển",
+        price: "320,000đ"
+      }
+    };
+
+    const productBox = document.getElementById("product-info");
+    const resultBox = document.getElementById("result");
+
+    // --- Kiểm tra dữ liệu hợp lệ ---
+    if (!productId || !expectedSecret || !db[productId]) {
+      productBox.innerHTML = "<p>❌ Mã sản phẩm không hợp lệ hoặc không tồn tại.</p>";
+      document.getElementById("verify-btn").style.display = "none";
+    } else {
+      const p = db[productId];
+      productBox.innerHTML = `
+        <p><strong>Sản phẩm:</strong> ${p.name}</p>
+        <p><strong>Màu sắc:</strong> ${p.color}</p>
+        <p><strong>Giá:</strong> ${p.price}</p>
+        <p><strong>ID:</strong> ${productId}</p>
+      `;
+    }
+
+    // --- Xác thực QR ---
+    document.getElementById("verify-btn").onclick = () => {
+      document.getElementById("qr-reader").style.display = "block";
+      const html5QrCode = new Html5Qrcode("qr-reader");
+
+      html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        (decodedText) => {
+          const scannedSecret = decodeBase64(decodedText);
+          html5QrCode.stop();
+
+          if (scannedSecret === expectedSecret) {
+            resultBox.innerHTML = "✅ Xác thực thành công! Đây là sản phẩm chính hãng.";
+            resultBox.style.color = "green";
+          } else {
+            resultBox.innerHTML = "❌ Xác thực thất bại. QR không khớp.";
+            resultBox.style.color = "red";
+          }
+        },
+        (error) => {} // bỏ qua lỗi nhỏ
+      );
+    };
+  </script>
+
+</body>
+</html>
