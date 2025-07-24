@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Xác thực sản phẩm - Vcyber</title>
+  <title>Xác thực sản phẩm Vcyber</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <style>
@@ -11,15 +11,18 @@
     .product { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 0 5px #ccc; margin-bottom: 20px; }
     #verify-btn { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; }
     #qr-reader { width: 100%; max-width: 400px; margin: 20px auto; display: none; }
-    #result { font-size: 18px; font-weight: bold; margin-top: 20px; text-align: center; }
+    #result { font-size: 18px; font-weight: bold; margin-top: 20px; text-align: center; white-space: pre-wrap; }
   </style>
 </head>
 <body>
 
-  <h2>🔒 Xác thực sản phẩm Vcyber</h2>
+  <h2>🔒 Xác thực sản phẩm Vcyber - Nhã Nguyễn</h2>
 
   <div class="product" id="product-info">
-    <p><strong>Đang tải thông tin sản phẩm...</strong></p>
+    <p><strong>Sản phẩm:</strong> Sữa hộp trẻ em</p>
+    <p><strong>Xuất xứ:</strong> Mỹ</p>
+    <p><strong>Giá:</strong> 700,000đ</p>
+    <p><strong>ID:</strong> a81538749</p>
   </div>
 
   <button id="verify-btn">🔍 Bấm để xác thực sản phẩm</button>
@@ -28,43 +31,11 @@
   <div id="result"></div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const idEnc = params.get("idEnc");
-    const keyEnc = params.get("keyEnc");
+    const expectedSecret = 'U3djdWQxMjM'; // bản không có dấu =
 
-    function decodeBase64(str) {
-      try {
-        return atob(str.trim());
-      } catch {
-        return null;
-      }
-    }
-
-    const productId = decodeBase64(idEnc);
-    const expectedSecret = keyEnc?.trim(); // giữ nguyên base64, KHÔNG decode
-
-    const db = {
-      "a81538749": {
-        name: "Sữa hộp trẻ em",
-        origin: "Mỹ",
-        price: "700,000đ"
-      }
-    };
-
-    const productBox = document.getElementById("product-info");
-    const resultBox = document.getElementById("result");
-
-    if (!productId || !expectedSecret || !db[productId]) {
-      productBox.innerHTML = "<p>❌ Mã sản phẩm không hợp lệ hoặc không tồn tại.</p>";
-      document.getElementById("verify-btn").style.display = "none";
-    } else {
-      const p = db[productId];
-      productBox.innerHTML = `
-        <p><strong>Sản phẩm:</strong> ${p.name}</p>
-        <p><strong>Xuất xứ:</strong> ${p.origin}</p>
-        <p><strong>Giá:</strong> ${p.price}</p>
-        <p><strong>ID:</strong> ${productId}</p>
-      `;
+    // chuẩn hóa chuỗi (cắt dấu = nếu có)
+    function normalize(str) {
+      return str.trim().replace(/=+$/, '');
     }
 
     document.getElementById("verify-btn").onclick = () => {
@@ -78,18 +49,21 @@
           html5QrCode.stop();
 
           const scannedRaw = decodedText.trim();
-          console.log("QR quét ra:", scannedRaw);
-          console.log("So với expected:", expectedSecret);
+          const scannedNorm = normalize(scannedRaw);
+          const expectedNorm = normalize(expectedSecret);
 
-          const expectedSecret = 'U3djdWQxMjM';
+          const isMatch = scannedNorm === expectedNorm;
 
-          if (scannedRaw === expectedSecret) {
-            resultBox.innerHTML = "✅ Xác thực thành công! Đây là sản phẩm chính hãng.";
-            resultBox.style.color = "green";
-          } else {
-            resultBox.innerHTML = "❌ Xác thực thất bại. QR không khớp.<br>QR quét ra: " + scannedRaw;
-            resultBox.style.color = "red";
-          }
+          document.getElementById("result").innerHTML = `
+📦 QR quét ra (gốc):     ${scannedRaw}
+🔑 Mã chờ xác thực:      ${expectedSecret}
+🔍 So sánh chuẩn hoá:    ${isMatch ? '✅ TRÙNG' : '❌ KHÔNG KHỚP'}
+
+${isMatch ? '🎉 Xác thực thành công!' : '⚠️ Xác thực thất bại.'}
+          `;
+          document.getElementById("result").style.color = isMatch ? "green" : "red";
+
+          console.log("So sánh:", scannedNorm, "vs", expectedNorm);
         },
         (err) => {}
       );
