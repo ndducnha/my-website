@@ -16,7 +16,7 @@
 </head>
 <body>
 
-  <h2>🔒 Xác thực sản phẩm Vcyber -  Dr. Nguyễn Đình Đức Nhã</h2>
+  <h2>🔒 Xác thực sản phẩm Vcyber</h2>
 
   <div class="product" id="product-info">
     <p><strong>Đang tải thông tin sản phẩm...</strong></p>
@@ -81,7 +81,7 @@
           console.log("QR quét ra:", scannedRaw);
           console.log("So với expected:", expectedSecret);
 
-          expectedSecret = 'U3djdWQxMjM=';
+          const expectedSecret = 'U3djdWQxMjM';
 
           if (scannedRaw === expectedSecret) {
             resultBox.innerHTML = "✅ Xác thực thành công! Đây là sản phẩm chính hãng.";
