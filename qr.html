@@ -80,20 +80,21 @@
         (decodedText) => {
           html5QrCode.stop();
 
-          console.log("📦 QR raw:", decodedText);
-          const scannedSecret = decodeBase64(decodedText)?.trim();
-          console.log("🔍 Giải mã được:", scannedSecret);
-          console.log("🔑 So với expected:", expectedSecret);
+          const scannedRaw = decodedText.trim();
+          const expectedRaw = keyEnc.trim(); // không decode
 
-          if (scannedSecret === expectedSecret) {
+          console.log("QR raw:", scannedRaw);
+          console.log("Expected:", expectedRaw);
+
+          if (scannedRaw === expectedRaw) {
             resultBox.innerHTML = "✅ Xác thực thành công! Đây là sản phẩm chính hãng.";
             resultBox.style.color = "green";
           } else {
-            resultBox.innerHTML = "❌ Xác thực thất bại. QR không khớp.<br>QR quét ra: " + decodedText;
+            resultBox.innerHTML = "❌ Xác thực thất bại. QR không khớp.<br>QR quét ra: " + scannedRaw;
             resultBox.style.color = "red";
           }
         },
-        (err) => {} // Bỏ qua lỗi nhỏ khi không nhận được QR
+        (err) => {}
       );
     };
   </script>
