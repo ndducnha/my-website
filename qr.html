@@ -33,31 +33,29 @@
     const idEnc = params.get("idEnc");
     const keyEnc = params.get("keyEnc");
 
-    // --- Hàm giải mã base64 an toàn ---
     function decodeBase64(str) {
       try {
-        return atob(str);
+        return atob(str.trim());
       } catch {
         return null;
       }
     }
 
-    const productId = decodeBase64(idEnc);     // ví dụ: "a81538749"
-    const expectedSecret = decodeBase64(keyEnc); // ví dụ: "S3cud123"
+    const productId = decodeBase64(idEnc);
+    const expectedSecret = decodeBase64(keyEnc)?.trim();
 
-    // --- DB ảo ---
+    // DB ảo
     const db = {
       "a81538749": {
-        name: "Áo sơ mi Vcyber",
-        color: "Xanh biển",
-        price: "320,000đ"
+        name: "Sữa hộp trẻ em",
+        color: "Mỹ",
+        price: "700,000đ"
       }
     };
 
     const productBox = document.getElementById("product-info");
     const resultBox = document.getElementById("result");
 
-    // --- Kiểm tra dữ liệu hợp lệ ---
     if (!productId || !expectedSecret || !db[productId]) {
       productBox.innerHTML = "<p>❌ Mã sản phẩm không hợp lệ hoặc không tồn tại.</p>";
       document.getElementById("verify-btn").style.display = "none";
@@ -65,13 +63,13 @@
       const p = db[productId];
       productBox.innerHTML = `
         <p><strong>Sản phẩm:</strong> ${p.name}</p>
-        <p><strong>Màu sắc:</strong> ${p.color}</p>
+        <p><strong>Xuất xứ:</strong> ${p.color}</p>
         <p><strong>Giá:</strong> ${p.price}</p>
         <p><strong>ID:</strong> ${productId}</p>
       `;
     }
 
-    // --- Xác thực QR ---
+    // --- Quét QR và xác thực ---
     document.getElementById("verify-btn").onclick = () => {
       document.getElementById("qr-reader").style.display = "block";
       const html5QrCode = new Html5Qrcode("qr-reader");
@@ -80,18 +78,22 @@
         { facingMode: "environment" },
         { fps: 10, qrbox: 250 },
         (decodedText) => {
-          const scannedSecret = decodeBase64(decodedText);
           html5QrCode.stop();
+
+          console.log("📦 QR raw:", decodedText);
+          const scannedSecret = decodeBase64(decodedText)?.trim();
+          console.log("🔍 Giải mã được:", scannedSecret);
+          console.log("🔑 So với expected:", expectedSecret);
 
           if (scannedSecret === expectedSecret) {
             resultBox.innerHTML = "✅ Xác thực thành công! Đây là sản phẩm chính hãng.";
             resultBox.style.color = "green";
           } else {
-            resultBox.innerHTML = "❌ Xác thực thất bại. QR không khớp.";
+            resultBox.innerHTML = "❌ Xác thực thất bại. QR không khớp.<br>QR quét ra: " + decodedText;
             resultBox.style.color = "red";
           }
         },
-        (error) => {} // bỏ qua lỗi nhỏ
+        (err) => {} // Bỏ qua lỗi nhỏ khi không nhận được QR
       );
     };
   </script>
