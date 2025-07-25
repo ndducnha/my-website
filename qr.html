@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <title>Xác thực sản phẩm</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; background: #f3f9fd; }
-    #result { margin-top: 20px; font-weight: bold; font-size: 18px; color: #0b5394; }
+    body { font-family: sans-serif; padding: 20px; }
+    #result { margin-top: 20px; font-weight: bold; font-size: 18px; }
   </style>
 </head>
 <body>
@@ -20,6 +20,7 @@
     const id = params.get("id");
     const code = params.get("code");
 
+    // Hardcoded data
     const productDB = {
       "13": "Sữa hộp cao cấp"
     };
@@ -28,18 +29,16 @@
       "13": "369369369"
     };
 
-    // Đặt flag nếu vào QR thành công
-    if (code === validCodes[id]) {
-      sessionStorage.setItem("flag_" + id, "1");
-    }
+    // Use sessionStorage to simulate a flag
+    sessionStorage.setItem("flag_" + id, "1");
 
     document.getElementById("productName").innerText = `Sản phẩm: ${productDB[id] || 'Không xác định'}`;
 
     function startVerification() {
       document.getElementById("result").innerHTML = `
         📲 Vui lòng đưa điện thoại lại gần tem để tiếp tục xác thực (bật NFC).<br><br>
-        Hoặc bấm vào link bên dưới nếu không tự động mở:<br>
-        <a href="nfc.html?id=${id}&code=${code}">Xác thực qua NFC</a>
+        Nếu không tự động mở, bạn có thể click vào link sau: 
+        <a href="/nfc.html?id=${id}&code=${code}">ducnha.work/nfc.html?id=${id}&code=${code}</a>
       `;
     }
   </script>
