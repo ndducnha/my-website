@@ -4,6 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Xác minh NFC</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #fdf6f6; }
+    #result { margin-top: 20px; font-weight: bold; font-size: 18px; color: #7d2f2f; }
+  </style>
 </head>
 <body>
   <h2>🔐 Đang xác minh sản phẩm...</h2>
@@ -14,9 +18,6 @@
     const id = params.get("id");
     const code = params.get("code");
 
-    const result = document.getElementById("result");
-
-    // Hardcoded data
     const productDB = {
       "13": "Sữa hộp cao cấp"
     };
@@ -27,14 +28,14 @@
 
     const expected = validCodes[id];
     const productName = productDB[id] || 'Không rõ';
-
     const flag = sessionStorage.getItem("flag_" + id);
+    const result = document.getElementById("result");
 
     if (flag !== "1") {
       result.innerHTML = "⚠️ Bạn cần quét mã QR trước khi xác thực bằng NFC.";
     } else if (code === expected) {
       result.innerHTML = `✅ Xác thực thành công cho sản phẩm <b>${productName}</b>!<br>🎉 Cảm ơn bạn đã mua hàng chính hãng.`;
-      sessionStorage.setItem("flag_" + id, "0"); // reset flag
+      sessionStorage.setItem("flag_" + id, "0");
     } else {
       result.innerHTML = "❌ Xác thực thất bại! Mã code không hợp lệ.";
     }
