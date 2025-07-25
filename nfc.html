@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Xác minh NFC</title>
+</head>
+<body>
+  <h2>🔐 Đang xác minh sản phẩm...</h2>
+  <div id="result"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const code = params.get("code");
+
+    // Cơ sở dữ liệu code xác thực
+    const validCodes = {
+      "13": "369369369",
+      "14": "abc123xyz"
+    };
+
+    const productDB = {
+      "13": "Sữa hộp cao cấp",
+      "14": "Nước khoáng thiên nhiên"
+    };
+
+    const expected = validCodes[id];
+    const productName = productDB[id] || 'Không rõ';
+
+    if (code === expected) {
+      document.getElementById("result").innerHTML = `
+        ✅ Xác thực thành công cho sản phẩm <b>${productName}</b>!<br>
+        🎉 Cảm ơn bạn đã mua hàng chính hãng.
+      `;
+    } else {
+      document.getElementById("result").innerHTML = `
+        ❌ Xác thực thất bại! Mã code không hợp lệ.
+      `;
+    }
+  </script>
+</body>
+</html>
