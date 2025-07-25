@@ -1,46 +1,74 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Xác thực sản phẩm</title>
+  <title>Xác thực sản phẩm Vcyber</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <style>
-    body { font-family: sans-serif; padding: 20px; }
-    #result { margin-top: 20px; font-weight: bold; font-size: 18px; }
+    body { font-family: sans-serif; padding: 20px; background: #f5f5f5; }
+    h2 { color: #0066cc; text-align: center; }
+    .product { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 0 5px #ccc; margin-bottom: 20px; }
+    #verify-btn { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; }
+    #qr-reader { width: 100%; max-width: 400px; margin: 20px auto; display: none; }
+    #result { font-size: 18px; font-weight: bold; margin-top: 20px; text-align: center; white-space: pre-wrap; }
   </style>
 </head>
 <body>
-  <h2>🔍 Xác thực sản phẩm</h2>
-  <div id="productName"></div>
-  <button onclick="startVerification()">Xác thực</button>
+
+  <h2>🔒 Xác thực sản phẩm Vcyber - Nhã Nguyễn</h2>
+
+  <div class="product" id="product-info">
+    <p><strong>Sản phẩm:</strong> Sữa hộp trẻ em</p>
+    <p><strong>Xuất xứ:</strong> Mỹ</p>
+    <p><strong>Giá:</strong> 700,000đ</p>
+    <p><strong>ID:</strong> a81538749</p>
+  </div>
+
+  <button id="verify-btn">🔍 Bấm để xác thực sản phẩm</button>
+
+  <div id="qr-reader"></div>
   <div id="result"></div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-    const code = params.get("code");
+    const expectedSecret = 'U3djdWQxMjM'; // bản không có dấu =
 
-    // Hardcoded data
-    const productDB = {
-      "13": "Sữa hộp cao cấp"
-    };
-
-    const validCodes = {
-      "13": "369369369"
-    };
-
-    // Use sessionStorage to simulate a flag
-    sessionStorage.setItem("flag_" + id, "1");
-
-    document.getElementById("productName").innerText = `Sản phẩm: ${productDB[id] || 'Không xác định'}`;
-
-    function startVerification() {
-      document.getElementById("result").innerHTML = `
-        📲 Vui lòng đưa điện thoại lại gần tem để tiếp tục xác thực (bật NFC).<br><br>
-        Nếu không tự động mở, bạn có thể click vào link sau: 
-        <a href="/nfc.html?id=${id}&code=${code}">ducnha.work/nfc.html?id=${id}&code=${code}</a>
-      `;
+    // chuẩn hóa chuỗi (cắt dấu = nếu có)
+    function normalize(str) {
+      return str.trim().replace(/=+$/, '');
     }
+
+    document.getElementById("verify-btn").onclick = () => {
+      document.getElementById("qr-reader").style.display = "block";
+      const html5QrCode = new Html5Qrcode("qr-reader");
+
+      html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        (decodedText) => {
+          html5QrCode.stop();
+
+          const scannedRaw = decodedText.trim();
+          const scannedNorm = normalize(scannedRaw);
+          const expectedNorm = normalize(expectedSecret);
+
+          const isMatch = scannedNorm === expectedNorm;
+
+          document.getElementById("result").innerHTML = `
+📦 QR quét ra (gốc):     ${scannedRaw}
+🔑 Mã chờ xác thực:      ${expectedSecret}
+🔍 So sánh chuẩn hoá:    ${isMatch ? '✅ TRÙNG' : '❌ KHÔNG KHỚP'}
+
+${isMatch ? '🎉 Xác thực thành công!' : '⚠️ Xác thực thất bại.'}
+          `;
+          document.getElementById("result").style.color = isMatch ? "green" : "red";
+
+          console.log("So sánh:", scannedNorm, "vs", expectedNorm);
+        },
+        (err) => {}
+      );
+    };
   </script>
+
 </body>
 </html>
