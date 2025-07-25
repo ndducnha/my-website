@@ -14,29 +14,29 @@
     const id = params.get("id");
     const code = params.get("code");
 
-    // Cơ sở dữ liệu code xác thực
-    const validCodes = {
-      "13": "369369369",
-      "14": "abc123xyz"
+    const result = document.getElementById("result");
+
+    // Hardcoded data
+    const productDB = {
+      "13": "Sữa hộp cao cấp"
     };
 
-    const productDB = {
-      "13": "Sữa hộp cao cấp",
-      "14": "Nước khoáng thiên nhiên"
+    const validCodes = {
+      "13": "369369369"
     };
 
     const expected = validCodes[id];
     const productName = productDB[id] || 'Không rõ';
 
-    if (code === expected) {
-      document.getElementById("result").innerHTML = `
-        ✅ Xác thực thành công cho sản phẩm <b>${productName}</b>!<br>
-        🎉 Cảm ơn bạn đã mua hàng chính hãng.
-      `;
+    const flag = sessionStorage.getItem("flag_" + id);
+
+    if (flag !== "1") {
+      result.innerHTML = "⚠️ Bạn cần quét mã QR trước khi xác thực bằng NFC.";
+    } else if (code === expected) {
+      result.innerHTML = `✅ Xác thực thành công cho sản phẩm <b>${productName}</b>!<br>🎉 Cảm ơn bạn đã mua hàng chính hãng.`;
+      sessionStorage.setItem("flag_" + id, "0"); // reset flag
     } else {
-      document.getElementById("result").innerHTML = `
-        ❌ Xác thực thất bại! Mã code không hợp lệ.
-      `;
+      result.innerHTML = "❌ Xác thực thất bại! Mã code không hợp lệ.";
     }
   </script>
 </body>

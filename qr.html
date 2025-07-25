@@ -20,11 +20,17 @@
     const id = params.get("id");
     const code = params.get("code");
 
-    // Giả lập DB sản phẩm
+    // Hardcoded data
     const productDB = {
-      "13": "Sữa hộp cao cấp",
-      "14": "Nước khoáng thiên nhiên"
+      "13": "Sữa hộp cao cấp"
     };
+
+    const validCodes = {
+      "13": "369369369"
+    };
+
+    // Use sessionStorage to simulate a flag
+    sessionStorage.setItem("flag_" + id, "1");
 
     document.getElementById("productName").innerText = `Sản phẩm: ${productDB[id] || 'Không xác định'}`;
 
