@@ -950,13 +950,13 @@ section ul ul li {
 
 /* Ordered lists */
 section ol {
-    padding-left: 20px;
-    counter-reset: item;
+    padding-left: 40px;
+    list-style-position: outside;
 }
 
 section ol li {
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 0 12px 8px;
+    border-bottom: 1px solid var(--border-color);
 }
 
 section ol li:last-child {
