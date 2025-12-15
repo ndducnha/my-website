@@ -6,226 +6,18 @@
     <title>Dinh Duc Nha Nguyen's Home Page</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 <style>
-    #one {
-        display: inline-block;
-        width: 120px;
-        height: auto;
-        aspect-ratio: 1 / 1;
-    }
-
-    #one img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    body {
-        background-color: white;
-        color: black;
-    }
-
-    .banner {
-        background-color: #c4262b;
-        color: white;
-        text-align: center;
-        padding: 15px;
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    .banner a {
-        color: white;
-        text-decoration: underline;
-        font-weight: bold;
-    }
-
-    header {
-        background-color: white;
-        color: #1c3d76;
-        text-align: center;
-        padding: 20px;
-    }
-
-    .contact-info {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .contact-info p {
-        margin: 2px 0;
-    }
-
-    .contact-info a {
-        color: #c4262b;
-        text-decoration: none;
-    }
-
-    .contact-info a:hover {
-        text-decoration: underline;
-    }
-
-    h1, h2, h3 {
-        color: #1c3d76;
-    }
-
-    h2 {
-        border-bottom: 2px solid #c4262b;
-        padding-bottom: 5px;
-    }
-
-    strong {
-        color: #1c3d76;
-    }
-
-    a {
-        color: #c4262b;
-        text-decoration: none;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
-
-    nav {
-        background-color: #1c3d76;
-        padding: 10px;
-    }
-
-    nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    nav ul li {
-        margin: 0 10px;
-    }
-
-    nav ul li a {
-        color: white;
-        text-decoration: none;
-        padding: 10px 15px;
-        display: block;
-    }
-
-    nav ul li a:hover {
-        background-color: #c4262b;
-    }
-
-    @media (max-width: 768px) {
-        nav ul {
-            display: none;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        nav ul.show {
-            display: flex;
-        }
-
-        .menu-icon {
-            display: block;
-            cursor: pointer;
-            color: white;
-            font-size: 24px;
-            padding: 10px;
-        }
-    }
-
-    #backToMenu {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #c4262b;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    transition: opacity 0.3s;
-    z-index: 1000; /* Ensure it's above other elements */
-    }
-
-        #backToMenu:hover {
-            background-color: #a02025;
-    }
-
-    .thank-you-banner {
-    background-color: #1c3d76;
-    color: white;
-    text-align: center;
-    padding: 15px;
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 20px;
-    border-radius: 5px;
-    }
-
-    /* Language selector styles */
-    .language-selector {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 1000;
-    background: #fff;
-    padding: 6px 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-
-    .lang-btn {
-        background-color: #1c3d76;
-        color: white;
-        border: 2px solid #1c3d76;
-        padding: 8px 16px;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        transition: all 0.3s ease;
-    }
-
-    .lang-btn:hover {
-        background-color: #c4262b;
-        border-color: #c4262b;
-    }
-
-    .language-selector .lang-btn.active {
-        background-color: #28a745 !important;
-        border-color: #28a745 !important;
-        color: white !important;
-    }
-
-    @media (max-width: 768px) {
-        .language-selector {
-            position: relative;
-            top: auto;
-            right: auto;
-            justify-content: center;
-            margin-bottom: 15px;
-        }
-    }
-
+    /* All main styles are in styles.css - this is for minimal overrides only */
 </style>
 </head>
 <body>
     <!-- Language selection popup -->
-    <div id="langModal" style="display:none;position:fixed;z-index:2000;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
-      <div style="background:white;padding:32px 24px 24px 24px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.15);max-width:90vw;text-align:center;">
-        <h2 style="margin-bottom:20px;">Chọn ngôn ngữ / Select language</h2>
-        <button class="lang-btn" style="margin:8px 16px;min-width:120px;" onclick="chooseLangFromModal('en')">English</button>
-        <button class="lang-btn" style="margin:8px 16px;min-width:120px;" onclick="chooseLangFromModal('vi')">Tiếng Việt</button>
+    <div id="langModal">
+      <div>
+        <h2>Chọn ngôn ngữ / Select language</h2>
+        <button class="lang-btn" onclick="chooseLangFromModal('en')">English</button>
+        <button class="lang-btn" onclick="chooseLangFromModal('vi')">Tiếng Việt</button>
       </div>
     </div>
     <!-- End language popup -->
@@ -236,7 +28,7 @@
             <button class="lang-btn" onclick="changeLanguage('vi')">Tiếng Việt</button>
         </div>
 
-        <div class="banner" data-en="🚀 We are recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers! Apply now!"  data-vi="🚀 Chúng tôi đang tuyển dụng trợ lý nghiên cứu, sinh viên Tiến sĩ, sinh viên Thạc sĩ và nhà nghiên cứu Sau tiến sĩ! Đăng ký ngay!">
+        <div class="banner" data-en="🚀 We are recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers! Apply now!"  data-vi="🚀 Tuyển dụng Trợ lý Nghiên cứu, Nghiên cứu sinh Tiến sĩ, Học viên Cao học và Nghiên cứu viên Sau Tiến sĩ! Ứng tuyển ngay!">
             🚀 We are recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers! <a href="https://github.com/ndducnha/my-website/raw/main/JD_AirQC_VinUni.pdf">Apply now</a>!
         </div>
 
@@ -247,8 +39,8 @@
         </div>
         <div id="two">
             <h1>Nguyễn Đình Đức Nhã (Tony) (Dinh Duc Nha Nguyen)</h1>
-            <h2 data-en="Assistant Professor (Computer Science - Cybersecurity, AI)" data-vi="Giáo sư cơ hữu (Assistant Professor) (Khoa học Máy tính - An ninh mạng, AI)">Assistant Professor (Computer Science - Cybersecurity, AI)</h2>
-            <h3 data-en="VinUniversity, Ha Noi, Viet Nam" data-vi="Đại học VinUni, Hà Nội, Việt Nam">VinUniversity, Ha Noi, Viet Nam</h3>
+            <h2 data-en="Assistant Professor (Computer Science - Cybersecurity, AI)" data-vi="Giáo sư cơ hữu (Khoa học Máy tính - An ninh mạng, AI)">Assistant Professor (Computer Science - Cybersecurity, AI)</h2>
+            <h3 data-en="VinUniversity, Ha Noi, Viet Nam" data-vi="Đại học VinUniversity, Hà Nội, Việt Nam">VinUniversity, Ha Noi, Viet Nam</h3>
             <div class="contact-info">
                 <p><strong>📞 Phone:</strong> (+84) 0369 7777 13 | (+84) 099 3462 999</p>
                 <p><strong>📧 Working email:</strong> <a href="mailto:nha.ndd@vinuni.edu.vn">nha.ndd@vinuni.edu.vn</a></p>
@@ -271,11 +63,11 @@
             <li><a href="#teaching" data-en="Teaching" data-vi="Giảng dạy">Teaching</a></li>
             <li><a href="#professional-experience" data-en="Professional Experience" data-vi="Kinh nghiệm chuyên môn">Professional Experience</a></li>
             <li><a href="#publications" data-en="Publications" data-vi="Bài báo khoa học">Publications</a></li>
-            <li><a href="#leadership" data-en="Leadership & Affiliations" data-vi="Lãnh đạo & hội viên chuyên môn">Leadership & Affiliations</a></li>
-            <li><a href="#mentorship" data-en="Mentorship" data-vi="Hướng dẫn nghiên cứu">Mentorship</a></li>
-            <li><a href="#collaboration" data-en="Research collaboration" data-vi="Hợp tác nghiên cứu">Research collaboration</a></li>
-            <li><a href="#work" data-en="Working with me" data-vi="Làm việc với tôi">Working with me</a></li>
-            <li><a href="#references" data-en="References" data-vi="Người giới thiệu">References</a></li>
+            <li><a href="#leadership" data-en="Leadership & Affiliations" data-vi="Vị trí Lãnh đạo">Leadership & Affiliations</a></li>
+            <li><a href="#mentorship" data-en="Mentorship" data-vi="Hướng dẫn Sinh viên">Mentorship</a></li>
+            <li><a href="#collaboration" data-en="Research collaboration" data-vi="Hợp tác Nghiên cứu">Research collaboration</a></li>
+            <li><a href="#work" data-en="Working with me" data-vi="Cơ hội Hợp tác">Working with me</a></li>
+            <li><a href="#references" data-en="References" data-vi="Người Tham chiếu">References</a></li>
         </ul>
     </nav>
 
@@ -285,13 +77,13 @@
             <h2 data-en="Biography" data-vi="Tiểu sử">Biography</h2> 
             <section id="biography">
 
-             <p style="text-align: justify;" data-en="I am currently an Assistant Professor of Computer Science (Cybersecurity) at VinUniversity and the Founder of VCyber Lab (Cybersecurity research Lab). I hold a PhD and completed my postdoctoral research at Deakin University, as well as a Master's degree from Queensland University of Technology (QUT), Australia. My research focuses on Post-Quantum Cryptography (PQC), AI-driven cybersecurity, IoT & robotic security, and AI applications. I have published many papers in Q1 journals, in top-tier venues such as IEEE TDSC & IEEE TIFS, and conference. I have also secured a research grant, won an international prize, and worked extensively with industry partners. Throughout my career, I have mentored students in publishing high-impact research, contributed to an Elsevier book chapter, and received prestigious awards including the School of IT Higher Degree by Research Award (2022), QUT Dean's List recognitions (2019 & 2020), and third place in the 2022 Country to Country (C2C) Cybersecurity Challenge hosted by MIT." data-vi="Tôi hiện là Giáo sư cơ hữu (Assistant Professor) tại khoa Khoa học Máy tính (chuyên nghiên cứu về An Ninh Mạng và Trí Tuệ Nhân Tạo (AI)) tại Đại học VinUni và là người sáng lập VCyber Lab (Phòng thí nghiệm nghiên cứu An ninh mạng và AI). Tôi có bằng Tiến sĩ và hoàn thành nghiên cứu sau tiến sĩ tại Đại học Deakin (Úc), cũng như bằng Thạc sĩ từ Đại học Công nghệ Queensland (QUT), Úc. Nghiên cứu của tôi tập trung vào mật mã học Hậu lượng tử (PQC), An ninh mạng dựa trên AI, An ninh IoT & robot, và ứng dụng AI vào trong các lĩnh vực. Tôi đã xuất bản nhiều bài báo trên tạp chí Q1, đặc biệt là tại các tạp chí đứng đầu bảng trong lĩnh vực nghiên cứu như IEEE TDSC và IEEE TIFS, và các bài báo hội nghị khác. Tôi cũng đã nhận được nhiều tài trợ nghiên cứu, có giải thưởng quốc tế và làm việc rộng rãi với các đối tác doanh nghiệp. Trong suốt sự nghiệp, tôi đã hướng dẫn sinh viên xuất bản các nghiên cứu có tác động cao, đóng góp vào chương sách Elsevier, và nhận được các giải thưởng danh giá bao gồm Giải thưởng Nghiên cứu Xuất sắc tại Đại học Deakin ở Úc (2022), sinh viên học tập có thành tích xuất sắc nhất tại đại học QUT, Úc (2019 & 2020), và vị trí thứ ba trong cuộc thi An ninh mạng (C2C) 2022 do đại học hàng đầu thế giới MIT (Hoa Kỳ) tổ chức.">
+             <p style="text-align: justify;" data-en="I am currently an Assistant Professor of Computer Science (Cybersecurity) at VinUniversity and the Founder of VCyber Lab (Cybersecurity research Lab). I hold a PhD and completed my postdoctoral research at Deakin University, as well as a Master's degree from Queensland University of Technology (QUT), Australia. My research focuses on Post-Quantum Cryptography (PQC), AI-driven cybersecurity, IoT & robotic security, and AI applications. I have published many papers in Q1 journals, in top-tier venues such as IEEE TDSC & IEEE TIFS, and conference. I have also secured a research grant, won an international prize, and worked extensively with industry partners. Throughout my career, I have mentored students in publishing high-impact research, contributed to an Elsevier book chapter, and received prestigious awards including the School of IT Higher Degree by Research Award (2022), QUT Dean's List recognitions (2019 & 2020), and third place in the 2022 Country to Country (C2C) Cybersecurity Challenge hosted by MIT." data-vi="Tôi hiện là Giáo sư cơ hữu ngành Khoa học Máy tính (chuyên về An ninh mạng) tại Đại học VinUniversity và là người sáng lập VCyber Lab – Phòng nghiên cứu An ninh mạng. Tôi có bằng Tiến sĩ và hoàn thành nghiên cứu sau tiến sĩ tại Đại học Deakin, cùng bằng Thạc sĩ từ Đại học Công nghệ Queensland (QUT), Úc. Nghiên cứu của tôi tập trung vào Mật mã Hậu lượng tử (PQC), An ninh mạng ứng dụng AI, Bảo mật IoT & robot, và các ứng dụng AI. Tôi đã công bố nhiều bài báo trên các tạp chí Q1 hàng đầu như IEEE TDSC và IEEE TIFS, cùng các hội nghị quốc tế. Tôi cũng đã nhận tài trợ nghiên cứu, đạt giải thưởng quốc tế và hợp tác sâu rộng với các đối tác doanh nghiệp. Trong suốt sự nghiệp, tôi đã hướng dẫn sinh viên công bố nghiên cứu có tầm ảnh hưởng, đóng góp chương sách cho Elsevier, và nhận nhiều giải thưởng danh giá: Giải Nghiên cứu sinh Xuất sắc của Khoa CNTT tại Deakin (2022), Dean's List tại QUT (2019 & 2020), và Giải Ba cuộc thi An ninh mạng C2C 2022 do MIT tổ chức.">
                 I am currently an <strong>Assistant Professor of Computer Science (Cybersecurity)</strong> at <strong>VinUniversity</strong> and the <strong>Founder of <a href="https://vcyber.work">VCyber Lab (Cybersecurity research Lab)</a></strong>. I hold a <strong>PhD</strong> and completed my <strong>postdoctoral research</strong> at <strong>Deakin University</strong>, as well as a <strong>Master's degree</strong> from <strong>Queensland University of Technology (QUT)</strong>, Australia. 
                 My research focuses on <strong>Post-Quantum Cryptography (PQC)</strong>, <strong>AI-driven cybersecurity</strong>, and <strong>IoT & robotic security</strong>. 
                 I have published many papers, including <strong>seven in Q1 journals</strong>, in top-tier venues such as <strong>IEEE TDSC</strong>, and one in a <strong>B-ranked conference</strong>. I have also secured a research grant, won an international prize, and worked extensively with industry partners. Throughout my career, I have mentored students in publishing high-impact research, contributed to an Elsevier book chapter, and received prestigious awards including the School of IT Higher Degree by Research Award (2022), QUT Dean's List recognitions (2019 & 2020), and third place in the 2022 Country to Country (C2C) Cybersecurity Challenge hosted by MIT.
             </p>
 
-            <p style="text-align: justify;" data-en="Beyond academia, I hold several key leadership and advisory positions in Vietnam's digital transformation and cybersecurity ecosystem. My work bridges academia, industry, and government, promoting innovation, policy, and technical excellence across critical sectors:" data-vi="Ngoài học thuật, tôi giữ nhiều vị trí lãnh đạo và tư vấn quan trọng trong hệ sinh thái chuyển đổi số và an ninh mạng của Việt Nam. Công việc của tôi kết nối học thuật, doanh nghiệp và Chính Phủ, thúc đẩy đổi mới, chính sách và kỹ thuật trên các lĩnh vực quan trọng:">
+            <p style="text-align: justify;" data-en="Beyond academia, I hold several key leadership and advisory positions in Vietnam's digital transformation and cybersecurity ecosystem. My work bridges academia, industry, and government, promoting innovation, policy, and technical excellence across critical sectors:" data-vi="Ngoài công tác học thuật, tôi còn đảm nhiệm nhiều vị trí lãnh đạo và cố vấn quan trọng trong hệ sinh thái chuyển đổi số và an ninh mạng tại Việt Nam. Công việc của tôi là cầu nối giữa học thuật, doanh nghiệp và chính phủ, thúc đẩy đổi mới sáng tạo, hoạch định chính sách và nâng cao năng lực kỹ thuật trong các lĩnh vực then chốt:">
                 Beyond academia, I hold several <strong>key leadership and advisory positions</strong> in Vietnam's digital transformation and cybersecurity ecosystem. My work bridges <strong>academia, industry, and government</strong>, promoting innovation, policy, and technical excellence across critical sectors:
             </p>
             <ul style="text-align: justify;">
@@ -368,7 +160,7 @@
     </li>
     <br/>
 
-<!--     <li>
+    <li>
         <strong style="font-size: 18px;">
             <span data-en="Technical Advisor for" data-vi="Cố vấn kỹ thuật cho">Technical Advisor for</span>
             <a href="https://psicert.vn/gioi-thieu/" target="_blank">PSI Testing and Certification JSC</a>
@@ -377,7 +169,7 @@
               data-vi="Doanh nghiệp tại Việt Nam về chứng nhận an toàn cho pin lithium, viễn thông và sản phẩm điện – điện tử, tuân thủ các tiêu chuẩn ISO/IEC 17025:2017 và QCVN 101:2020/BTTTT.">
             A key lab in Vietnam for lithium battery, telecom, and electrical-electronic product safety certification, compliant with ISO/IEC 17025:2017 and QCVN 101:2020/BTTTT standards.
         </span>
-    </li> -->
+    </li>
 </ul>
 
 
@@ -386,7 +178,7 @@
                 Throughout my career, I have <strong>mentored students</strong> in publishing high-impact research, <strong>contributed to an Elsevier book chapter</strong>, and received prestigious awards including the <strong>School of IT Higher Degree by Research Award (2022)</strong>, <strong>QUT Dean's List recognitions (2019 & 2020)</strong>, and <strong>third place in the 2022 Country to Country (C2C) Cybersecurity Challenge</strong> hosted by <strong>MIT</strong>.
             </p> -->
 
-            <p style="text-align: justify;" data-en="I hold professional certifications in cybersecurity (Certified Ethical Hacker), machine learning (IBM), IoT, quantum computing, cryptography, and blockchain. My core expertise lies in cybersecurity, AI technologies, network security, and quantum technology, with a strong interdisciplinary focus on machine learning and data science." data-vi="Tôi có các chứng chỉ chuyên môn về an ninh mạng (Certified Ethical Hacker), AI,công nghệ học máy (IBM), IoT, mật mã hậu lượng tử, mật mã học và công nghệ Blockchain. Chuyên môn cốt lõi của tôi nằm ở an ninh mạng, công nghệ AI, an ninh mạng và công nghệ lượng tử, với trọng tâm liên ngành mạnh mẽ về học máy và khoa học dữ liệu.">
+            <p style="text-align: justify;" data-en="I hold professional certifications in cybersecurity (Certified Ethical Hacker), machine learning (IBM), IoT, quantum computing, cryptography, and blockchain. My core expertise lies in cybersecurity, AI technologies, network security, and quantum technology, with a strong interdisciplinary focus on machine learning and data science." data-vi="Tôi sở hữu các chứng chỉ chuyên môn về an ninh mạng (Certified Ethical Hacker), học máy (IBM), IoT, điện toán lượng tử, mật mã học và blockchain. Chuyên môn cốt lõi của tôi bao gồm an ninh mạng, công nghệ AI, bảo mật mạng và công nghệ lượng tử, với định hướng liên ngành mạnh mẽ về học máy và khoa học dữ liệu.">
                 I hold <strong>professional certifications</strong> in cybersecurity (<em>Certified Ethical Hacker</em>), machine learning (IBM), IoT, quantum computing, cryptography, and blockchain. 
                 My core expertise lies in <strong>cybersecurity, AI technologies, network security</strong>, and <strong>quantum technology</strong>, with a strong interdisciplinary focus on <strong>machine learning</strong> and <strong>data science</strong>.
             </p>
@@ -512,18 +304,6 @@
                 <br/>
                 <u data-en="Technical skills" data-vi="Kỹ năng kỹ thuật">Technical skills</u>: <span data-en="One-way functions, encryption, digital signatures, pseudo-random generation, zero-knowledge, basic protocols, security proofs, and foundational cryptographic concepts." data-vi="Hàm một chiều, mã hóa, chữ ký số, tạo ngẫu nhiên giả, zero-knowledge, giao thức cơ bản, chứng minh bảo mật và khái niệm mật mã học nền tảng.">One-way functions, encryption, digital signatures, pseudo-random generation, zero-knowledge, basic protocols, security proofs, and foundational cryptographic concepts.</span></p>
                 </li>
-                <li><strong style="font-size: 18px;" data-en="Networks (2025)" data-vi="Mạng viễn thông (2025)">Networks (2025)</strong> – <i>VinUniversity</i><br/>
-                <p style="text-align: justify;" data-en="This course teaches basic networking with an emphasis on the Internet. Examples of topics include: the World Wide Web, Email and Peer to Peer networks, data transmission and data encoding, circuit vs. packet switching, local area network technology, routing and switching, congestion control, network security, wireless networks and multimedia. Though the emphasis will be on the Internet, application modules on 4G/5G cellular, WiFi (802.11), and Bluetooth will be presented." data-vi="Khóa học này giảng dạy về các kiến thức mạng cơ bản với trọng tâm là Internet. Các chủ đề ví dụ bao gồm: World Wide Web, Email và mạng ngang hàng (Peer-to-Peer), truyền dữ liệu và mã hóa dữ liệu, chuyển mạch kênh so với chuyển mạch gói, công nghệ mạng cục bộ (LAN), định tuyến và chuyển mạch, kiểm soát tắc nghẽn, an ninh mạng, mạng không dây và đa phương tiện. Mặc dù trọng tâm là Internet, nhưng khóa học cũng sẽ giới thiệu các mô-đun ứng dụng về mạng di động 4G/5G, WiFi (802.11) và Bluetooth.">
-                    This course teaches basic networking with an emphasis on the Internet. Examples of topics include: the World Wide Web, Email and Peer to Peer networks, data transmission and data encoding, circuit vs. packet switching, local area network technology, routing and switching, congestion control, network security, wireless networks and multimedia. Though the emphasis will be on the Internet, application modules on 4G/5G cellular, WiFi (802.11), and Bluetooth will be presented.
-                </p>
-                <br/>
-                </li>
-                <li><strong style="font-size: 18px;" data-en="Operating Systems (2025)" data-vi="Hệ Điều Hành (2025)">Operating Systems (2025)</strong> – <i>VinUniversity</i><br/>
-                <p style="text-align: justify;" data-en="This course covers systems programming and introductory operating system design  and implementation. The basics of operating systems, namely structure, concurrency, scheduling, synchronization, memory management, filesystems, security and networking are covered. The course introduces parallel and distributed computing. Khóa học này bao quát lập trình hệ thống và giới thiệu về thiết kế, triển khai hệ điều hành. Các nội dung cơ bản của hệ điều hành được đề cập bao gồm: cấu trúc, xử lý đồng thời (concurrency), lập lịch (scheduling), đồng bộ hóa (synchronization), quản lý bộ nhớ, hệ thống tệp (filesystem), bảo mật và mạng. Khóa học cũng giới thiệu về tính toán song song (parallel computing) và tính toán phân tán (distributed computing).">
-                    This course covers systems programming and introductory operating system design  and implementation. The basics of operating systems, namely structure, concurrency, scheduling, synchronization, memory management, filesystems, security and networking are covered. The course introduces parallel and distributed computing. 
-                </p>
-                <br/>
-                </li>
                 <li><strong style="font-size: 18px;" data-en="Cyber Security Management (2023)" data-vi="Quản lý An ninh mạng (2023)">Cyber Security Management (2023)</strong> – <i>Deakin University</i><br/>
                 <p style="text-align: justify;" data-en="Satisfaction: 100%" data-vi="Mức độ hài lòng: 100%">Satisfaction: 100%</span> - <a href="https://github.com/ndducnha/my-website/raw/main/feedback_SIT284_T1_2023.png">Comments from students</a> </p>
                 <p style="text-align: justify;" data-en="This unit provides students with the foundations required to learn the fundamentals of cyber security management for organisations. Students will be introduced to cyber security assessment; including policy development and risk management through application of methodological and procedural techniques, for a range of organisational constraints. Students will examine both business and security operations. The unit also enables students to develop contingency planning, risk assessment, risk management and compliance standards for various businesses. Students will also explore legal and ethical issues in the context of security management and audit and will be taught security education, training and awareness (SETA), incident response and auditing for cyber security management." data-vi="Học phần này cung cấp cho sinh viên nền tảng cần thiết để tiếp cận các nguyên lý cơ bản trong quản lý an ninh mạng cho tổ chức. Sinh viên sẽ được giới thiệu về đánh giá an ninh mạng, bao gồm xây dựng chính sách và quản lý rủi ro thông qua việc áp dụng các phương pháp và quy trình kỹ thuật, phù hợp với các ràng buộc khác nhau của tổ chức. Học phần cũng giúp sinh viên tìm hiểu hoạt động của cả khối kinh doanh và khối an ninh, đồng thời phát triển kỹ năng lập kế hoạch dự phòng, đánh giá và quản lý rủi ro, cũng như thiết lập tiêu chuẩn tuân thủ cho các mô hình doanh nghiệp đa dạng. Ngoài ra, sinh viên sẽ nghiên cứu các vấn đề pháp lý và đạo đức trong bối cảnh quản lý và kiểm toán an ninh, đồng thời được trang bị kiến thức về đào tạo, nâng cao nhận thức (SETA), phản ứng sự cố và kiểm toán trong quản trị an ninh mạng.">
@@ -553,7 +333,7 @@
            <h2 data-en="Professional Experience" data-vi="Kinh nghiệm chuyên môn">Professional Experience</h2>
             <ul>
                 <li>
-                    <strong data-en="Assistant Professor (12/2024 – Present) – VinUniversity, Ha Noi, Viet Nam" data-vi="Giáo sư cơ hữu (Assistant Professor) (12/2024 – Hiện tại) – Đại học VinUni, Hà Nội, Việt Nam">Assistant Professor (12/2024 – Present) – VinUniversity, Ha Noi, Viet Nam</strong>
+                    <strong data-en="Assistant Professor (12/2024 – Present) – VinUniversity, Ha Noi, Viet Nam" data-vi="Giáo sư cơ hữu (12/2024 – Nay) – Đại học VinUniversity, Hà Nội, Việt Nam">Assistant Professor (12/2024 – Present) – VinUniversity, Ha Noi, Viet Nam</strong>
                     <br><u data-en="Duties" data-vi="Nhiệm vụ">Duties</u>:
                     <ul>
                         <li data-en="Teaching: Develop and implement high-quality, accredited curricula for courses in cryptography, cybersecurity, and networks. Teach assigned courses with an emphasis on active learning pedagogy, supervise both undergraduate and graduate students, and ensure effective, high-standard instructional materials, aiming for high evaluation scores." data-vi="Giảng dạy: Phát triển và triển khai chương trình giảng dạy chất lượng cao, được công nhận cho các khóa học về mật mã học, an ninh mạng và mạng. Giảng dạy các khóa học được phân công với trọng tâm là phương pháp học tập chủ động, giám sát cả sinh viên đại học và sau đại học, và đảm bảo tài liệu giảng dạy hiệu quả, tiêu chuẩn cao, nhằm đạt điểm đánh giá cao."><i data-en="Teaching" data-vi="Giảng dạy">Teaching</i>: Develop and implement high-quality, accredited curricula for courses in cryptography, cybersecurity, and networks. Teach assigned courses with an emphasis on active learning pedagogy, supervise both undergraduate and graduate students, and ensure effective, high-standard instructional materials, aiming for high evaluation scores.</li>
@@ -669,7 +449,7 @@
         </section>
 
         <section id="leadership">
-            <h2 data-en="Leadership & Affiliations" data-vi="Lãnh đạo & Liên kết">Leadership & Affiliations</h2>
+            <h2 data-en="Leadership & Affiliations" data-vi="Vị trí Lãnh đạo & Liên kết">Leadership & Affiliations</h2>
             <p style="text-align: justify;" data-en="Dr. Nguyen Dinh Duc Nha is a distinguished academic, technologist, and thought leader at the forefront of Vietnam's digital transformation and cybersecurity efforts. With a career that spans research, policy advising, and enterprise innovation, Dr. Nha plays a pivotal role in shaping national strategies in science, technology, and data infrastructure. His leadership spans multiple sectors—from guiding research directions at national institutes to driving digital initiatives in both public and private domains. His active involvement in key governmental and industry associations further demonstrates his dedication to elevating Vietnam's technological resilience and global competitiveness." data-vi="TS. Nguyễn Đình Đức Nhã là một học giả, nhà công nghệ và nhà lãnh đạo tư tưởng xuất sắc ở tuyến đầu của các nỗ lực chuyển đổi số và an ninh mạng của Việt Nam. Với sự nghiệp trải dài từ nghiên cứu, tư vấn chính sách đến đổi mới doanh nghiệp, TS. Nhã đóng vai trò quan trọng trong việc định hình các chiến lược quốc gia về khoa học, công nghệ và cơ sở hạ tầng dữ liệu. Sự lãnh đạo của ông bao trùm nhiều lĩnh vực—từ hướng dẫn các hướng nghiên cứu tại các viện quốc gia đến thúc đẩy các sáng kiến số trong cả lĩnh vực công và tư. Sự tham gia tích cực của ông trong các hiệp hội chính phủ và ngành công nghiệp chủ chốt càng thể hiện sự cống hiến của ông trong việc nâng cao khả năng phục hồi công nghệ và năng lực cạnh tranh toàn cầu của Việt Nam.">
                 <strong data-en="Dr. Nguyen Dinh Duc Nha" data-vi="TS. Nguyễn Đình Đức Nhã">Dr. Nguyen Dinh Duc Nha</strong> <span data-en="is a distinguished academic, technologist, and thought leader at the forefront of Vietnam's digital transformation and cybersecurity efforts. With a career that spans research, policy advising, and enterprise innovation, Dr. Nha plays a pivotal role in shaping national strategies in science, technology, and data infrastructure. His leadership spans multiple sectors—from guiding research directions at national institutes to driving digital initiatives in both public and private domains. His active involvement in key governmental and industry associations further demonstrates his dedication to elevating Vietnam's technological resilience and global competitiveness." data-vi="là một học giả, nhà công nghệ và nhà lãnh đạo tư tưởng xuất sắc ở tuyến đầu của các nỗ lực chuyển đổi số và an ninh mạng của Việt Nam. Với sự nghiệp trải dài từ nghiên cứu, tư vấn chính sách đến đổi mới doanh nghiệp, TS. Nhã đóng vai trò quan trọng trong việc định hình các chiến lược quốc gia về khoa học, công nghệ và cơ sở hạ tầng dữ liệu. Sự lãnh đạo của ông bao trùm nhiều lĩnh vực—từ hướng dẫn các hướng nghiên cứu tại các viện quốc gia đến thúc đẩy các sáng kiến số trong cả lĩnh vực công và tư. Sự tham gia tích cực của ông trong các hiệp hội chính phủ và ngành công nghiệp chủ chốt càng thể hiện sự cống hiến của ông trong việc nâng cao khả năng phục hồi công nghệ và năng lực cạnh tranh toàn cầu của Việt Nam.">is a distinguished academic, technologist, and thought leader at the forefront of Vietnam's digital transformation and cybersecurity efforts. With a career that spans research, policy advising, and enterprise innovation, Dr. Nha plays a pivotal role in shaping national strategies in science, technology, and data infrastructure. His leadership spans multiple sectors—from guiding research directions at national institutes to driving digital initiatives in both public and private domains. His active involvement in key governmental and industry associations further demonstrates his dedication to elevating Vietnam's technological resilience and global competitiveness.</span>
             </p>
@@ -717,18 +497,18 @@
                 </li>
 
 
-<!--                 <li data-en="Technical Advisor for PSI Testing and Certification JSC – a key lab in Vietnam for lithium battery, telecom, and electrical-electronic product safety certification, compliant with ISO/IEC 17025:2017 and QCVN 101:2020/BTTTT standards." data-vi="Cố vấn Kỹ thuật cho Công ty CP Thử nghiệm và Chứng nhận PSI – phòng thí nghiệm chủ chốt ở Việt Nam về chứng nhận an toàn pin lithium, viễn thông và sản phẩm điện-điện tử, tuân thủ tiêu chuẩn ISO/IEC 17025:2017 và QCVN 101:2020/BTTTT.">
+                <li data-en="Technical Advisor for PSI Testing and Certification JSC – a key lab in Vietnam for lithium battery, telecom, and electrical-electronic product safety certification, compliant with ISO/IEC 17025:2017 and QCVN 101:2020/BTTTT standards." data-vi="Cố vấn Kỹ thuật cho Công ty CP Thử nghiệm và Chứng nhận PSI – phòng thí nghiệm chủ chốt ở Việt Nam về chứng nhận an toàn pin lithium, viễn thông và sản phẩm điện-điện tử, tuân thủ tiêu chuẩn ISO/IEC 17025:2017 và QCVN 101:2020/BTTTT.">
                     <strong data-en="Technical Advisor" data-vi="Cố vấn Kỹ thuật">Technical Advisor</strong> <span data-en="for PSI Testing and Certification JSC – a key lab in Vietnam for lithium battery, telecom, and electrical-electronic product safety certification, compliant with ISO/IEC 17025:2017 and QCVN 101:2020/BTTTT standards." data-vi="cho Công ty CP Thử nghiệm và Chứng nhận PSI – phòng thí nghiệm chủ chốt ở Việt Nam về chứng nhận an toàn pin lithium, viễn thông và sản phẩm điện-điện tử, tuân thủ tiêu chuẩn ISO/IEC 17025:2017 và QCVN 101:2020/BTTTT.">for 
                     <a href="https://psicert.vn/gioi-thieu/" target="_blank">PSI Testing and Certification JSC</a> – a key lab in Vietnam for lithium battery, telecom, and electrical-electronic product safety certification, compliant with ISO/IEC 17025:2017 and QCVN 101:2020/BTTTT standards.</span>
-                </li> -->
+                </li>
             </ul>
         </section>
 
 
 
         <section id="mentorship">
-            <h2 data-en="Mentorship" data-vi="Hướng dẫn">Mentorship</h2>
-            <p style="text-align: justify;" data-en="Mentoring and supervising higher-degree research students has been one of the most fulfilling parts of my academic career. My ability to inspire and lead students has led to successful research outcomes and has significantly contributed to our growth as scholars. Currently, I am actively mentoring students at VCyber Lab and VinUniversity under my supervision." data-vi="Hướng dẫn và giám sát sinh viên nghiên cứu bậc cao là một trong những phần trong sự nghiệp học thuật của tôi. Khả năng truyền cảm hứng và lãnh đạo sinh viên của tôi đã dẫn đến các kết quả nghiên cứu thành công và đóng góp đáng kể vào sự phát triển của chúng tôi với tư cách là các học giả. Hiện tại, tôi đang tích cực hướng dẫn sinh viên tại VCyber Lab và VinUniversity dưới sự giám sát của tôi.">
+            <h2 data-en="Mentorship" data-vi="Hướng dẫn Sinh viên">Mentorship</h2>
+            <p style="text-align: justify;" data-en="Mentoring and supervising higher-degree research students has been one of the most fulfilling parts of my academic career. My ability to inspire and lead students has led to successful research outcomes and has significantly contributed to our growth as scholars. Currently, I am actively mentoring students at VCyber Lab and VinUniversity under my supervision." data-vi="Hướng dẫn và giám sát nghiên cứu sinh là một trong những niềm vui lớn nhất trong sự nghiệp học thuật của tôi. Khả năng truyền cảm hứng và dẫn dắt sinh viên đã giúp đạt được nhiều thành quả nghiên cứu đáng tự hào, đóng góp đáng kể vào sự trưởng thành của cả thầy và trò. Hiện tại, tôi đang tích cực hướng dẫn sinh viên tại VCyber Lab và VinUniversity.">
                 <span data-en="Mentoring and supervising higher-degree research students has been one of the most fulfilling parts of my academic career. My ability to inspire and lead students has led to successful research outcomes and has significantly contributed to our growth as scholars. Currently, I am actively mentoring students at VCyber Lab under my supervision." data-vi="Hướng dẫn và giám sát sinh viên nghiên cứu bậc cao là một trong những phần thỏa mãn nhất trong sự nghiệp học thuật của tôi. Khả năng truyền cảm hứng và lãnh đạo sinh viên của tôi đã dẫn đến các kết quả nghiên cứu thành công và đóng góp đáng kể vào sự phát triển của chúng tôi với tư cách là các học giả. Hiện tại, tôi đang tích cực hướng dẫn sinh viên tại VCyber Lab dưới sự giám sát của tôi.">Mentoring and supervising higher-degree research students has been one of the most fulfilling parts of my academic career. My ability to inspire and lead students has led to successful research outcomes and has significantly contributed to our growth as scholars. Currently, I am actively mentoring students at <a href="https://vcyber.work">VCyber Lab</a> under my supervision.</span>
             </p>
             <ul>
@@ -760,7 +540,7 @@
         </section>
 
         <section id="work">
-            <h2 data-en="Working With Me" data-vi="Làm việc cùng tôi">Working With Me</h2>
+            <h2 data-en="Working With Me" data-vi="Cơ hội Hợp tác">Working With Me</h2>
             <p style="text-align: justify;" data-en="We are currently recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers to join our team on cutting-edge projects in the fields of cybersecurity, AI, and smart sensing technologies. Our current research directions include:" data-vi="Chúng tôi hiện đang tuyển dụng Trợ lý nghiên cứu, Nghiên cứu sinh Tiến sĩ, Học viên Thạc sĩ và Nghiên cứu viên sau Tiến sĩ để tham gia vào nhóm nghiên cứu, cùng triển khai các dự án tiên tiến trong các lĩnh vực an ninh mạng, trí tuệ nhân tạo (AI) và các công nghệ cảm biến thông minh. Các hướng nghiên cứu hiện tại của chúng tôi bao gồm:">
                 <span data-en="We are currently recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers to join our team on cutting-edge projects in the fields of cybersecurity, AI, and smart sensing technologies. Our current research directions include:" data-vi="Chúng tôi hiện đang tuyển dụng Trợ lý nghiên cứu, Nghiên cứu sinh Tiến sĩ, Học viên Thạc sĩ và Nghiên cứu viên sau Tiến sĩ để tham gia vào nhóm nghiên cứu, cùng triển khai các dự án tiên tiến trong các lĩnh vực an ninh mạng, trí tuệ nhân tạo (AI) và các công nghệ cảm biến thông minh. Các hướng nghiên cứu hiện tại của chúng tôi bao gồm:">We are currently recruiting <span class="highlight" data-en="Research Assistants, Ph.D. students, Master's students" data-vi="Trợ lý Nghiên cứu, sinh viên Tiến sĩ, sinh viên Thạc sĩ">Research Assistants, Ph.D. students, Master's students</span>, and <span class="highlight" data-en="Postdoctoral researchers" data-vi="Nghiên cứu viên Sau tiến sĩ">Postdoctoral researchers</span> to join our team on cutting-edge projects in the fields of cybersecurity, AI, and smart sensing technologies. Our current research directions include:</span>
             </p>
@@ -772,17 +552,17 @@
               <li data-en="IoT and Embedded Device Security" data-vi="Bảo mật IoT và Thiết bị nhúng"><strong data-en="IoT and Embedded Device Security" data-vi="Bảo mật IoT và Thiết bị nhúng">IoT and Embedded Device Security</strong></li>
               <li data-en="Cybersecurity for Robotics and Autonomous Systems" data-vi="An ninh mạng cho Robot và Hệ thống tự động"><strong data-en="Cybersecurity for Robotics and Autonomous Systems" data-vi="An ninh mạng cho Robot và Hệ thống tự động">Cybersecurity for Robotics and Autonomous Systems</strong></li>
             </ul>
-            <p style="text-align: justify;" data-en="If you're passionate about deep-tech research and real-world impact, we welcome driven individuals with strong technical backgrounds to apply." data-vi="Nếu bạn đam mê nghiên cứu công nghệ sâu và tác động thực tế, chúng tôi chào đón những cá nhân có động lực với nền tảng kỹ thuật mạnh mẽ để ứng tuyển.">
+            <p style="text-align: justify;" data-en="If you're passionate about deep-tech research and real-world impact, we welcome driven individuals with strong technical backgrounds to apply." data-vi="Nếu bạn đam mê nghiên cứu công nghệ tiên tiến và mong muốn tạo ra tác động thực tế, chúng tôi chào đón những cá nhân nhiệt huyết với nền tảng kỹ thuật vững chắc.">
                 <span data-en="If you're passionate about deep-tech research and real-world impact, we welcome driven individuals with strong technical backgrounds to apply." data-vi="Nếu bạn đam mê nghiên cứu công nghệ sâu và tác động thực tế, chúng tôi chào đón những cá nhân có động lực với nền tảng kỹ thuật giỏi để ứng tuyển.">If you're passionate about deep-tech research and real-world impact, we welcome driven individuals with strong technical backgrounds to apply.</span>
             </p>
         </section>
 
 
         <section id="references">
-            <h2 data-en="References" data-vi="Tham khảo">References</h2>
+            <h2 data-en="References" data-vi="Người Tham chiếu">References</h2>
             <ul>
                 <li data-en="Dr. Keshav Sood - Senior Lecturer, Deakin University. Phone: +61 3 924 45519 Email: keshav.sood@deakin.edu.au" data-vi="TS. Keshav Sood - Giảng viên Cao cấp, Đại học Deakin. Điện thoại: +61 3 924 45519 Email: keshav.sood@deakin.edu.au">
-                    <strong><a href="https://experts.deakin.edu.au/12600-keshav-sood" data-en="Dr. Keshav Sood" data-vi="TS. Keshav Sood">Dr. Keshav Sood</a></strong> <span data-en="- Senior Lecturer, Deakin University." data-vi="- Phó Giáo Sư, Đại học Deakin.">- Senior Lecturer, Deakin University.</span><br>
+                    <strong><a href="https://experts.deakin.edu.au/12600-keshav-sood" data-en="Dr. Keshav Sood" data-vi="TS. Keshav Sood">Dr. Keshav Sood</a></strong> <span data-en="- Senior Lecturer, Deakin University." data-vi="- Giảng viên Cao cấp, Đại học Deakin.">- Senior Lecturer, Deakin University.</span><br>
                     <span data-en="Phone: +61 3 924 45519" data-vi="Điện thoại: +61 3 924 45519">Phone: +61 3 924 45519</span><br>
                     <span data-en="Email: keshav.sood@deakin.edu.au" data-vi="Email: keshav.sood@deakin.edu.au">Email: keshav.sood@deakin.edu.au</span>
                 </li>
@@ -800,13 +580,13 @@
         </section>
 
         <div class="thank-you-banner">
-            <p data-en="✨ Appreciate your visit!" data-vi="✨ Cảm ơn bạn đã ghé thăm!">✨ Appreciate your visit!</p>
+            <p data-en="✨ Appreciate your visit!" data-vi="✨ Cảm ơn bạn đã quan tâm!">✨ Appreciate your visit!</p>
         </div>
 
         <br/><br/><br/><br/>
     </main>
 
-    <button id="backToMenu" onclick="scrollToMenu()" data-en="Menu" data-vi="Menu">Menu</button>
+    <button id="backToMenu" onclick="scrollToTop()" data-en="Top ↑" data-vi="Lên ↑">Top ↑</button>
 
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-J8Q8MCB64W"></script>
