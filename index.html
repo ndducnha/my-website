@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--     <base href="/my-website/"> -->
     <title>Dinh Duc Nha Nguyen's Home Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script src="script.js" defer></script>
+    <script src="./script.js" defer></script>
 <style>
     /* All main styles are in styles.css - this is for minimal overrides only */
 </style>
@@ -54,7 +55,7 @@
     </header>
 
     <nav id="mainMenu">
-        <span class="menu-icon" onclick="toggleMenu()">☰ Menu</span>
+        <span class="menu-icon" onclick="toggleMenu()" data-en="☰ Navigation" data-vi="☰ Điều hướng">☰ Navigation</span>
         <ul>
             <li><a href="#biography" data-en="Biography" data-vi="Tiểu sử">Biography</a></li>
             <li><a href="#education" data-en="Education" data-vi="Học vấn">Education</a></li>

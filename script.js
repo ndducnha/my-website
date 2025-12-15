@@ -81,10 +81,10 @@ function createParticles() {
     document.body.appendChild(particleContainer);
 
     const colors = [
-        'rgba(102, 126, 234, 0.6)',
-        'rgba(118, 75, 162, 0.6)',
-        'rgba(79, 172, 254, 0.6)',
-        'rgba(240, 147, 251, 0.4)'
+        'rgba(184, 134, 11, 0.08)',
+        'rgba(26, 54, 93, 0.06)',
+        'rgba(184, 134, 11, 0.05)',
+        'rgba(44, 82, 130, 0.04)'
     ];
 
     for (let i = 0; i < 30; i++) {
@@ -222,9 +222,9 @@ function initCursorGlow() {
     glow.className = 'cursor-glow';
     glow.style.cssText = `
         position: fixed;
-        width: 300px;
-        height: 300px;
-        background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+        width: 350px;
+        height: 350px;
+        background: radial-gradient(circle, rgba(184, 134, 11, 0.04) 0%, rgba(26, 54, 93, 0.02) 50%, transparent 70%);
         border-radius: 50%;
         pointer-events: none;
         z-index: -1;
@@ -338,7 +338,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Initialize all effects
-    createParticles();
+    createShimmerEffect();
     initScrollAnimations();
     initNavAnimations();
     initCursorGlow();
@@ -399,11 +399,11 @@ window.addEventListener('scroll', function() {
             const nav = document.querySelector('nav');
             if (nav) {
                 if (window.scrollY > 50) {
-                    nav.style.background = 'rgba(10, 10, 30, 0.95)';
-                    nav.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+                    nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                    nav.style.boxShadow = '0 4px 20px rgba(26, 54, 93, 0.1)';
                 } else {
-                    nav.style.background = 'rgba(10, 10, 30, 0.9)';
-                    nav.style.boxShadow = 'none';
+                    nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                    nav.style.boxShadow = '0 1px 3px rgba(26, 54, 93, 0.08)';
                 }
             }
             ticking = false;
@@ -411,3 +411,69 @@ window.addEventListener('scroll', function() {
         ticking = true;
     }
 });
+
+// =====================================================
+// SHIMMER EFFECT - Subtle white shimmer lines
+// =====================================================
+function createShimmerEffect() {
+    // Add CSS for shimmer effect
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Shimmer line effect on sections */
+        section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shimmerSlide 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmerSlide {
+            0% {
+                left: -100%;
+            }
+            50% {
+                left: 100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Stagger the shimmer for different sections */
+        section:nth-child(2n)::before {
+            animation-delay: 2s;
+        }
+
+        section:nth-child(3n)::before {
+            animation-delay: 4s;
+        }
+
+        /* Shimmer on banner */
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 3s infinite;
+        }
+    `;
+    document.head.appendChild(style);
+}
