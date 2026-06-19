@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OneQR · Khung biểu giá</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#111110;--bg2:#1a1918;--bg3:#222120;--bg4:#2a2927;
+  --rule:#333230;--rule2:#3d3c3a;
+  --ink:#e2e0d8;--ink2:#a8a5a0;--ink3:#6a6865;--ink4:#454340;
+  --green:#4db87a;--green-dim:#1a3326;--green-mid:#3a9460;
+  --amber:#e8b84b;--amber-dim:#362a0a;
+  --red:#e06060;--red-dim:#381818;
+  --blue:#6ab0e0;--blue-dim:#0e2438;
+  --purple:#a888e0;--purple-dim:#231a38;
+  --teal:#4dc4b8;--teal-dim:#0e2e2c;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+html{font-size:14px;-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6}
+
+/* ── Header ── */
+.header{padding:20px 16px 14px;border-bottom:1px solid var(--rule)}
+.eyebrow{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+.title{font-size:20px;font-weight:600;color:var(--ink);line-height:1.2}
+.title em{color:var(--green);font-style:normal}
+.subtitle{font-size:11px;color:var(--ink3);margin-top:4px}
+
+/* ── Service nav ── */
+.snav{padding:10px 16px;border-bottom:1px solid var(--rule);display:flex;gap:5px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.snav::-webkit-scrollbar{display:none}
+.sp{display:flex;align-items:center;gap:6px;padding:6px 11px;border-radius:6px;border:1px solid var(--rule2);cursor:pointer;white-space:nowrap;transition:all .15s;flex-shrink:0;background:var(--bg2)}
+.sp:hover{border-color:var(--ink4)}
+.sp.active{border-color:var(--green-mid);background:var(--green-dim)}
+.sdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.scode{font:500 9px/1 var(--mono);letter-spacing:.06em;color:var(--ink3)}
+.sname{font-size:11px;font-weight:500;color:var(--ink2)}
+.sp.active .sname{color:var(--green)}
+.sp.active .scode{color:var(--green-mid)}
+
+/* ── Content ── */
+.content{padding:16px}
+.panel{display:none}.panel.active{display:block}
+
+/* ── Service header ── */
+.sh{margin-bottom:14px}
+.sh-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:5px}
+.sh-title{font-size:16px;font-weight:600;color:var(--ink)}
+.badges{display:flex;gap:4px;flex-wrap:wrap}
+.badge{font:500 9px/1 var(--mono);padding:2px 7px;border-radius:3px;letter-spacing:.04em}
+.bg{background:var(--green-dim);color:var(--green)}
+.ba{background:var(--amber-dim);color:var(--amber)}
+.bb{background:var(--blue-dim);color:var(--blue)}
+.bp{background:var(--purple-dim);color:var(--purple)}
+.bt{background:var(--teal-dim);color:var(--teal)}
+.bgr{background:var(--bg3);color:var(--ink3);border:1px solid var(--rule2)}
+.sh-desc{font-size:12px;color:var(--ink2);line-height:1.65;max-width:560px}
+
+/* ── Info grid ── */
+.ig{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.ic{background:var(--bg2);border:1px solid var(--rule);border-radius:7px;padding:10px 12px}
+.il{font:500 9px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.iv{font-size:11.5px;color:var(--ink2);line-height:1.5}
+.iv strong{color:var(--ink);font-weight:500}
+
+/* ── Callouts ── */
+.ca{border-left:2px solid;padding:9px 12px;margin-bottom:10px;border-radius:0 6px 6px 0;font-size:11.5px;line-height:1.6}
+.ca-t{font-weight:600;font-size:10px;margin-bottom:2px;letter-spacing:.03em;text-transform:uppercase}
+.ca.cg{border-color:var(--green-mid);background:var(--green-dim);color:#b0dfc0}
+.ca.cb{border-color:var(--blue);background:var(--blue-dim);color:#a8d0f0}
+.ca.ca2{border-color:var(--amber);background:var(--amber-dim);color:#f0d090}
+.ca.cr{border-color:var(--red);background:var(--red-dim);color:#f0a8a8}
+.ca.cgr{border-color:var(--rule2);background:var(--bg3);color:var(--ink2)}
+
+/* ── Section label ── */
+.sl{font:500 9px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+
+/* ── Tabs (sub) ── */
+.stabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
+.stab{font-size:10px;padding:4px 10px;border-radius:4px;border:1px solid var(--rule2);cursor:pointer;color:var(--ink3);transition:all .15s}
+.stab.active{background:var(--bg3);color:var(--ink);border-color:var(--rule)}
+
+/* ── Price table ── */
+.pw{overflow-x:auto;margin-bottom:12px;border-radius:7px;border:1px solid var(--rule)}
+.pt{width:100%;border-collapse:collapse;font-size:11px;min-width:380px}
+.pt th{text-align:left;padding:7px 10px;background:var(--bg3);font:500 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--rule2)}
+.pt th.r{text-align:right}
+.pt td{padding:8px 10px;border-bottom:1px solid var(--bg3);color:var(--ink2);vertical-align:middle;line-height:1.4}
+.pt tr:last-child td{border-bottom:none}
+.pt tr:hover td{background:var(--bg2)}
+.pt td.mn{font-family:var(--mono);color:var(--ink)}
+.pt td.r{text-align:right;font-family:var(--mono)}
+.pt td.nt{font-size:10px;color:var(--ink3);font-style:italic}
+.pt td.dm{color:var(--ink3)}
+.pt tr.hl td{background:#1a2e20}
+.pt tr.hl:hover td{background:#1e3424!important}
+.pt th.sh{background:var(--bg4);color:var(--ink2);font-size:10px;letter-spacing:.02em;text-transform:none;font-weight:600;padding:7px 10px;border-top:1px solid var(--rule2);text-align:left}
+.cg2{color:var(--green)!important}
+.ca3{color:var(--amber)!important}
+.cb2{color:var(--blue)!important}
+.cp{color:var(--purple)!important}
+.ct{color:var(--teal)!important}
+
+/* ── Two col ── */
+.tc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+
+/* ── Struct ── */
+.str{background:var(--bg2);border:1px solid var(--rule);border-radius:7px;padding:11px 13px;margin-bottom:12px}
+.str-t{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:7px}
+.str-r{display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;font-size:11.5px}
+.str-r:last-child{margin-bottom:0}
+.str-n{font:500 10px/1 var(--mono);color:var(--ink3);flex-shrink:0;padding-top:2px;width:16px}
+.str-b{color:var(--ink2);line-height:1.55}
+.str-b strong{color:var(--ink);font-weight:500}
+
+/* ── Design packages ── */
+.dpkg-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px}
+.dpkg{border:1px solid var(--rule);border-radius:7px;overflow:hidden}
+.dpkg.star{border-color:var(--amber)}
+.dpkg-head{padding:10px 10px 8px;background:var(--bg2);border-bottom:1px solid var(--rule);text-align:center}
+.dpkg.star .dpkg-head{background:var(--amber-dim)}
+.dpkg-tier{font:500 9px/1 var(--mono);color:var(--ink3);margin-bottom:3px;letter-spacing:.06em}
+.dpkg-price{font-size:13px;font-weight:600;color:var(--ink);line-height:1.2}
+.dpkg.star .dpkg-price{color:var(--amber)}
+.dpkg-body{padding:9px 10px}
+.dpkg-row{display:flex;gap:5px;align-items:flex-start;font-size:10.5px;color:var(--ink2);margin-bottom:4px;line-height:1.4}
+.dpkg-row:last-child{margin-bottom:0}
+.dpkg-dot{color:var(--ink4);flex-shrink:0;margin-top:1px}
+.dpkg-label{font:500 9px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+
+/* ── Placeholder ── */
+.placeholder{border:1px dashed var(--rule2);border-radius:8px;padding:24px 16px;text-align:center;margin-bottom:12px}
+.ph-title{font-size:14px;font-weight:600;color:var(--ink2);margin-bottom:6px}
+.ph-desc{font-size:11.5px;color:var(--ink3);line-height:1.6;max-width:400px;margin:0 auto}
+
+hr{border:none;border-top:1px solid var(--rule);margin:14px 0}
+
+@media(max-width:600px){
+  .ig{grid-template-columns:1fr}
+  .tc{grid-template-columns:1fr}
+  .dpkg-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="eyebrow">OneQR · FVT · Nội bộ</div>
+  <div class="title">Khung biểu giá <em>G01–G05</em> & Add-on</div>
+  <div class="subtitle">Số thực G01–G04 · G05 placeholder · Giá chưa bao gồm VAT trừ khi ghi rõ · Chưa phê duyệt chính thức</div>
+</header>
+
+<nav class="snav">
+  <div class="sp active" onclick="show('g01',this)">
+    <div class="sdot" style="background:#6ab0e0"></div>
+    <span class="scode">G01</span><span class="sname">Verify · Xác thực</span>
+  </div>
+  <div class="sp" onclick="show('g02',this)">
+    <div class="sdot" style="background:#4db87a"></div>
+    <span class="scode">G02</span><span class="sname">Truy xuất nguồn gốc</span>
+  </div>
+  <div class="sp" onclick="show('g03',this)">
+    <div class="sdot" style="background:#e8b84b"></div>
+    <span class="scode">G03</span><span class="sname">Chống giả & tem bảo mật</span>
+  </div>
+  <div class="sp" onclick="show('g04',this)">
+    <div class="sdot" style="background:#a888e0"></div>
+    <span class="scode">G04</span><span class="sname">Nhãn điện tử</span>
+  </div>
+  <div class="sp" onclick="show('g05',this)">
+    <div class="sdot" style="background:#e06060"></div>
+    <span class="scode">G05</span><span class="sname">Tương tác thương mại</span>
+  </div>
+  <div class="sp" onclick="show('addon',this)">
+    <div class="sdot" style="background:#4dc4b8"></div>
+    <span class="scode">ADD</span><span class="sname">Thiết kế bao bì</span>
+  </div>
+</nav>
+
+<div class="content">
+
+<!-- ══ G01 ══ -->
+<div id="g01" class="panel active">
+  <div class="sh">
+    <div class="sh-row">
+      <div class="sh-title">G01 · Verify — Xác thực thông tin sản phẩm</div>
+      <div class="badges"><span class="badge bb">NBC cung cấp</span><span class="badge bgr">FVT là đại lý</span><span class="badge bgr">Giá đồng nhất toàn kênh</span></div>
+    </div>
+    <div class="sh-desc">Xác thực thông tin sản phẩm từ dữ liệu gốc NBC. Tạo hồ sơ số sản phẩm, QR chuẩn GS1 Digital Link, trang thông tin hiển thị người tiêu dùng. Cửa vào bắt buộc của hệ sinh thái OneQR.</div>
+  </div>
+
+  <div class="ig">
+    <div class="ic"><div class="il">FVT làm gì</div><div class="iv">Đại lý NBC: tư vấn, thu hồ sơ, hỗ trợ kê khai, bàn giao tài khoản quản trị.</div></div>
+    <div class="ic"><div class="il">Khách nhận được</div><div class="iv">Trang xác thực, QR GS1, tài khoản quản trị, báo cáo lượt quét cơ bản.</div></div>
+    <div class="ic"><div class="il">Đơn vị tính</div><div class="iv"><strong>GTIN</strong> hoặc đơn vị sản phẩm nếu không có GTIN</div></div>
+    <div class="ic"><div class="il">Gia hạn</div><div class="iv">Mua lại theo bảng giá. Ưu đãi 2 năm (CK20%), 3 năm (CK40%). Không có phí duy trì riêng.</div></div>
+  </div>
+
+  <div class="ca cb"><div class="ca-t">Vai trò chiến lược</div>Giá đồng nhất toàn kênh — FVT không thể thắng bằng giá. Lợi thế duy nhất là tư vấn chất lượng và mở ra G02–G05 trong cùng cuộc gặp. Sale không để cuộc trò chuyện dừng lại ở G01.</div>
+
+  <div class="stabs">
+    <div class="stab active" onclick="showSub('g01-vn',this,'g01')">Mã Việt Nam (893)</div>
+    <div class="stab" onclick="showSub('g01-nn',this,'g01')">Mã nước ngoài</div>
+  </div>
+
+  <div id="g01-vn" class="sub-g01">
+    <div class="sl">Mã Việt Nam (893) · Giá đã có VAT</div>
+    <div class="pw"><table class="pt">
+      <tr><th>Số SP</th><th class="r">1 năm</th><th class="r">2 năm</th><th class="r">3 năm</th></tr>
+      <tr><td class="mn">5</td><td class="r">1.870.000</td><td class="r">2.310.000</td><td class="r">2.530.000</td></tr>
+      <tr><td class="mn">10</td><td class="r">3.520.000</td><td class="r">4.400.000</td><td class="r">4.840.000</td></tr>
+      <tr><td class="mn">15</td><td class="r">5.060.000</td><td class="r">6.270.000</td><td class="r">6.820.000</td></tr>
+      <tr><td class="mn">20</td><td class="r">6.270.000</td><td class="r">7.920.000</td><td class="r">8.580.000</td></tr>
+      <tr class="hl"><td class="mn">50</td><td class="r cg2">13.860.000</td><td class="r">17.380.000</td><td class="r">18.700.000</td></tr>
+      <tr><td class="mn">100</td><td class="r">23.760.000</td><td class="r">29.700.000</td><td class="r">31.900.000</td></tr>
+      <tr><td class="mn">200</td><td class="r">39.600.000</td><td class="r">48.290.000</td><td class="r">53.460.000</td></tr>
+      <tr><td class="mn">500</td><td class="r">59.400.000</td><td class="r">84.480.000</td><td class="r">93.500.000</td></tr>
+      <tr><td class="mn">1.000</td><td class="r">118.800.000</td><td class="r">144.925.000</td><td class="r">160.380.000</td></tr>
+      <tr><td colspan="4" class="nt">Trên 1.000 SP: liên hệ tư vấn</td></tr>
+    </table></div>
+  </div>
+
+  <div id="g01-nn" class="sub-g01" style="display:none">
+    <div class="sl">Mã nước ngoài · Giá đã có VAT</div>
+    <div class="pw"><table class="pt">
+      <tr><th>Số SP</th><th class="r">1 năm</th><th class="r">2 năm</th><th class="r">3 năm</th></tr>
+      <tr><td class="mn">1</td><td class="r">800.000</td><td class="r">960.000</td><td class="r">1.080.000</td></tr>
+      <tr><td class="mn">5</td><td class="r">3.800.000</td><td class="r">4.560.000</td><td class="r">5.130.000</td></tr>
+      <tr><td class="mn">10</td><td class="r">7.200.000</td><td class="r">8.640.000</td><td class="r">9.720.000</td></tr>
+      <tr><td class="mn">15</td><td class="r">10.200.000</td><td class="r">12.240.000</td><td class="r">13.770.000</td></tr>
+      <tr><td class="mn">20</td><td class="r">12.800.000</td><td class="r">15.360.000</td><td class="r">17.280.000</td></tr>
+      <tr class="hl"><td class="mn">50</td><td class="r cg2">28.000.000</td><td class="r">33.600.000</td><td class="r">37.800.000</td></tr>
+      <tr><td class="mn">100</td><td class="r">48.000.000</td><td class="r">57.600.000</td><td class="r">64.800.000</td></tr>
+      <tr><td class="mn">200</td><td class="r">80.000.000</td><td class="r">96.000.000</td><td class="r">108.000.000</td></tr>
+      <tr><td class="mn">500</td><td class="r">160.000.000</td><td class="r">192.000.000</td><td class="r">216.000.000</td></tr>
+      <tr><td class="mn">1.000</td><td class="r">240.000.000</td><td class="r">288.000.000</td><td class="r">324.000.000</td></tr>
+    </table></div>
+  </div>
+</div>
+
+<!-- ══ G02 ══ -->
+<div id="g02" class="panel">
+  <div class="sh">
+    <div class="sh-row">
+      <div class="sh-title">G02 · Truy xuất nguồn gốc</div>
+      <div class="badges"><span class="badge bg">FVT tự xây platform</span><span class="badge bgr">Bao gồm G01</span></div>
+    </div>
+    <div class="sh-desc">Quản lý dữ liệu nguồn gốc, lô/mẻ, quy trình sản xuất, vùng trồng/cơ sở. Cấu hình 1 lần, khách tự vận hành dữ liệu sau khi đào tạo. Gồm 3 phương án vật mang dữ liệu: QR động tem vật lý, QR động điện tử, QR tĩnh + serial động.</div>
+  </div>
+
+  <div class="ca ca2">
+    <div class="ca-t">Cơ chế gia hạn G02</div>
+    Năm đầu: phí setup (cấu hình quy trình + hạ tầng) — chi phí lớn nhất. Từ năm 2: phí duy trì riêng (hạ tầng + hỗ trợ kỹ thuật) — thấp hơn năm đầu đáng kể. Khách đã có G01: chỉ trả phần TXNG, không tính lại G01.
+  </div>
+
+  <div class="stabs">
+    <div class="stab active" onclick="showSub('g02-goc',this,'g02')">Bảng TXNG gốc</div>
+    <div class="stab" onclick="showSub('g02-nangcap',this,'g02')">Nâng cấp từ G01</div>
+    <div class="stab" onclick="showSub('g02-tem',this,'g02')">Vật mang dữ liệu</div>
+  </div>
+
+  <div id="g02-goc" class="sub-g02">
+    <div class="sl">Bảng TXNG gốc — chưa có G01</div>
+    <div class="pw"><table class="pt">
+      <tr><th>Số SP/GTIN</th><th class="r">Năm đầu</th><th class="r">Tương đương/SP/năm</th><th class="r">2 năm CK20%</th><th class="r">3 năm CK40%</th><th class="r">Duy trì/năm</th></tr>
+      <tr><td class="mn">1</td><td class="r">1.200.000</td><td class="r dm">1.200.000</td><td class="r">1.464.000</td><td class="r">1.620.000</td><td class="r ca3">500.000</td></tr>
+      <tr><td class="mn">5</td><td class="r">5.400.000</td><td class="r dm">1.080.000</td><td class="r">6.588.000</td><td class="r">7.290.000</td><td class="r ca3">2.250.000</td></tr>
+      <tr class="hl"><td class="mn">10</td><td class="r cg2">9.600.000</td><td class="r dm">960.000</td><td class="r">11.712.000</td><td class="r">12.960.000</td><td class="r ca3">4.000.000</td></tr>
+      <tr><td class="mn">15</td><td class="r">12.600.000</td><td class="r dm">840.000</td><td class="r">15.372.000</td><td class="r">17.010.000</td><td class="r ca3">5.250.000</td></tr>
+      <tr><td class="mn">20</td><td class="r">15.600.000</td><td class="r dm">780.000</td><td class="r">19.032.000</td><td class="r">21.060.000</td><td class="r ca3">6.500.000</td></tr>
+      <tr><td class="mn">50</td><td class="r">36.000.000</td><td class="r dm">720.000</td><td class="r">43.920.000</td><td class="r">48.600.000</td><td class="r ca3">15.000.000</td></tr>
+      <tr><td class="mn">100</td><td class="r">60.000.000</td><td class="r dm">600.000</td><td class="r">73.200.000</td><td class="r">81.000.000</td><td class="r ca3">25.000.000</td></tr>
+    </table></div>
+  </div>
+
+  <div id="g02-nangcap" class="sub-g02" style="display:none">
+    <div class="sl">Nâng cấp từ G01 — đã có Verify · Công thức: TXNG gốc − Verify cùng mức</div>
+    <div class="ca cgr"><div class="ca-t">Lưu ý</div>Phí duy trì TXNG/năm giữ nguyên theo bảng gốc — không liên quan đến Verify.</div>
+    <div class="pw"><table class="pt">
+      <tr><th>Số SP/GTIN</th><th class="r">Năm cấp (Năm đầu)</th><th class="r">2 năm CK20%</th><th class="r">3 năm CK40%</th><th class="r">Duy trì TXNG/năm</th></tr>
+      <tr><td class="mn">1</td><td class="r ca3">804.000</td><td class="r">969.000</td><td class="r">1.081.000</td><td class="r">500.000</td></tr>
+      <tr><td class="mn">5</td><td class="r ca3">3.530.000</td><td class="r">4.278.000</td><td class="r">4.760.000</td><td class="r">2.250.000</td></tr>
+      <tr class="hl"><td class="mn">10</td><td class="r ca3">6.080.000</td><td class="r">7.312.000</td><td class="r">8.120.000</td><td class="r">4.000.000</td></tr>
+      <tr><td class="mn">15</td><td class="r ca3">7.540.000</td><td class="r">9.102.000</td><td class="r">10.190.000</td><td class="r">5.250.000</td></tr>
+      <tr><td class="mn">20</td><td class="r ca3">9.330.000</td><td class="r">11.112.000</td><td class="r">12.480.000</td><td class="r">6.500.000</td></tr>
+      <tr><td class="mn">50</td><td class="r ca3">22.140.000</td><td class="r">26.540.000</td><td class="r">29.900.000</td><td class="r">15.000.000</td></tr>
+      <tr><td class="mn">100</td><td class="r ca3">36.240.000</td><td class="r">43.500.000</td><td class="r">49.100.000</td><td class="r">25.000.000</td></tr>
+      <tr><td class="mn">200</td><td class="r ca3">56.400.000</td><td class="r">68.830.000</td><td class="r">76.140.000</td><td class="r">40.000.000</td></tr>
+      <tr><td class="mn">500</td><td class="r ca3">110.700.000</td><td class="r">135.120.000</td><td class="r">149.500.000</td><td class="r">75.000.000</td></tr>
+      <tr><td class="mn">1.000</td><td class="r ca3">121.200.000</td><td class="r">147.875.000</td><td class="r">163.620.000</td><td class="r">100.000.000</td></tr>
+    </table></div>
+  </div>
+
+  <div id="g02-tem" class="sub-g02" style="display:none">
+    <div class="sl">Vật mang dữ liệu — tính riêng theo số lượng</div>
+    <div class="str">
+      <div class="str-t">3 phương án kỹ thuật</div>
+      <div class="str-r"><div class="str-n">1</div><div class="str-b"><strong>QR động — tem vật lý:</strong> mỗi sản phẩm 1 QR riêng, in thành tem dán. Phù hợp SME, OCOP, sản phẩm đóng gói sẵn.</div></div>
+      <div class="str-r"><div class="str-n">2</div><div class="str-b"><strong>QR động — điện tử:</strong> xuất mã từ phần mềm, khách tự in bằng máy in của họ hoặc máy in trực tiếp lên sản phẩm. Phù hợp DN có máy in mã vạch.</div></div>
+      <div class="str-r"><div class="str-n">3</div><div class="str-b"><strong>QR tĩnh + serial động:</strong> QR Verify cố định, serial bắn lên bao bì như máy đóng date. Biến thể: tra cứu theo ngày nếu 1 ngày = 1 lô. Vẫn tính phí serial × số sản phẩm cuối quy trình.</div></div>
+    </div>
+    <div class="tc">
+      <div>
+        <div class="sl">Tem vật lý TXNG</div>
+        <div class="pw"><table class="pt">
+          <tr><th>Số lượng</th><th class="r">Đơn giá/tem</th><th class="r">Thành tiền</th></tr>
+          <tr><td class="mn">5.000</td><td class="r">288đ</td><td class="r">1.440.000</td></tr>
+          <tr><td class="mn">10.000</td><td class="r">230đ</td><td class="r">2.300.000</td></tr>
+          <tr class="hl"><td class="mn">20.000</td><td class="r ca3">189đ</td><td class="r ca3">3.780.000</td></tr>
+          <tr><td class="mn">50.000</td><td class="r">158đ</td><td class="r">7.900.000</td></tr>
+          <tr><td class="mn">100.000</td><td class="r">136đ</td><td class="r">13.600.000</td></tr>
+          <tr><td class="mn">200.000</td><td class="r">116đ</td><td class="r">23.200.000</td></tr>
+          <tr><td class="mn">500.000</td><td class="r">104đ</td><td class="r">52.000.000</td></tr>
+          <tr><td class="mn">1.000.000</td><td class="r">102đ</td><td class="r">102.000.000</td></tr>
+        </table></div>
+      </div>
+      <div>
+        <div class="sl">Serial điện tử / QR động xuất từ phần mềm</div>
+        <div class="pw"><table class="pt">
+          <tr><th>Số lượng</th><th class="r">Đơn giá/serial</th><th class="r">Thành tiền</th></tr>
+          <tr><td class="mn">5.000</td><td class="r">100đ</td><td class="r">500.000</td></tr>
+          <tr><td class="mn">10.000</td><td class="r">70đ</td><td class="r">700.000</td></tr>
+          <tr class="hl"><td class="mn">20.000</td><td class="r ca3">65đ</td><td class="r ca3">1.300.000</td></tr>
+          <tr><td class="mn">50.000</td><td class="r">60đ</td><td class="r">3.000.000</td></tr>
+          <tr><td class="mn">100.000</td><td class="r">50đ</td><td class="r">5.000.000</td></tr>
+          <tr><td class="mn">200.000</td><td class="r">40đ</td><td class="r">8.000.000</td></tr>
+          <tr><td class="mn">500.000</td><td class="r">30đ</td><td class="r">15.000.000</td></tr>
+          <tr><td class="mn">1.000.000</td><td class="r">30đ</td><td class="r">30.000.000</td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ G03 ══ -->
+<div id="g03" class="panel">
+  <div class="sh">
+    <div class="sh-row">
+      <div class="sh-title">G03 · Chống giả & tem bảo mật</div>
+      <div class="badges"><span class="badge ba">3 lớp giá</span><span class="badge bgr">Tem: NBC + Bộ Công an</span></div>
+    </div>
+    <div class="sh-desc">Mỗi tem có mã QR và mã bảo mật duy nhất. Hai phương án che: che mã bảo mật (QR vẫn quét được bình thường) hoặc che một phần QR (cào mới quét). Hệ thống serial và cảnh báo bất thường do FVT tự xây.</div>
+  </div>
+
+  <div class="str">
+    <div class="str-t">Logic giá G03 theo 3 trường hợp khách hàng</div>
+    <div class="str-r"><div class="str-n">A</div><div class="str-b"><strong>Chưa có G01, G02:</strong> trả phí platform serial (đã bao gồm G01 ưu đãi) + phí tem NBC/Bộ Công an theo số lượng.</div></div>
+    <div class="str-r"><div class="str-n">B</div><div class="str-b"><strong>Đã có G01:</strong> trả phí platform serial (trừ phần G01 đã trả) + phí tem.</div></div>
+    <div class="str-r"><div class="str-n">C</div><div class="str-b"><strong>Đã có G01 + G02:</strong> chỉ trả phí tem NBC/Bộ Công an. Không có phí platform serial thêm.</div></div>
+  </div>
+
+  <div class="stabs">
+    <div class="stab active" onclick="showSub('g03-vn',this,'g03')">Mã Việt Nam</div>
+    <div class="stab" onclick="showSub('g03-nn',this,'g03')">Mã nước ngoài</div>
+    <div class="stab" onclick="showSub('g03-tem',this,'g03')">Tem NBC · Bộ Công an</div>
+  </div>
+
+  <div id="g03-vn" class="sub-g03">
+    <div class="sl">Mã Việt Nam — phí platform serial (bao gồm G01)</div>
+    <div class="ca cgr"><div class="ca-t">Ghi chú</div>Khách đã có G01+G02 → chỉ trả tiền tem (bảng tab "Tem NBC"). Bảng này áp dụng cho khách chưa có G01 hoặc chỉ có G01.</div>
+    <div class="pw"><table class="pt">
+      <tr><th>Số SP</th><th class="r">Năm đầu</th><th class="r">2 năm</th><th class="r">3 năm</th><th>Tem tối thiểu</th></tr>
+      <tr><td class="mn">1</td><td class="r">200.000</td><td class="r">220.000</td><td class="r">240.000</td><td class="nt">5.000 tem</td></tr>
+      <tr><td class="mn">5</td><td class="r">850.000</td><td class="r">935.000</td><td class="r">1.020.000</td><td class="nt">5.000 tem</td></tr>
+      <tr class="hl"><td class="mn">10</td><td class="r cg2">1.700.000</td><td class="r">1.870.000</td><td class="r">2.040.000</td><td class="nt">5.000 tem</td></tr>
+      <tr><td class="mn">15</td><td class="r">2.400.000</td><td class="r">2.640.000</td><td class="r">2.880.000</td><td class="nt">10.000 tem</td></tr>
+      <tr><td class="mn">20</td><td class="r">2.800.000</td><td class="r">3.080.000</td><td class="r">3.360.000</td><td class="nt">10.000 tem</td></tr>
+      <tr><td class="mn">50</td><td class="r">6.000.000</td><td class="r">6.600.000</td><td class="r">7.200.000</td><td class="nt">20.000 tem</td></tr>
+      <tr><td class="mn">100</td><td class="r">10.000.000</td><td class="r">11.000.000</td><td class="r">12.000.000</td><td class="nt">35.000 tem</td></tr>
+      <tr><td class="mn">200</td><td class="r">16.000.000</td><td class="r">17.600.000</td><td class="r">19.200.000</td><td class="nt">100.000 tem</td></tr>
+      <tr><td class="mn">500</td><td class="r">34.000.000</td><td class="r">37.400.000</td><td class="r">40.800.000</td><td class="nt">200.000 tem</td></tr>
+      <tr><td class="mn">1.000</td><td class="r">60.000.000</td><td class="r">66.000.000</td><td class="r">72.000.000</td><td class="nt">500.000 tem</td></tr>
+    </table></div>
+  </div>
+
+  <div id="g03-nn" class="sub-g03" style="display:none">
+    <div class="sl">Mã nước ngoài — phí platform serial (bao gồm G01 mã nước ngoài)</div>
+    <div class="pw"><table class="pt">
+      <tr><th>Số SP</th><th class="r">Năm đầu</th><th class="r">2 năm</th><th class="r">3 năm</th><th>Tem tối thiểu</th></tr>
+      <tr><td class="mn">1</td><td class="r">400.000</td><td class="r">440.000</td><td class="r">480.000</td><td class="nt">5.000 tem</td></tr>
+      <tr><td class="mn">5</td><td class="r">1.900.000</td><td class="r">2.090.000</td><td class="r">2.280.000</td><td class="nt">5.000 tem</td></tr>
+      <tr class="hl"><td class="mn">10</td><td class="r ca3">3.600.000</td><td class="r">3.960.000</td><td class="r">4.320.000</td><td class="nt">5.000 tem</td></tr>
+      <tr><td class="mn">15</td><td class="r">5.100.000</td><td class="r">5.610.000</td><td class="r">6.120.000</td><td class="nt">6.000 tem</td></tr>
+      <tr><td class="mn">20</td><td class="r">6.400.000</td><td class="r">7.040.000</td><td class="r">7.680.000</td><td class="nt">10.000 tem</td></tr>
+      <tr><td class="mn">50</td><td class="r">14.000.000</td><td class="r">15.400.000</td><td class="r">16.800.000</td><td class="nt">25.000 tem</td></tr>
+      <tr><td class="mn">100</td><td class="r">24.000.000</td><td class="r">26.400.000</td><td class="r">28.800.000</td><td class="nt">100.000 tem</td></tr>
+      <tr><td class="mn">200</td><td class="r">40.000.000</td><td class="r">44.000.000</td><td class="r">48.000.000</td><td class="nt">150.000 tem</td></tr>
+      <tr><td class="mn">500</td><td class="r">80.000.000</td><td class="r">88.000.000</td><td class="r">96.000.000</td><td class="nt">300.000 tem</td></tr>
+      <tr><td class="mn">1.000</td><td class="r">120.000.000</td><td class="r">132.000.000</td><td class="r">144.000.000</td><td class="nt">500.000 tem</td></tr>
+    </table></div>
+  </div>
+
+  <div id="g03-tem" class="sub-g03" style="display:none">
+    <div class="sl">Tem NBC · Bộ Công an — áp dụng cho khách đã có G01+G02</div>
+    <div class="pw"><table class="pt">
+      <tr><th>Số lượng tem</th><th class="r">Đơn giá/tem</th><th class="r">Giá bán</th><th>Số lần cấp tem</th></tr>
+      <tr><td class="mn">5.000</td><td class="r">750đ</td><td class="r">3.750.000</td><td class="nt">1 lần</td></tr>
+      <tr><td class="mn">10.000</td><td class="r">650đ</td><td class="r">6.500.000</td><td class="nt">1 lần</td></tr>
+      <tr><td class="mn">20.000</td><td class="r">600đ</td><td class="r">12.000.000</td><td class="nt">2 lần</td></tr>
+      <tr><td class="mn">30.000</td><td class="r">575đ</td><td class="r">17.250.000</td><td class="nt">2 lần</td></tr>
+      <tr class="hl"><td class="mn">50.000</td><td class="r ca3">530đ</td><td class="r ca3">26.500.000</td><td class="nt">3 lần</td></tr>
+      <tr><td class="mn">100.000</td><td class="r">395đ</td><td class="r">39.525.000</td><td class="nt">4 lần</td></tr>
+      <tr><td class="mn">200.000</td><td class="r">365đ</td><td class="r">73.000.000</td><td class="nt">5 lần</td></tr>
+      <tr><td class="mn">500.000</td><td class="r">310đ</td><td class="r">155.000.000</td><td class="nt">10 lần</td></tr>
+    </table></div>
+  </div>
+</div>
+
+<!-- ══ G04 ══ -->
+<div id="g04" class="panel">
+  <div class="sh">
+    <div class="sh-row">
+      <div class="sh-title">G04 · Nhãn điện tử / Digital Label</div>
+      <div class="badges"><span class="badge bp">FVT tự xây platform</span><span class="badge bgr">Bao gồm G01</span><span class="badge bg">Biên LN tốt nhất</span></div>
+    </div>
+    <div class="sh-desc">G01 là nền, G04 thêm trang nhãn chi tiết liên kết từ trang G01. FVT nhập liệu ban đầu (kê khai mẫu, setup trường thông tin bắt buộc), khách tự cập nhật sau. Hai phiên bản: Chuẩn (template) và Premium (landing page riêng từng sản phẩm).</div>
+  </div>
+
+  <div class="ca cg"><div class="ca-t">Điểm neo giá khi bán</div>So với chi phí in và dán lại tem phụ giấy mỗi lần thay đổi thông tin. Hàng nhập khẩu thay đổi 2–3 lần/năm → G04 hoàn vốn rất nhanh. Không cần in lại, cập nhật trên dashboard trong vài phút.</div>
+
+  <div class="stabs">
+    <div class="stab active" onclick="showSub('g04-chuan',this,'g04')">G04 Chuẩn · Mã VN</div>
+    <div class="stab" onclick="showSub('g04-nn',this,'g04')">G04 Chuẩn · Mã NN</div>
+    <div class="stab" onclick="showSub('g04-premium',this,'g04')">G04 Premium · Add-on</div>
+  </div>
+
+  <div id="g04-chuan" class="sub-g04">
+    <div class="sl">G04 Chuẩn · Mã Việt Nam — template, kê khai trường thông tin</div>
+    <div class="ca cgr"><div class="ca-t">Nguyên tắc định giá — Phương án A · CK20% (2 năm) · CK40% (3 năm)</div>Phần nhãn ĐT = G01 cùng bậc. G04 năm đầu = G01 × 2. Khách đã có G01 chỉ trả phần nhãn ĐT. Chiết khấu áp dụng trên tổng giá (giống G01/G02).</div>
+
+    <div class="stabs" style="margin-bottom:8px">
+      <div class="stab active" onclick="showG04Sub('g04vn-new',this,'g04vn')">Chưa có G01</div>
+      <div class="stab" onclick="showG04Sub('g04vn-upg',this,'g04vn')">Đã có G01</div>
+    </div>
+
+    <div id="g04vn-new" class="sub-g04vn">
+      <div class="pw"><table class="pt">
+        <tr><th>Số SP/GTIN</th><th class="r">1 năm</th><th class="r">2 năm CK20%</th><th class="r">3 năm CK40%</th></tr>
+        <tr><td class="mn">1</td><td class="r">792.000</td><td class="r">950.000</td><td class="r">1.140.000</td></tr>
+        <tr><td class="mn">5</td><td class="r">3.740.000</td><td class="r">4.490.000</td><td class="r">5.390.000</td></tr>
+        <tr class="hl"><td class="mn">10</td><td class="r cp">7.040.000</td><td class="r">8.450.000</td><td class="r cp">10.140.000</td></tr>
+        <tr><td class="mn">15</td><td class="r">10.120.000</td><td class="r">12.140.000</td><td class="r">14.570.000</td></tr>
+        <tr><td class="mn">20</td><td class="r">12.540.000</td><td class="r">15.050.000</td><td class="r">18.060.000</td></tr>
+        <tr class="hl"><td class="mn">50</td><td class="r cp">27.720.000</td><td class="r">33.260.000</td><td class="r cp">39.920.000</td></tr>
+        <tr><td class="mn">100</td><td class="r">47.520.000</td><td class="r">57.020.000</td><td class="r">68.430.000</td></tr>
+        <tr><td class="mn">200</td><td class="r">79.200.000</td><td class="r">95.040.000</td><td class="r">114.050.000</td></tr>
+        <tr><td class="mn">500</td><td class="r">118.800.000</td><td class="r">142.560.000</td><td class="r">171.070.000</td></tr>
+        <tr><td class="mn">1.000</td><td class="r">237.600.000</td><td class="r">285.120.000</td><td class="r">342.140.000</td></tr>
+      </table></div>
+    </div>
+
+    <div id="g04vn-upg" class="sub-g04vn" style="display:none">
+      <div class="pw"><table class="pt">
+        <tr><th>Số SP/GTIN</th><th class="r">1 năm</th><th class="r">2 năm CK20%</th><th class="r">3 năm CK40%</th></tr>
+        <tr><td class="mn">1</td><td class="r cp">396.000</td><td class="r">475.000</td><td class="r">570.000</td></tr>
+        <tr><td class="mn">5</td><td class="r cp">1.870.000</td><td class="r">2.244.000</td><td class="r">2.693.000</td></tr>
+        <tr class="hl"><td class="mn">10</td><td class="r cp">3.520.000</td><td class="r">4.224.000</td><td class="r cp">5.069.000</td></tr>
+        <tr><td class="mn">15</td><td class="r cp">5.060.000</td><td class="r">6.072.000</td><td class="r">7.286.000</td></tr>
+        <tr><td class="mn">20</td><td class="r cp">6.270.000</td><td class="r">7.524.000</td><td class="r">9.029.000</td></tr>
+        <tr class="hl"><td class="mn">50</td><td class="r cp">13.860.000</td><td class="r">16.632.000</td><td class="r cp">19.958.000</td></tr>
+        <tr><td class="mn">100</td><td class="r cp">23.760.000</td><td class="r">28.512.000</td><td class="r">34.214.000</td></tr>
+        <tr><td class="mn">200</td><td class="r cp">39.600.000</td><td class="r">47.520.000</td><td class="r">57.024.000</td></tr>
+        <tr><td class="mn">500</td><td class="r cp">59.400.000</td><td class="r">71.280.000</td><td class="r">85.536.000</td></tr>
+        <tr><td class="mn">1.000</td><td class="r cp">118.800.000</td><td class="r">142.560.000</td><td class="r">171.072.000</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div id="g04-nn" class="sub-g04" style="display:none">
+    <div class="sl">G04 Chuẩn · Mã nước ngoài · CK20% (2 năm) · CK40% (3 năm)</div>
+
+    <div class="stabs" style="margin-bottom:8px">
+      <div class="stab active" onclick="showG04Sub('g04nn-new',this,'g04nn')">Chưa có G01</div>
+      <div class="stab" onclick="showG04Sub('g04nn-upg',this,'g04nn')">Đã có G01</div>
+    </div>
+
+    <div id="g04nn-new" class="sub-g04nn">
+      <div class="pw"><table class="pt">
+        <tr><th>Số SP/GTIN</th><th class="r">1 năm</th><th class="r">2 năm CK20%</th><th class="r">3 năm CK40%</th></tr>
+        <tr><td class="mn">1</td><td class="r">1.600.000</td><td class="r">1.920.000</td><td class="r">2.304.000</td></tr>
+        <tr><td class="mn">5</td><td class="r">7.600.000</td><td class="r">9.120.000</td><td class="r">10.944.000</td></tr>
+        <tr class="hl"><td class="mn">10</td><td class="r cp">14.400.000</td><td class="r">17.280.000</td><td class="r cp">20.736.000</td></tr>
+        <tr><td class="mn">15</td><td class="r">20.400.000</td><td class="r">24.480.000</td><td class="r">29.376.000</td></tr>
+        <tr><td class="mn">20</td><td class="r">25.600.000</td><td class="r">30.720.000</td><td class="r">36.864.000</td></tr>
+        <tr class="hl"><td class="mn">50</td><td class="r cp">56.000.000</td><td class="r">67.200.000</td><td class="r cp">80.640.000</td></tr>
+        <tr><td class="mn">100</td><td class="r">96.000.000</td><td class="r">115.200.000</td><td class="r">138.240.000</td></tr>
+        <tr><td class="mn">200</td><td class="r">160.000.000</td><td class="r">192.000.000</td><td class="r">230.400.000</td></tr>
+        <tr><td class="mn">500</td><td class="r">320.000.000</td><td class="r">384.000.000</td><td class="r">460.800.000</td></tr>
+      </table></div>
+    </div>
+
+    <div id="g04nn-upg" class="sub-g04nn" style="display:none">
+      <div class="pw"><table class="pt">
+        <tr><th>Số SP/GTIN</th><th class="r">1 năm</th><th class="r">2 năm CK20%</th><th class="r">3 năm CK40%</th></tr>
+        <tr><td class="mn">1</td><td class="r cp">800.000</td><td class="r">960.000</td><td class="r">1.152.000</td></tr>
+        <tr><td class="mn">5</td><td class="r cp">3.800.000</td><td class="r">4.560.000</td><td class="r">5.472.000</td></tr>
+        <tr class="hl"><td class="mn">10</td><td class="r cp">7.200.000</td><td class="r">8.640.000</td><td class="r cp">10.368.000</td></tr>
+        <tr><td class="mn">15</td><td class="r cp">10.200.000</td><td class="r">12.240.000</td><td class="r">14.688.000</td></tr>
+        <tr><td class="mn">20</td><td class="r cp">12.800.000</td><td class="r">15.360.000</td><td class="r">18.432.000</td></tr>
+        <tr class="hl"><td class="mn">50</td><td class="r cp">28.000.000</td><td class="r">33.600.000</td><td class="r cp">40.320.000</td></tr>
+        <tr><td class="mn">100</td><td class="r cp">48.000.000</td><td class="r">57.600.000</td><td class="r">69.120.000</td></tr>
+        <tr><td class="mn">200</td><td class="r cp">80.000.000</td><td class="r">96.000.000</td><td class="r">115.200.000</td></tr>
+        <tr><td class="mn">500</td><td class="r cp">160.000.000</td><td class="r">192.000.000</td><td class="r">230.400.000</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div id="g04-premium" class="sub-g04" style="display:none">
+    <div class="sl">G04 Premium · Landing page riêng từng sản phẩm — add-on tính theo sản phẩm</div>
+    <div class="ca ca2"><div class="ca-t">Đặc điểm G04 Premium</div>Thiết kế bố cục riêng, hình ảnh showcase, có thể thêm CTA dẫn link mua hàng, form lead, loyalty. Phù hợp hàng nhập khẩu cao cấp, mỹ phẩm, FMCG thương hiệu. Có thể mua độc lập hoặc add-on vào G04 Chuẩn. <strong>Tối thiểu 3 SP/đơn hàng.</strong></div>
+
+    <div class="sl" style="margin-top:12px">Giá niêm yết theo mức dịch vụ</div>
+    <div class="pw"><table class="pt">
+      <tr><th>Mức</th><th>Bao gồm</th><th class="r">Giá/SP (niêm yết)</th></tr>
+      <tr><td><strong>Basic</strong></td><td>Layout riêng + hình ảnh showcase + thông tin mở rộng</td><td class="r cp">800.000đ</td></tr>
+      <tr class="hl"><td><strong>Standard</strong></td><td>Basic + 1 CTA/button dẫn link mua hàng (Shopee, Tiki, website...)</td><td class="r cp">1.200.000đ</td></tr>
+      <tr><td><strong>Full</strong></td><td>Standard + form lead hoặc loyalty CTA tích hợp</td><td class="r cp">2.000.000đ</td></tr>
+    </table></div>
+
+    <div class="sl" style="margin-top:12px">Chiết khấu theo số lượng SP</div>
+    <div class="pw"><table class="pt">
+      <tr><th>Số SP mua cùng lúc</th><th class="r">Chiết khấu</th><th class="r">Ví dụ — Standard (1.200.000đ/SP)</th></tr>
+      <tr><td class="mn">1–4 SP</td><td class="r">Giá niêm yết</td><td class="r dm">1.200.000đ/SP</td></tr>
+      <tr><td class="mn">5–19 SP</td><td class="r ca3">CK 10%</td><td class="r">1.080.000đ/SP</td></tr>
+      <tr class="hl"><td class="mn">20–49 SP</td><td class="r ca3">CK 20%</td><td class="r cp">960.000đ/SP</td></tr>
+      <tr><td class="mn">50+ SP</td><td class="r cg2">CK 30%</td><td class="r cg2">840.000đ/SP</td></tr>
+    </table></div>
+
+    <div class="ca cgr"><div class="ca-t">Tham chiếu thị trường</div>Landing page template thị trường: 800.000–2.000.000đ/trang. G04 Premium thấp hơn vì đã có nền G04 Chuẩn — không cần hosting riêng, không cần lập trình từ đầu. FVT chủ yếu bỏ công thiết kế layout và nhập nội dung.</div>
+  </div>
+</div>
+
+<!-- ══ G05 ══ -->
+<div id="g05" class="panel">
+  <div class="sh">
+    <div class="sh-row">
+      <div class="sh-title">G05 · Tương tác thương mại</div>
+      <div class="badges"><span class="badge bgr">Placeholder</span><span class="badge ba">Dễ mở rộng nhất</span></div>
+    </div>
+    <div class="sh-desc">Biến điểm quét QR thành kênh tương tác: CTA, form, bảo hành, loyalty, lead, kết nối Zalo OA. FVT xây một phần, tích hợp bên thứ ba một phần.</div>
+  </div>
+  <div class="placeholder">
+    <div class="ph-title">Biểu giá G05 đang được xây dựng</div>
+    <div class="ph-desc">Bảng giá sẽ được bổ sung sau khi FVT xác định đầy đủ các module tính năng và chi phí vận hành thực tế. Hiện tại: báo giá theo dự án, liên hệ tư vấn.</div>
+  </div>
+  <div class="ca cg"><div class="ca-t">Tại sao G05 là nhóm dễ mở rộng nhất</div>Khách đã có G01–G04 → đã quen với hệ thống, đã tin tưởng FVT. G05 không yêu cầu thay đổi hạ tầng — chỉ thêm tính năng lên nền QR đã có. Chi phí upsell thấp, tỷ lệ chuyển đổi cao hơn bán mới.</div>
+</div>
+
+<!-- ══ ADD-ON ══ -->
+<div id="addon" class="panel">
+  <div class="sh">
+    <div class="sh-row">
+      <div class="sh-title">Add-on · Thiết kế bao bì</div>
+      <div class="badges"><span class="badge bt">Độc lập với G01–G05</span><span class="badge bgr">Kèm được với bất kỳ gói nào</span></div>
+    </div>
+    <div class="sh-desc">Tư vấn chất liệu, in ấn, thiết kế bao bì đạt tiêu chuẩn siêu thị. Tích hợp QR, mã vạch, tư vấn pháp lý nhãn hàng theo Nghị định 37/2026/NĐ-CP. Giá đã bao gồm VAT 8%.</div>
+  </div>
+
+  <div class="ca cb"><div class="ca-t">Lợi thế khi bán kèm G01–G04</div>Khách mua G01/G04 thường đang thiết kế lại bao bì hoặc ra sản phẩm mới → đây là thời điểm tự nhiên để đề xuất thiết kế bao bì. Tích hợp QR chuẩn GS1 ngay từ khâu thiết kế — tiết kiệm chi phí chỉnh sửa về sau.</div>
+
+  <div class="dpkg-grid">
+    <div class="dpkg">
+      <div class="dpkg-head">
+        <div class="dpkg-tier">Gói 1</div>
+        <div class="dpkg-price">1.990.000đ</div>
+      </div>
+      <div class="dpkg-body">
+        <div class="dpkg-label">Nhãn</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>2 Họa sĩ TK</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>1 lần gửi mẫu</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Chỉnh sửa 1 ngày</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Bảo hành 6 tháng</div>
+      </div>
+    </div>
+    <div class="dpkg">
+      <div class="dpkg-head">
+        <div class="dpkg-tier">Gói 2</div>
+        <div class="dpkg-price">3.990.000đ</div>
+      </div>
+      <div class="dpkg-body">
+        <div class="dpkg-label">Khởi nghiệp</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>2 Họa sĩ TK</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>1 lần gửi mẫu</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Chỉnh sửa 1 ngày</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Bảo hành 6 tháng</div>
+      </div>
+    </div>
+    <div class="dpkg">
+      <div class="dpkg-head">
+        <div class="dpkg-tier">Gói 3</div>
+        <div class="dpkg-price">6.990.000đ</div>
+      </div>
+      <div class="dpkg-body">
+        <div class="dpkg-label">Tiêu chuẩn</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>1 GĐ sáng tạo + 2 Họa sĩ</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Phân tích thương hiệu</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>1 lần gửi mẫu</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Chỉnh sửa 2 ngày</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Bảo hành 1 năm</div>
+      </div>
+    </div>
+    <div class="dpkg star">
+      <div class="dpkg-head">
+        <div class="dpkg-tier">Gói 4 ★★★</div>
+        <div class="dpkg-price">12.960.000đ</div>
+      </div>
+      <div class="dpkg-body">
+        <div class="dpkg-label">Chuyên nghiệp</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>1 GĐ sáng tạo + 2 Họa sĩ</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Phân tích thương hiệu</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>1 lần gửi mẫu</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Chỉnh sửa 2 ngày</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Bảo hành 2 năm</div>
+      </div>
+    </div>
+    <div class="dpkg">
+      <div class="dpkg-head">
+        <div class="dpkg-tier">Gói 5</div>
+        <div class="dpkg-price">17.280.000đ</div>
+      </div>
+      <div class="dpkg-body">
+        <div class="dpkg-label">Cao cấp</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>1 GĐ sáng tạo + 5 Họa sĩ</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Phân tích thương hiệu</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>3 lần gửi mẫu</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Chỉnh sửa 2 ngày</div>
+        <div class="dpkg-row"><span class="dpkg-dot">–</span>Bảo hành trọn đời</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ca cgr"><div class="ca-t">Ghi chú</div>Giá đã bao gồm VAT 8%. Không phát sinh thêm chi phí. Tư vấn pháp lý nhãn sản phẩm theo Nghị định 37/2026/NĐ-CP. Tích hợp QR code nhãn điện tử Verify. Mã số, mã vạch phù hợp tiêu chuẩn quốc gia và quốc tế.</div>
+</div>
+
+</div>
+
+<script>
+function show(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sp').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+function showSub(id,el,prefix){
+  document.querySelectorAll('[id^="'+prefix+'-"]').forEach(p=>{p.style.display='none'});
+  document.querySelectorAll('.stab').forEach(t=>{
+    if(t.closest('#'+prefix))t.classList.remove('active');
+  });
+  document.getElementById(id).style.display='block';
+  el.classList.add('active');
+}
+function showG04Sub(id,el,prefix){
+  document.querySelectorAll('[class^="sub-'+prefix+'"]').forEach(p=>{p.style.display='none'});
+  el.closest('.stabs').querySelectorAll('.stab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).style.display='block';
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
