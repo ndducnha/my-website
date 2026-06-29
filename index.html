@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dr. Dinh Duc Nha Nguyen (Tony) — Assistant Professor at VinUniversity. Expert in Cybersecurity, AI Security, Post-Quantum Cryptography, Cryptography and Secure System Architecture.">
+    <meta name="theme-color" content="#ffffff">
 <!--     <base href="/my-website/"> -->
     <title>Dinh Duc Nha Nguyen's Home Page</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Favicons generated from logo1.jpg (PNG preferred by modern browsers) -->
+    <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/jpeg" sizes="any" href="logo1.jpg">
     <script src="script.js" defer></script>
-<style>
-    /* All main styles are in styles.css - this is for minimal overrides only */
-</style>
 </head>
 <body>
+    <!-- Ambient animated cyber background -->
+    <div class="bg-grid" aria-hidden="true"></div>
+
     <!-- Language selection popup -->
     <div id="langModal">
       <div>
@@ -23,60 +29,81 @@
     </div>
     <!-- End language popup -->
 
-    <header>
+    <!-- ============================================================
+         FIXED TOP NAVIGATION (glass bar)
+         ============================================================ -->
+    <header class="topbar" id="topbar">
+        <a href="#hero" class="brand">
+            <img src="logo1.jpg" alt="Dinh Duc Nha Nguyen seal logo" class="brand-logo">
+        </a>
+
+        <nav id="mainMenu" aria-label="Primary navigation">
+            <ul>
+                <li><a href="#biography" data-en="Biography" data-vi="Tiểu sử">Biography</a></li>
+                <li><a href="#education" data-en="Education" data-vi="Học vấn">Education</a></li>
+                <li><a href="#awards" data-en="Awards" data-vi="Giải thưởng">Awards</a></li>
+                <li><a href="#areas-of-interest" data-en="Interests" data-vi="Lĩnh vực">Interests</a></li>
+                <li><a href="#teaching" data-en="Teaching" data-vi="Giảng dạy">Teaching</a></li>
+                <li><a href="#professional-experience" data-en="Experience" data-vi="Kinh nghiệm">Experience</a></li>
+                <li><a href="#publications" data-en="Publications" data-vi="Công bố">Publications</a></li>
+                <li><a href="#leadership" data-en="Leadership" data-vi="Lãnh đạo">Leadership</a></li>
+                <li><a href="#mentorship" data-en="Mentorship" data-vi="Hướng dẫn">Mentorship</a></li>
+                <li><a href="#collaboration" data-en="Collaboration" data-vi="Hợp tác">Collaboration</a></li>
+                <li><a href="#work" data-en="Work with me" data-vi="Hợp tác cùng">Work with me</a></li>
+                <li><a href="#references" data-en="References" data-vi="Người Tham chiếu">References</a></li>
+            </ul>
+        </nav>
+
+        <button class="menu-icon" onclick="toggleMenu()" aria-label="Toggle navigation menu" data-en="☰ Menu" data-vi="☰ Menu">☰ Menu</button>
+
         <div class="language-selector">
             <button class="lang-btn active" onclick="changeLanguage('en')">English</button>
             <button class="lang-btn" onclick="changeLanguage('vi')">Tiếng Việt</button>
         </div>
+    </header>
 
-        <div class="banner" data-en="🚀 We are recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers! Apply now!"  data-vi="🚀 Tuyển dụng Trợ lý Nghiên cứu, Nghiên cứu sinh Tiến sĩ, Học viên Cao học và Nghiên cứu viên Sau Tiến sĩ! Ứng tuyển ngay!">
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <header class="hero" id="hero">
+
+        <!-- Recruitment banner (content preserved) -->
+        <div class="hero-banner banner" data-en="🚀 We are recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers! Apply now!"  data-vi="🚀 Tuyển dụng Trợ lý Nghiên cứu, Nghiên cứu sinh Tiến sĩ, Học viên Cao học và Nghiên cứu viên Sau Tiến sĩ! Ứng tuyển ngay!">
             🚀 We are recruiting Research Assistants, Ph.D. students, Master's students, and Postdoctoral researchers! <a href="https://github.com/ndducnha/my-website/raw/main/JD_AirQC_VinUni.pdf">Apply now</a>!
         </div>
 
-        <br/><br/>
+        <div class="hero-inner">
+            <!-- Left: identity & positioning -->
+            <div class="hero-content" id="two">
+                <h1>Dr. Nguyễn Đình Đức Nhã (Tony)</h1>
+                <h2 class="role" data-en="Assistant Professor (Computer Science - Cybersecurity, AI)" data-vi="Giáo sư cơ hữu (Khoa học Máy tính - An ninh mạng, AI)">Assistant Professor (Computer Science - Cybersecurity, AI)</h2>
+                <h3 class="location" data-en="VinUniversity, Ha Noi, Viet Nam" data-vi="Đại học VinUniversity, Hà Nội, Việt Nam">VinUniversity, Ha Noi, Viet Nam</h3>
+            </div>
 
-        <div id="one">
-            <img src="https://github.com/ndducnha/my-website/raw/main/nha.jpg" alt="Dinh Duc Nha Nguyen">
-        </div>
-        <div id="two">
-            <h1>Nguyễn Đình Đức Nhã (Tony) (Dinh Duc Nha Nguyen)</h1>
-            <h2 data-en="Assistant Professor (Computer Science - Cybersecurity, AI)" data-vi="Giáo sư cơ hữu (Khoa học Máy tính - An ninh mạng, AI)">Assistant Professor (Computer Science - Cybersecurity, AI)</h2>
-            <h3 data-en="VinUniversity, Ha Noi, Viet Nam" data-vi="Đại học VinUniversity, Hà Nội, Việt Nam">VinUniversity, Ha Noi, Viet Nam</h3>
-            <div class="contact-info">
-                <p><strong>📞 Phone:</strong> 0909399988 | 0369777713</p>
-                <p><strong>📧 Working email:</strong> <a href="mailto:nha.ndd@vinuni.edu.vn">nha.ndd@vinuni.edu.vn</a></p>
-                <p><strong>📩 Private email:</strong> <a href="mailto:ndducnha@gmail.com">ndducnha@gmail.com</a></p>
-                <p><strong>🔬 Research lab:</strong> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.vcyber.work">- Cybersecurity & AI Applications Research Lab (vcyber.work) (Phòng nghiên cứu về an ninh mạng và các ứng dụng AI)</a></p>
-                <p><strong>📚 Academic profiles (hồ sơ học thuật):</strong> <a href="https://scholar.google.com.au/citations?user=SIWu-ZcAAAAJ&hl=en&oi=sra">🎓 Google Scholar</a> | <a href="https://orcid.org/0000-0002-8106-7703">🔗 ORCID</a> | <a href="https://www.scopus.com/authid/detail.uri?authorId=57214528477&origin=resultslist">📊 Scopus</a></p>
-                <p><strong>🌍 Social:</strong> <a href="https://www.linkedin.com/in/dinh-duc-nha-nguyen-677428158">💼 LinkedIn</a> | <a href="https://www.facebook.com/profile.php?id=1513403651">👥 Facebook</a> |  <a href="https://www.ducnha.work">🌎 My website</a> </p>
-                 <p><strong>📄 Résumé:</strong> <a href="https://github.com/ndducnha/my-website/raw/main/CV_Dinh_Duc_Nha_Nguyen.pdf" target="_blank">One-page CV</a></p>
+            <!-- Right: portrait with glow ring + floating badges -->
+            <div class="hero-portrait">
+                <div id="one">
+                    <img src="https://github.com/ndducnha/my-website/raw/main/nha.jpg" alt="Dinh Duc Nha Nguyen">
+                </div>
             </div>
         </div>
-    </header>
 
-    <nav id="mainMenu">
-        <span class="menu-icon" onclick="toggleMenu()" data-en="☰ Navigation" data-vi="☰ Điều hướng">☰ Navigation</span>
-        <ul>
-            <li><a href="#biography" data-en="Biography" data-vi="Tiểu sử">Biography</a></li>
-            <li><a href="#education" data-en="Education" data-vi="Học vấn">Education</a></li>
-            <li><a href="#awards" data-en="Awards" data-vi="Giải thưởng">Awards</a></li>
-            <li><a href="#areas-of-interest" data-en="Areas of Interest" data-vi="Lĩnh vực nghiên cứu">Areas of Interest</a></li>
-            <li><a href="#teaching" data-en="Teaching" data-vi="Giảng dạy">Teaching</a></li>
-            <li><a href="#professional-experience" data-en="Professional Experience" data-vi="Kinh nghiệm chuyên môn">Professional Experience</a></li>
-            <li><a href="#publications" data-en="Publications" data-vi="Bài báo khoa học">Publications</a></li>
-            <li><a href="#leadership" data-en="Leadership & Affiliations" data-vi="Vị trí Lãnh đạo">Leadership & Affiliations</a></li>
-            <li><a href="#mentorship" data-en="Mentorship" data-vi="Hướng dẫn Sinh viên">Mentorship</a></li>
-            <li><a href="#collaboration" data-en="Research collaboration" data-vi="Hợp tác Nghiên cứu">Research collaboration</a></li>
-            <li><a href="#work" data-en="Working with me" data-vi="Cơ hội Hợp tác">Working with me</a></li>
-            <li><a href="#references" data-en="References" data-vi="Người Tham chiếu">References</a></li>
-        </ul>
-    </nav>
+        <!-- Contact card (content preserved) -->
+        <div class="contact-info">
+            <p><strong>📞 Phone:</strong> 0909399988</p>
+            <p><strong>📧 Working email:</strong> <a href="mailto:nha.ndd@vinuni.edu.vn">nha.ndd@vinuni.edu.vn</a></p>
+            <p><strong>📩 Private email:</strong> <a href="mailto:ndducnha@gmail.com">ndducnha@gmail.com</a></p>
+            <p><strong>🔬 Research lab:</strong> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.vcyber.work">- Cybersecurity & AI Applications Research Lab (vcyber.work) (Phòng nghiên cứu về an ninh mạng và các ứng dụng AI)</a></p>
+            <p><strong>📚 Academic profiles (hồ sơ học thuật):</strong> <a href="https://scholar.google.com.au/citations?user=SIWu-ZcAAAAJ&hl=en&oi=sra">🎓 Google Scholar</a> | <a href="https://orcid.org/0000-0002-8106-7703">🔗 ORCID</a> | <a href="https://www.scopus.com/authid/detail.uri?authorId=57214528477&origin=resultslist">📊 Scopus</a></p>
+            <p><strong>🌍 Social:</strong> <a href="https://www.linkedin.com/in/dinh-duc-nha-nguyen-677428158">💼 LinkedIn</a> | <a href="https://www.facebook.com/profile.php?id=1513403651">👥 Facebook</a> |  <a href="https://www.ducnha.work">🌎 My website</a> </p>
+             <p><strong>📄 Résumé:</strong> <a href="https://github.com/ndducnha/my-website/raw/main/CV_Dinh_Duc_Nha_Nguyen.pdf" target="_blank">One-page CV</a></p>
+        </div>
+    </header>
 
 
     <main>
         <section id="biography">
-            <h2 data-en="Biography" data-vi="Tiểu sử">Biography</h2> 
-            <section id="biography">
+            <h2 data-en="Biography" data-vi="Tiểu sử">Biography</h2>
 
              <p style="text-align: justify;" data-en="I am currently an Assistant Professor of Computer Science (Cybersecurity) at VinUniversity and the Founder of VCyber Lab (Cybersecurity research Lab). I hold a PhD and completed my postdoctoral research at Deakin University, as well as a Master's degree from Queensland University of Technology (QUT), Australia. My research focuses on Post-Quantum Cryptography (PQC), AI-driven cybersecurity, IoT & robotic security, and AI applications. I have published many papers in Q1 journals, in top-tier venues such as IEEE TDSC & IEEE TIFS, and conference. I have also secured a research grant, won an international prize, and worked extensively with industry partners. Throughout my career, I have mentored students in publishing high-impact research, contributed to an Elsevier book chapter, and received prestigious awards including the School of IT Higher Degree by Research Award (2022), QUT Dean's List recognitions (2019 & 2020), and third place in the 2022 Country to Country (C2C) Cybersecurity Challenge hosted by MIT." data-vi="Tôi hiện là Giáo sư cơ hữu ngành Khoa học Máy tính (chuyên về An ninh mạng) tại Đại học VinUniversity và là người sáng lập VCyber Lab – Phòng nghiên cứu An ninh mạng. Tôi có bằng Tiến sĩ và hoàn thành nghiên cứu sau tiến sĩ tại Đại học Deakin, cùng bằng Thạc sĩ từ Đại học Công nghệ Queensland (QUT), Úc. Nghiên cứu của tôi tập trung vào Mật mã Hậu lượng tử (PQC), An ninh mạng ứng dụng AI, Bảo mật IoT & robot, và các ứng dụng AI. Tôi đã công bố nhiều bài báo trên các tạp chí Q1 hàng đầu như IEEE TDSC và IEEE TIFS, cùng các hội nghị quốc tế. Tôi cũng đã nhận tài trợ nghiên cứu, đạt giải thưởng quốc tế và hợp tác sâu rộng với các đối tác doanh nghiệp. Trong suốt sự nghiệp, tôi đã hướng dẫn sinh viên công bố nghiên cứu có tầm ảnh hưởng, đóng góp chương sách cho Elsevier, và nhận nhiều giải thưởng danh giá: Giải Nghiên cứu sinh Xuất sắc của Khoa CNTT tại Deakin (2022), Dean's List tại QUT (2019 & 2020), và Giải Ba cuộc thi An ninh mạng C2C 2022 do MIT tổ chức.">
                 I am currently an <strong>Assistant Professor of Computer Science (Cybersecurity)</strong> at <strong>VinUniversity</strong> and the <strong>Founder of <a href="https://vcyber.work">VCyber Lab (Cybersecurity research Lab)</a></strong>. I hold a <strong>PhD</strong> and completed my <strong>postdoctoral research</strong> at <strong>Deakin University</strong>, as well as a <strong>Master's degree</strong> from <strong>Queensland University of Technology (QUT)</strong>, Australia. 
@@ -205,7 +232,7 @@
             </ul>
 
             <h2 data-en="Professional Certifications" data-vi="Chứng Chỉ Chuyên môn">Professional Certifications</h2>
-            <ul> <h3 data-en="Technical Skills" data-vi="Kỹ Năng Kỹ Thuật">Technical skills</h3>
+            <ul class="cert-grid"> <h3 data-en="Technical Skills" data-vi="Kỹ Năng Kỹ Thuật">Technical skills</h3>
                 <li>
                     <strong data-en="Cybersecurity:" data-vi="An ninh mạng:">Cybersecurity:</strong> <span data-en="Certified Ethical Hacking (v12)" data-vi="Chứng chỉ phòng chống hacking (v12)">Certified Ethical Hacking (v12)</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert10_ceh.pdf">Certificate</a>  | <span data-en="Network Security" data-vi="An ninh mạng">Network Security</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert31_network_secu.pdf">Certificate</a> | <span data-en="Cyber Attack Countermeasures" data-vi="Biện pháp đối phó tấn công mạng">Cyber Attack Countermeasures</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert40_attack_counter.pdf">Certificate</a> | <span data-en="Pentesting Fundamentals for Beginners" data-vi="Cơ bản về Kiểm thử xâm nhập cho người mới bắt đầu">Pentesting Fundamentals for Beginners</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert41_pentester_fundamental.pdf">Certificate</a>
                 </li>
@@ -234,7 +261,7 @@
                     <strong data-en="Blockchain:" data-vi="Blockchain:">Blockchain:</strong> <span data-en="Blockchain and Cryptography Overview" data-vi="Tổng quan Blockchain và Mật mã học">Blockchain and Cryptography Overview</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert17_quantum_python.pdf">Certificate</a> | <span data-en="Blockchain Business Model" data-vi="Mô hình kinh doanh Blockchain">Blockchain Business Model</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert12_block_chain_businessmodel.pdf">Certificate</a>
                 </li>
             </ul>
-            <ul> <h3 data-en="Soft skills" data-vi="Kỹ năng mềm">Soft skills</h3>
+            <ul class="cert-grid"> <h3 data-en="Soft skills" data-vi="Kỹ năng mềm">Soft skills</h3>
                 <li>
                     <strong data-en="Teaching:" data-vi="Giảng dạy:">Teaching:</strong> <span data-en="University Teaching" data-vi="Giảng dạy đại học">University Teaching</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert24_uni_teaching.pdf">Certificate</a> | <span data-en="English for Teaching Purposes" data-vi="Tiếng Anh cho mục đích giảng dạy">English for Teaching Purposes</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert34_eap.pdf">Certificate</a> | <span data-en="Foundations of Teaching for Learning: Developing Relationships" data-vi="Nền tảng giảng dạy để học: Phát triển mối quan hệ">Foundations of Teaching for Learning: Developing Relationships</span> <a href="https://github.com/ndducnha/my-website/raw/main/cert36_teaching_relationship.pdf">Certificate</a> 
                 </li>
@@ -277,7 +304,7 @@
 
         <section id="areas-of-interest">
             <h2 data-en="Areas of Interest" data-vi="Lĩnh vực quan tâm">Areas of Interest</h2>
-            <ul>
+            <ul class="interest-grid">
                 <li data-en="Machine Learning and AI applications in cybersecurity" data-vi="Học máy và ứng dụng AI trong an ninh mạng">Machine Learning and AI applications in cybersecurity</li>
                 <li data-en="AI Applications" data-vi="Các ứng dụng sử dụng AI">IoT Intrusion Detection</li>
                 <li data-en="IoT Intrusion Detection" data-vi="Phát hiện xâm nhập IoT">IoT Intrusion Detection</li>
@@ -332,7 +359,7 @@
 
         <section id="professional-experience">
            <h2 data-en="Professional Experience" data-vi="Kinh nghiệm chuyên môn">Professional Experience</h2>
-            <ul>
+            <ul class="timeline">
                 <li>
                     <strong data-en="Assistant Professor (12/2024 – Present) – VinUniversity, Ha Noi, Viet Nam" data-vi="Giáo sư cơ hữu (12/2024 – Nay) – Đại học VinUniversity, Hà Nội, Việt Nam">Assistant Professor (12/2024 – Present) – VinUniversity, Ha Noi, Viet Nam</strong>
                     <br><u data-en="Duties" data-vi="Nhiệm vụ">Duties</u>:
@@ -432,7 +459,7 @@
            <h2>Publications</h2>
             <p style="text-align: justify;">Visit my <a href="https://scholar.google.com.au/citations?user=SIWu-ZcAAAAJ&hl=en&oi=sra">Google Scholar Profile</a> 
             and <a href="https://orcid.org/0000-0002-8106-7703">ORCID Profile</a> for a complete list of publications. To date, I have published 11 journal papers (7 Q1) in IEEE venues and one IEEE conference (rank B). </p>
-            <ol>
+            <ol class="pub-list">
             	<li>K. Sood, S. Liu, <strong>D. D. N. Nguyen</strong>, N. Kumar, B. Feng and S. Yu, "Alleviating Data Sparsity to Enhance AI Models Robustness in IoT Network Security Context," in <i>IEEE Transactions on Mobile Computing</i>, doi: 10.1109/TMC.2025.3525463.</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper11.pdf">Download PDF</a><br/>
             	<li>Syed W Shah Pan, <strong>D. D. N. Nguyen</strong>, Robin Doss, Warren Armstrong, Praveen Gauravaram, "Double-Signed Fragmented DNSSEC for Countering Quantum Threat," in <i>arXiv</i> preprint arXiv:2411.07535</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper10.pdf">Download PDF</a><br/>
                 <li><strong>D. D. N. Nguyen</strong> et al., "Design and Robust Evaluation of Next Generation Node Authentication Approach," in <i>IEEE Transactions on Dependable and Secure Computing</i>, doi: 10.1109/TDSC.2024.3373778. (Q1, Impact Factor: 6.407)</li> <a href="https://github.com/ndducnha/my-website/raw/main/paper1.pdf">Download PDF</a><br/>
