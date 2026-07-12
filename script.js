@@ -25,7 +25,7 @@ class SiteApp {
       { id: 'awards', num: '03', le: 'Recognition earned on the world stage.', lv: 'Sự ghi nhận giành được trên đấu trường quốc tế.' },
       { id: 'areas-of-interest', num: '04', le: 'Seven research frontiers, one mission: securing the intelligent future.', lv: 'Bảy hướng nghiên cứu, một sứ mệnh: bảo vệ tương lai thông minh.' },
       { id: 'teaching', num: '05', le: 'Knowledge engineered to be mastered — and measured.', lv: 'Tri thức được thiết kế để chinh phục — và đo lường.' },
-      { id: 'professional-experience', num: '06', le: 'Fourteen years of missions across research, industry and the network backbone.', lv: 'Mười bốn năm những nhiệm vụ trải khắp nghiên cứu, doanh nghiệp và hạ tầng mạng lõi.' },
+      { id: 'professional-experience', num: '06', le: 'Extensive experience spanning research, industry and national digital infrastructure.', lv: 'Nhiều năm kinh nghiệm trải khắp nghiên cứu, doanh nghiệp và hạ tầng mạng lõi.' },
       { id: 'publications', num: '07', le: 'A growing library of peer-reviewed research in the world’s top venues.', lv: 'Một thư viện nghiên cứu bình duyệt không ngừng mở rộng trên các diễn đàn hàng đầu thế giới.' },
       { id: 'leadership', num: '08', le: 'Influence that bridges academia, industry and government.', lv: 'Tầm ảnh hưởng bắc cầu giữa học thuật, doanh nghiệp và chính phủ.' },
       { id: 'mentorship', num: '09', le: 'Growing the next generation of researchers, one breakthrough at a time.', lv: 'Ươm mầm thế hệ nhà nghiên cứu kế tiếp, từng bước đột phá.' },
@@ -325,7 +325,7 @@ class SiteApp {
     }
     this.figBiography(); this.figEducation(); this.figAwards(); this.figInterests(); this.figTeaching();
     this.figExperience(); this.figPublications(); this.figLeadership(); this.figMentorship();
-    this.figCollaboration(); this.figWork(); this.figReferences();
+    this.figCollaboration(); this.figWork();
   }
   figBiography() {
     const b = this.figFrame('biography', 'Many hats, one mission', 'Nhiều vai trò, một sứ mệnh'); if (!b) return;
@@ -445,7 +445,7 @@ class SiteApp {
     const b = this.figFrame('professional-experience', 'Career log', 'Nhật ký sự nghiệp'); if (!b) return;
     b.style.cssText = 'background:#17131f;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 22px;box-shadow:0 20px 50px rgba(28,24,38,.16)';
     b.innerHTML = '<div style="display:flex;align-items:center;gap:7px;margin-bottom:16px"><span style="width:11px;height:11px;border-radius:50%;background:#ff5f56"></span><span style="width:11px;height:11px;border-radius:50%;background:#ffbd2e"></span><span style="width:11px;height:11px;border-radius:50%;background:#27c93f"></span><span style="margin-left:10px;font-family:var(--mono);font-size:10.5px;color:rgba(255,255,255,.4)">career.log — nha@vinuni</span></div><div id="termBody" style="font-family:var(--mono);font-size:12.5px;line-height:2;color:rgba(255,255,255,.85);min-height:184px"></div>';
-    const lines = [['2024', 'VinUniversity', 'Assistant Professor'], ['2023', 'Deakin University', 'Associate Research Fellow'], ['2022', 'Deakin University', 'Research Assistant & Teaching'], ['2017', 'Tech JDI', 'Senior Test Engineer'], ['2013', 'TMA Solution', 'Test Analyst & Networking'], ['2011', 'VNPT', 'Networking Specialist']];
+    const lines = [['2026', 'National Barcode Center', 'Director of Innovation & Tech Transfer'], ['2024', 'VinUniversity', 'Assistant Professor'], ['2023', 'Deakin University', 'Associate Research Fellow'], ['2022', 'Deakin University', 'Research Assistant & Teaching'], ['2017', 'Tech JDI', 'Senior Test Engineer'], ['2013', 'TMA Solution', 'Test Analyst & Networking'], ['2011', 'VNPT', 'Networking Specialist']];
     this.termLog(document.getElementById('termBody'), lines);
   }
   termLog(el, lines) {
