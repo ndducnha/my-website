@@ -35,6 +35,10 @@
       this.initScrollUI();
       this.initTilt();
       this.initThree();
+      // Close the mobile ☰ dropdown after a section link is tapped.
+      document.querySelectorAll('#topbar [data-nav]').forEach(function (a) {
+        a.addEventListener('click', function () { window.closeMenu(); });
+      });
     },
 
     setLang: function (l) {
@@ -298,6 +302,19 @@
   // Inline-onclick globals wired to the app (the only DC template calls in markup).
   window.setEn = function () { SiteApp.setLang('en'); };
   window.setVi = function () { SiteApp.setLang('vi'); };
+
+  // Mobile ☰ menu: toggle the dropdown nav panel; swap the glyph.
+  function setMenu(open) {
+    var tb = document.getElementById('topbar');
+    if (tb) tb.classList[open ? 'add' : 'remove']('menu-open');
+    var b = document.getElementById('menuBtn');
+    if (b) b.textContent = open ? '✕' : '☰';
+  }
+  window.toggleMenu = function () {
+    var tb = document.getElementById('topbar');
+    setMenu(!(tb && tb.classList.contains('menu-open')));
+  };
+  window.closeMenu = function () { setMenu(false); };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () { SiteApp.init(); });
