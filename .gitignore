@@ -1,0 +1,14 @@
+# Design reference project (not part of the live site)
+portfolio-2025-main/
+
+# Redesign rollback backups (local only)
+*.dark-backup
+
+# Review artifacts
+docs/screenshots/
+
+# OS / tooling noise
+.DS_Store
+**/.DS_Store
+node_modules/
+scratchpad/

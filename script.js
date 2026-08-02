@@ -56,10 +56,10 @@
       });
       var be = document.getElementById('btnEn'), bv = document.getElementById('btnVi');
       if (be && bv) {
-        be.style.background = l === 'en' ? 'rgba(139,92,246,.9)' : 'transparent';
-        be.style.color = l === 'en' ? '#fff' : '#8F89A8';
-        bv.style.background = l === 'vi' ? 'rgba(139,92,246,.9)' : 'transparent';
-        bv.style.color = l === 'vi' ? '#fff' : '#8F89A8';
+        be.style.background = l === 'en' ? 'rgba(30,64,175,.9)' : 'transparent';
+        be.style.color = l === 'en' ? '#fff' : '#6e6450';
+        bv.style.background = l === 'vi' ? 'rgba(30,64,175,.9)' : 'transparent';
+        bv.style.color = l === 'vi' ? '#fff' : '#6e6450';
       }
     },
 
@@ -160,14 +160,14 @@
     initScrollUI: function () {
       var self = this;
       this._sections = ['hero', 'biography', 'education', 'awards', 'areas-of-interest', 'teaching', 'professional-experience', 'publications', 'leadership', 'mentorship', 'collaboration', 'work', 'references'];
-      this._accent = ['#8B5CF6', '#A78BFA', '#38BDF8', '#E8B45A', '#9F6BFF', '#34D399', '#E8875A', '#2DD4BF', '#6E7BFF', '#F472A0', '#38BDF8', '#8B5CF6', '#94A3B8'];
+      this._accent = ['#1e40af', '#3a56ac', '#0369a1', '#b45309', '#4338ca', '#15803d', '#c2410c', '#0f766e', '#3730a3', '#be185d', '#0369a1', '#1e40af', '#5b6675'];
       this._active = 0;
       var onScroll = function () {
         var sy = scrollY, dh = document.documentElement.scrollHeight - innerHeight;
         var pb = document.getElementById('progressBar');
         if (pb) pb.style.width = (dh > 0 ? (sy / dh) * 100 : 0) + '%';
         var tb = document.getElementById('topbar');
-        if (tb) tb.style.background = sy > 30 ? 'rgba(8,6,18,.82)' : 'rgba(8,6,18,.55)';
+        if (tb) tb.style.background = sy > 30 ? 'rgba(243,235,219,.88)' : 'rgba(243,235,219,.72)';
         var bt = document.getElementById('backToTop');
         if (bt) bt.style.display = sy > 700 ? 'block' : 'none';
         var act = 0;
@@ -181,8 +181,8 @@
           if (g) g.style.background = 'radial-gradient(640px 520px at 76% 42%,' + self._accent[act] + '24,transparent 70%)';
           document.querySelectorAll('[data-nav]').forEach(function (a) {
             var on = a.getAttribute('data-nav') === self._sections[act];
-            a.style.color = on ? '#EDEAF7' : '#8F89A8';
-            a.style.background = on ? 'rgba(139,92,246,.18)' : 'transparent';
+            a.style.color = on ? '#2d2a24' : '#6e6450';
+            a.style.background = on ? 'rgba(30,64,175,.18)' : 'transparent';
           });
         }
       };
@@ -222,7 +222,7 @@
         renderer.setSize(innerWidth, innerHeight);
         cam.aspect = innerWidth / innerHeight;
         cam.updateProjectionMatrix();
-        self._objX = innerWidth > 940 ? 2.4 : 0;
+        self._objX = innerWidth > 940 ? 3.2 : 0;
       };
       this._onResize = resize;
       addEventListener('resize', resize);
@@ -236,7 +236,7 @@
       }
       var sg = new T.BufferGeometry();
       sg.setAttribute('position', new T.BufferAttribute(pos, 3));
-      var stars = new T.Points(sg, new T.PointsMaterial({ color: 0x8b7ff0, size: .045, transparent: true, opacity: .75 }));
+      var stars = new T.Points(sg, new T.PointsMaterial({ color: 0x2a4a9a, size: .04, transparent: true, opacity: .38 }));
       scene.add(stars);
       var wf = function (geo, c, op) { return new T.Mesh(geo, new T.MeshBasicMaterial({ color: c, wireframe: true, transparent: true, opacity: op == null ? .5 : op })); };
       var mkGlobe = function (c) {
