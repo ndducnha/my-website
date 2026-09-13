@@ -158,8 +158,8 @@
 
     initScrollUI: function () {
       var self = this;
-      this._sections = ['hero', 'biography', 'education', 'awards', 'areas-of-interest', 'teaching', 'professional-experience', 'publications', 'leadership', 'mentorship', 'collaboration', 'work', 'references'];
-      this._accent = ['#1e40af', '#3a56ac', '#0369a1', '#b45309', '#4338ca', '#15803d', '#c2410c', '#0f766e', '#3730a3', '#be185d', '#0369a1', '#1e40af', '#5b6675'];
+      this._sections = ['hero', 'biography', 'education', 'awards', 'professional-experience', 'teaching', 'areas-of-interest', 'publications', 'leadership', 'mentorship', 'collaboration', 'work', 'references'];
+      this._accent = ['#1e40af', '#3a56ac', '#0369a1', '#b45309', '#c2410c', '#15803d', '#4338ca', '#0f766e', '#3730a3', '#be185d', '#0369a1', '#1e40af', '#5b6675'];
       this._active = 0;
       var onScroll = function () {
         var sy = scrollY, dh = document.documentElement.scrollHeight - innerHeight;
