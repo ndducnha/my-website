@@ -12,3 +12,6 @@ docs/screenshots/
 **/.DS_Store
 node_modules/
 scratchpad/
+
+# Local edit backups
+*.bak

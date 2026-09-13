@@ -14,7 +14,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
 <style>
 html{scroll-behavior:smooth}
 body{margin:0;background:#f3ebdb;color:#2d2a24;font-family:'Space Grotesk','Helvetica Neue',Helvetica,sans-serif;overflow-x:hidden}
@@ -112,15 +111,10 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid 
     linear-gradient(var(--blue),var(--blue)) 100% 100%/16px 1.5px no-repeat,
     linear-gradient(var(--blue),var(--blue)) 100% 100%/1.5px 16px no-repeat;}
 @media (max-width:600px){.bp-frame{display:none}}
-/* Calm the background schematic behind text on small screens for readability */
-@media (max-width:860px){#bg3d{opacity:.45}}
 </style>
 </head>
 <body>
 <div class="bp-frame" aria-hidden="true"></div>
-<canvas id="bg3d" style="position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none"></canvas>
-<div id="accentGlow" style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(640px 520px at 76% 42%,rgba(30,64,175,.14),transparent 70%);transition:background 1.2s"></div>
-<div aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(30,64,175,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(30,64,175,.05) 1px,transparent 1px);background-size:54px 54px;-webkit-mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%);mask-image:radial-gradient(circle at 50% 30%,#000,transparent 75%)"></div>
 <div id="progressBar" style="position:fixed;top:0;left:0;height:2px;width:0%;z-index:2000;background:linear-gradient(90deg,#1e40af,#0e7490);box-shadow:0 0 12px rgba(30,64,175,.8)"></div>
 <div id="langModal" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(45,42,36,.46);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;box-sizing:border-box;overflow-y:auto">
   <div style="background:rgba(246,240,226,.97);border:1px solid rgba(30,64,175,.35);border-radius:22px;padding:46px 42px;max-width:430px;width:100%;box-sizing:border-box;text-align:center;box-shadow:0 0 90px rgba(30,64,175,.28)">

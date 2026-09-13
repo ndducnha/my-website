@@ -1,14 +1,14 @@
 /* Nguyễn Đình Đức Nhã — personal site.
    Ported verbatim from the "Quantum Deep Space" Design-Component (class Component)
    to a plain-JS SiteApp that boots after DOMContentLoaded. No DC runtime, no framework.
-   three.js (r0.152.2 UMD) is the only external dependency; every behaviour degrades
-   gracefully — content always renders its final state even if JS/WebGL fail. */
+   No external dependencies; every behaviour degrades gracefully — content always
+   renders its final state even if JS fails. */
 (function () {
   'use strict';
 
   var SiteApp = {
     // DC props (data-props defaults from the source component)
-    props: { defaultLang: 'en', particleDensity: 1400, motion: 'full' },
+    props: { defaultLang: 'en', motion: 'full' },
     lang: 'en',
     _timers: [],
     _raf: 0,
@@ -34,7 +34,6 @@
       this.initCounters();
       this.initScrollUI();
       this.initTilt();
-      this.initThree();
       // Close the mobile ☰ dropdown after a section link is tapped.
       document.querySelectorAll('#topbar [data-nav]').forEach(function (a) {
         a.addEventListener('click', function () { window.closeMenu(); });
@@ -177,8 +176,6 @@
         });
         if (act !== self._active) {
           self._active = act;
-          var g = document.getElementById('accentGlow');
-          if (g) g.style.background = 'radial-gradient(640px 520px at 76% 42%,' + self._accent[act] + '24,transparent 70%)';
           document.querySelectorAll('[data-nav]').forEach(function (a) {
             var on = a.getAttribute('data-nav') === self._sections[act];
             a.style.color = on ? '#2d2a24' : '#6e6450';
@@ -200,102 +197,6 @@
         card.style.transform = 'rotateY(' + (x * 16) + 'deg) rotateX(' + (-y * 16) + 'deg) translateZ(12px)';
       });
       wrap.addEventListener('mouseleave', function () { card.style.transform = 'none'; });
-    },
-
-    initThree: function () {
-      var self = this;
-      if (!window.THREE) {
-        this._t3 = (this._t3 || 0) + 1;
-        if (this._t3 < 120) this._timers.push(setTimeout(function () { self.initThree(); }, 120));
-        return;
-      }
-      var T = window.THREE, canvas = document.getElementById('bg3d');
-      if (!canvas || this._threeDone) return;
-      this._threeDone = true;
-      var renderer;
-      try { renderer = new T.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true }); } catch (e) { return; }
-      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-      var scene = new T.Scene();
-      var cam = new T.PerspectiveCamera(58, innerWidth / innerHeight, .1, 100);
-      cam.position.z = 7;
-      var resize = function () {
-        renderer.setSize(innerWidth, innerHeight);
-        cam.aspect = innerWidth / innerHeight;
-        cam.updateProjectionMatrix();
-        self._objX = innerWidth > 940 ? 3.2 : 0;
-      };
-      this._onResize = resize;
-      addEventListener('resize', resize);
-      resize();
-      var density = Math.max(200, Math.min(3000, +(this.props.particleDensity != null ? this.props.particleDensity : 1400)));
-      var pos = new Float32Array(density * 3);
-      for (var i = 0; i < density; i++) {
-        pos[i * 3] = (Math.random() - .5) * 30;
-        pos[i * 3 + 1] = (Math.random() - .5) * 20;
-        pos[i * 3 + 2] = -2 - Math.random() * 18;
-      }
-      var sg = new T.BufferGeometry();
-      sg.setAttribute('position', new T.BufferAttribute(pos, 3));
-      var stars = new T.Points(sg, new T.PointsMaterial({ color: 0x2a4a9a, size: .04, transparent: true, opacity: .38 }));
-      scene.add(stars);
-      var wf = function (geo, c, op) { return new T.Mesh(geo, new T.MeshBasicMaterial({ color: c, wireframe: true, transparent: true, opacity: op == null ? .5 : op })); };
-      var mkGlobe = function (c) {
-        var g = new T.Group(), N = 150, pts = [];
-        for (var i = 0; i < N; i++) {
-          var th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1);
-          pts.push(new T.Vector3(1.9 * Math.sin(ph) * Math.cos(th), 1.9 * Math.cos(ph), 1.9 * Math.sin(ph) * Math.sin(th)));
-        }
-        var pg = new T.BufferGeometry().setFromPoints(pts);
-        g.add(new T.Points(pg, new T.PointsMaterial({ color: c, size: .07, transparent: true, opacity: .95 })));
-        var lp = [];
-        for (var a = 0; a < N; a++) for (var b = a + 1; b < N; b++) if (pts[a].distanceTo(pts[b]) < .85) { lp.push(pts[a], pts[b]); }
-        var lg = new T.BufferGeometry().setFromPoints(lp);
-        g.add(new T.LineSegments(lg, new T.LineBasicMaterial({ color: c, transparent: true, opacity: .3 })));
-        g.add(wf(new T.IcosahedronGeometry(1.1, 1), c, .35));
-        return g;
-      };
-      var mkStack = function (c) { var g = new T.Group(); for (var i = 0; i < 4; i++) { var m = wf(new T.BoxGeometry(2.4 - i * .3, .3, 1.7 - i * .2), c); m.position.y = -.8 + i * .55; m.rotation.y = i * .35; g.add(m); } return g; };
-      var mkLattice = function (c) { var g = new T.Group(); for (var x = -1; x <= 1; x++) for (var y = -1; y <= 1; y++) for (var z = -1; z <= 1; z++) { var m = wf(new T.BoxGeometry(.42, .42, .42), c, .55); m.position.set(x * .85, y * .85, z * .85); g.add(m); } return g; };
-      var mkRings = function (c) { var g = new T.Group(); var r1 = wf(new T.TorusGeometry(1.4, .07, 10, 60), c, .6); var r2 = r1.clone(); r2.rotation.x = Math.PI / 2; var r3 = r1.clone(); r3.rotation.y = Math.PI / 2; g.add(r1, r2, r3); g.add(wf(new T.SphereGeometry(.55, 12, 10), c, .6)); return g; };
-      var mkOrbit = function (c) { var g = new T.Group(); g.add(wf(new T.TorusGeometry(1.5, .03, 8, 70), c, .5)); for (var i = 0; i < 8; i++) { var m = wf(new T.SphereGeometry(.24, 10, 8), c, .8); m.position.set(Math.cos(i / 8 * Math.PI * 2) * 1.5, 0, Math.sin(i / 8 * Math.PI * 2) * 1.5); g.add(m); } g.add(wf(new T.OctahedronGeometry(.6), c, .7)); return g; };
-      var mkTetraCluster = function (c) { var g = new T.Group(); var P = [[0, 1, 0], [1, -.6, .6], [-1, -.6, .6], [0, -.6, -1.1]]; P.forEach(function (p) { var m = wf(new T.TetrahedronGeometry(.72), c, .65); m.position.set(p[0], p[1], p[2]); g.add(m); }); g.add(wf(new T.TetrahedronGeometry(1.7), c, .25)); return g; };
-      var A = this._accent || [];
-      var builders = [
-        function () { return mkGlobe(A[0]); }, function () { return wf(new T.IcosahedronGeometry(1.7, 1), A[1]); }, function () { return mkStack(A[2]); },
-        function () { return wf(new T.OctahedronGeometry(1.7), A[3]); }, function () { return wf(new T.TorusKnotGeometry(1.15, .34, 130, 16), A[4]); },
-        function () { return wf(new T.TorusGeometry(1.3, .45, 14, 48), A[5]); }, function () { return wf(new T.DodecahedronGeometry(1.7), A[6]); },
-        function () { return mkLattice(A[7]); }, function () { return wf(new T.SphereGeometry(1.7, 20, 14), A[8]); }, function () { return mkTetraCluster(A[9]); },
-        function () { return mkRings(A[10]); }, function () { return wf(new T.IcosahedronGeometry(1.7, 2), A[11], .35); }, function () { return mkOrbit(A[12]); }
-      ];
-      var objs = builders.map(function (b) { var o = b(); o.userData.s = 0; o.visible = false; scene.add(o); return o; });
-      this._mx = 0; this._my = 0;
-      this._onMove = function (e) { self._mx = (e.clientX / innerWidth - .5) * 2; self._my = (e.clientY / innerHeight - .5) * 2; };
-      addEventListener('mousemove', this._onMove);
-      var reduced = (this.props.motion || 'full') === 'reduced' ||
-        (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-      var slow = reduced ? .25 : 1;
-      var anim = function () {
-        self._raf = requestAnimationFrame(anim);
-        var t = performance.now() * .001;
-        stars.rotation.y = t * .012 * slow;
-        stars.rotation.x = Math.sin(t * .05) * .04 * slow;
-        objs.forEach(function (o, i) {
-          var target = i === self._active ? 1 : 0;
-          o.userData.s += (target - o.userData.s) * .06;
-          var s = Math.max(o.userData.s, .0001);
-          o.scale.setScalar(s);
-          o.visible = o.userData.s > .02;
-          o.rotation.y = t * .3 * slow + i * 1.3;
-          o.rotation.x = Math.sin(t * .22 + i) * .35 * slow;
-          o.rotation.z = Math.sin(t * .13 + i * 2) * .15 * slow;
-          o.position.set(self._objX || 0, Math.sin(t * .5 + i) * .15, 0);
-        });
-        cam.position.x += (self._mx * .55 - cam.position.x) * .04;
-        cam.position.y += (-self._my * .45 - cam.position.y) * .04;
-        cam.lookAt(0, 0, 0);
-        renderer.render(scene, cam);
-      };
-      anim();
     }
   };
 
