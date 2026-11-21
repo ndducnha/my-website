@@ -5,9 +5,9 @@
 :root {
   --ivory: #F8F7F4;
   --white: #FFFFFF;
-  --ink: #202124;
-  --ink-2: #3C4043;
-  --slate: #5B6570;          /* secondary text, 5.5:1 on ivory */
+  --ink: #1C2433;
+  --ink-2: #3A4457;
+  --slate: #56617A;          /* secondary text, ~5.8:1 on ivory */
   --line: #E4E0D8;
   --line-strong: #CFC9BE;
   --bronze: #A46B42;         /* decorative only (rules, markers) */
@@ -309,6 +309,87 @@ main:focus { outline: none; }
 .not-found { min-height: 60vh; }
 .not-found .actions { margin-top: var(--s-6); }
 
+/* ------------------------------------------------------------ Refinements
+   Quiet accents that give the page rhythm: section numerals, a warm hero glow,
+   an offset portrait frame, dark bookend bands, a reading-progress hairline and
+   gentle reveal-on-scroll (JS-gated, skipped for reduced motion). */
+:root { --bronze-light: #D9A77F; --on-dark: #ECEAE5; --on-dark-2: #A9B4C8; --line-dark: rgba(255, 255, 255, .12); --navy: #15233D; --navy-deep: #0F1A2E; }
+
+/* Hero: warm light, accented given name, offset frame */
+.hero { position: relative; background:
+  radial-gradient(48% 60% at 88% 30%, rgba(164, 107, 66, .10), transparent 70%),
+  radial-gradient(45% 55% at 5% 100%, rgba(21, 35, 61, .07), transparent 70%); }
+.hero-name em { font-style: italic; color: var(--bronze-text); letter-spacing: -.02em; }
+.hero-portrait { isolation: isolate; }
+.hero-portrait::before { content: ''; position: absolute; z-index: -1; top: 18px; left: 18px; right: -18px; aspect-ratio: 4 / 5; border: 1px solid var(--bronze); opacity: .55; }
+.hero-portrait figcaption { margin-top: calc(var(--s-3) + 18px); }
+@media (max-width: 959.98px) {
+  .hero-portrait::before { aspect-ratio: 1 / 1; top: 12px; left: 12px; right: -12px; }
+  .hero-portrait figcaption { margin-top: calc(var(--s-3) + 12px); }
+}
+.hero-roles li { transition: padding-left .3s var(--ease), border-color .3s var(--ease); }
+.hero-roles li:hover { padding-left: var(--s-2); border-bottom-color: var(--line-strong); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-text > *, .hero-portrait { animation: rise .9s var(--ease) both; }
+  .hero-text > :nth-child(2) { animation-delay: .06s; }
+  .hero-text > :nth-child(3) { animation-delay: .12s; }
+  .hero-text > :nth-child(n+4) { animation-delay: .18s; }
+  .hero-portrait { animation-delay: .1s; }
+}
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+/* Buttons: navy, bronze on hover, arrows nudge */
+.btn:not(.btn--ghost) { background: var(--navy); border-color: var(--navy); }
+.role, .ref { border-top-color: var(--navy); }
+.btn:hover { background: var(--bronze-text); border-color: var(--bronze-text); }
+.btn--ghost:hover { background: transparent; border-color: var(--ink); }
+.btn > span[aria-hidden] { display: inline-block; transition: transform .25s var(--ease); }
+.btn:hover > span[aria-hidden] { transform: translateY(2px); }
+.btn--ghost:hover > span[aria-hidden] { transform: translateX(3px); }
+
+/* Contact strip and footer as dark bookends */
+.contact-strip { background: var(--navy); border-top: 0; color: var(--on-dark); }
+.contact-strip .contact-label, .contact-strip .contact-apps { color: var(--on-dark-2); }
+.contact-strip .contact-tel, .contact-strip .contact-emails a { color: var(--on-dark); text-decoration-color: rgba(255, 255, 255, .25); }
+.contact-strip .contact-tel:hover, .contact-strip .contact-emails a:hover { color: var(--bronze-light); text-decoration-color: currentColor; }
+.site-footer { background: var(--navy-deep); color: var(--on-dark); border-top: 0; }
+.site-footer .footer-label, .site-footer .footer-legal { color: var(--on-dark-2); }
+.site-footer .footer-links a { color: var(--on-dark); text-decoration-color: rgba(255, 255, 255, .25); }
+.site-footer .footer-links a:hover { color: var(--bronze-light); }
+.site-footer .footer-legal { border-top-color: var(--line-dark); }
+.contact-strip :focus-visible, .site-footer :focus-visible { outline-color: var(--bronze-light); }
+
+/* Section numerals and a short bronze rule under each title */
+main { counter-reset: sec; }
+.block { counter-increment: sec; }
+.block-title::before { content: counter(sec, decimal-leading-zero); content: counter(sec, decimal-leading-zero) / ''; display: block; margin-bottom: var(--s-3); font-family: var(--sans); font-size: .75rem; font-weight: 600; letter-spacing: .16em; color: var(--bronze-text); }
+.block-title::after { content: ''; display: block; width: 40px; height: 1px; margin-top: var(--s-5); background: var(--bronze); }
+
+/* Biography opens with a drop cap */
+#biography .prose--lead p:first-child::first-letter { float: left; margin: .08em .12em 0 0; font-size: 3.6em; line-height: .82; color: var(--bronze-text); }
+
+/* Small hover cues */
+.role { transition: border-color .3s var(--ease); }
+.role:hover { border-top-color: var(--bronze); }
+.ref { transition: border-color .3s var(--ease); }
+.ref:hover { border-top-color: var(--bronze); }
+.ref:hover .ref-initials { background: var(--bronze-text); border-color: var(--bronze-text); color: var(--ivory); }
+.ref-initials { transition: background-color .3s var(--ease), color .3s var(--ease); }
+.pill-list li { transition: border-color .2s var(--ease), color .2s var(--ease); }
+.pill-list li:hover { border-color: var(--bronze); color: var(--ink); }
+.timeline > li { transition: background-color .3s var(--ease); }
+
+/* Reading progress hairline under the header */
+@supports (animation-timeline: scroll()) {
+  .site-header::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--navy), var(--bronze)); transform-origin: 0 50%; transform: scaleX(0); animation: progress linear both; animation-timeline: scroll(root); }
+}
+@keyframes progress { to { transform: scaleX(1); } }
+
+/* Reveal on scroll (classes added by site.js) */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.is-in { opacity: 1; transform: none; }
+
 /* ------------------------------------------------------------ Motion & print */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
@@ -318,4 +399,6 @@ main:focus { outline: none; }
   body { background: #fff; font-size: 11pt; }
   .block { padding-block: 16pt; }
   .block-head { position: static; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .site-header::after { display: none; }
 }

@@ -59,6 +59,22 @@
     });
   });
 
+  // Gentle reveal of section content as it scrolls into view.
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && 'IntersectionObserver' in window) {
+    var revealEls = document.querySelectorAll('.block-head, .block-body > *');
+    var ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        ro.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach(function (el) { el.classList.add('reveal'); ro.observe(el); });
+    // Printing shows everything regardless of scroll position.
+    window.addEventListener('beforeprint', function () { revealEls.forEach(function (el) { el.classList.add('is-in'); }); });
+  }
+
   // Keep the footer year current between rebuilds.
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();

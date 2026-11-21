@@ -41,7 +41,7 @@ const hero = (lang) => `
 <section class="hero" id="hero" aria-labelledby="hero-h">
   <div class="container hero-grid">
     <div class="hero-text">
-      <h1 class="hero-name" id="hero-h">[[Dr.||TS.]] Nguyễn Đình<br>Đức Nhã</h1>
+      <h1 class="hero-name" id="hero-h">[[Dr.||TS.]] Nguyễn Đình<br><em>Đức Nhã</em></h1>
       <p class="hero-position">Tony · [[Ph.D. in Cybersecurity||Tiến sĩ An ninh mạng]]</p>
       <ul class="hero-roles">
         <li><strong>[[Assistant Professor, Computer Science (Cybersecurity, AI)||Giảng viên ngành Khoa học Máy tính (An ninh mạng, AI)]]</strong> · VinUniversity</li>
