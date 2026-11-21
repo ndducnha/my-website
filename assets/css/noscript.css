@@ -1,0 +1,10 @@
+/* Without JavaScript the menu panel cannot toggle, so show the section links inline. */
+@media (max-width: 1359.98px) {
+  .nav-toggle { display: none !important; }
+  .header-inner { height: auto; flex-wrap: wrap; padding-block: 12px; }
+  .site-header:has(.nav-toggle) .site-nav { position: static; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; padding: 0; border: 0; background: none; gap: 8px 20px; max-height: none; }
+  .site-header:has(.nav-toggle) .nav-list { display: flex; flex-direction: row; flex-wrap: wrap; gap: 4px 16px; }
+  .site-header:has(.nav-toggle) .nav-list a { font-family: inherit; font-size: .875rem; padding-block: 4px; border: 0; }
+  .site-header:has(.nav-toggle) .lang-switch { padding: 0; }
+  .site-header { position: static; }
+}
