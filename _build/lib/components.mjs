@@ -67,7 +67,7 @@ function header({ lang, nav = [] }) {
 
 function footer(lang) {
   const year = new Date().getFullYear();
-  const links = [...SOCIAL.map((s) => `<li><a href="${esc(s.url)}">${s.label}</a></li>`), `<li><a href="${SITE.url}/">ducnha.work</a></li>`].join('');
+  const links = [...SOCIAL.map((s) => `<li><a href="${esc(s.url)}">${s.label}</a></li>`), `<li><a href="${SITE.url}/">${SITE.url.replace("https://", "")}</a></li>`].join('');
   return `<footer class="site-footer">
   <div class="container footer-inner">
     <p class="footer-name">${SITE.name[lang]}</p>

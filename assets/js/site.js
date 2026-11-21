@@ -1,4 +1,4 @@
-/* ducnha.work: progressive enhancements only. The page works without this file. */
+/* ducnha.vn: progressive enhancements only. The page works without this file. */
 (function () {
   'use strict';
 

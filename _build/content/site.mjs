@@ -2,7 +2,7 @@
 // The page text itself lives in onepage.mjs.
 
 export const SITE = {
-  url: 'https://ducnha.work',
+  url: 'https://ducnha.vn',
   name: { en: 'Nguyễn Đình Đức Nhã', vi: 'Nguyễn Đình Đức Nhã' },
   nameAscii: 'Nguyen Dinh Duc Nha',
   title: { en: 'Nguyễn Đình Đức Nhã, Ph.D. | VinUniversity', vi: 'TS. Nguyễn Đình Đức Nhã | VinUniversity' },
