@@ -17,7 +17,6 @@ export const NAV = [
   ['teaching', '[[Teaching||Giảng dạy]]'],
   ['areas-of-interest', '[[Interests||Lĩnh vực]]'],
   ['publications', '[[Publications||Công bố]]'],
-  ['leadership', '[[Leadership||Lãnh đạo]]'],
   ['mentorship', '[[Mentorship||Hướng dẫn]]'],
   ['work', '[[Work together||Cơ hội hợp tác]]'],
   ['references', '[[References||Người giới thiệu]]'],
@@ -91,9 +90,9 @@ const BIO_ROLES = [
   ['[[Southern Office &amp; Innovation · NCBT||VP Đại diện phía Nam &amp; Đổi mới Sáng tạo · NCBT]]',
     '[[<strong>Head of the Southern Regional Representative Office</strong> and <strong>Head of Innovation</strong> at the National Center for Barcode and Traceability (NCBT), focusing on advanced technologies for national infrastructure: barcode, national traceability, electronic label and digital product passport.||<strong>Trưởng Văn phòng Đại diện khu vực phía Nam</strong>, kiêm <strong>Lãnh đạo bộ phận Đổi mới Sáng tạo</strong> tại Trung tâm Mã số Mã vạch Truy xuất Nguồn gốc Quốc gia (NCBT), phụ trách phát triển các công nghệ tiên tiến cho hạ tầng quốc gia: mã số mã vạch, truy xuất nguồn gốc, nhãn điện tử và hộ chiếu số sản phẩm.]]'],
   ['[[President · IDT / VUSTA||Chủ tịch HĐKH · IDT / VUSTA]]',
-    '[[<strong>President of the Scientific Council</strong> at the <a href="https://idt.org.vn/gioi-thieu/ban-lanh-dao">Institute of Digital Transformation Research &amp; Application (IDT)</a> under VUSTA, leading national research strategy &amp; scientific coordination.||<strong>Chủ tịch Hội đồng Khoa học</strong> tại <a href="https://idt.org.vn/gioi-thieu/ban-lanh-dao">Viện Nghiên cứu Ứng dụng và Chuyển đổi số (IDT)</a> thuộc VUSTA, phụ trách định hướng chiến lược nghiên cứu và điều phối hoạt động khoa học ở cấp quốc gia.]]'],
+    '[[<strong>President of the Scientific Council</strong> at the <a href="https://idt.org.vn/gioi-thieu/ban-lanh-dao">Institute of Digital Transformation Research &amp; Application (IDT)</a> under VUSTA, leading national research strategy &amp; scientific coordination.||<strong>Chủ tịch Hội đồng Khoa học</strong> tại <a href="https://idt.org.vn/gioi-thieu/ban-lanh-dao">Viện Nghiên cứu Ứng dụng và Chuyển đổi số (IDT)</a> thuộc VUSTA, phụ trách định hướng chiến lược nghiên cứu và điều phối hoạt động khoa học ở cấp quốc gia.]] <a href="/president-idt.jpg">[[Info ↗||Thông tin ↗]]</a>'],
   ['[[Member · NCA||Thành viên · NCA]]',
-    '[[<strong>Member</strong> of the <a href="https://www.nca.org.vn/home?l=vi">National Cybersecurity Association (NCA)</a>, contributing to policy development &amp; national cyber-defense frameworks.||<strong>Thành viên</strong> <a href="https://www.nca.org.vn/home?l=vi">Hiệp hội An ninh mạng Quốc gia (NCA)</a>, tham gia xây dựng chính sách và phát triển khung phòng thủ an ninh mạng quốc gia.]]'],
+    '[[<strong>Member</strong> of the <a href="https://www.nca.org.vn/home?l=vi">National Cybersecurity Association (NCA)</a>, contributing to policy development &amp; national cyber-defense frameworks.||<strong>Thành viên</strong> <a href="https://www.nca.org.vn/home?l=vi">Hiệp hội An ninh mạng Quốc gia (NCA)</a>, tham gia xây dựng chính sách và phát triển khung phòng thủ an ninh mạng quốc gia.]] <a href="/nca.jpg">[[Info ↗||Thông tin ↗]]</a>'],
   ['[[CEO · DDC||Tổng Giám đốc · DDC]]',
     '[[<strong>CEO</strong> of <a href="https://sohoadulieu.org">Data Digitization Company (DDC)</a>, providing digital-transformation &amp; data solutions for enterprise and public-sector clients.||<strong>Tổng Giám đốc</strong> <a href="https://sohoadulieu.org">Công ty Số hóa Dữ liệu (DDC)</a>, cung cấp các giải pháp chuyển đổi số và dữ liệu cho doanh nghiệp và khu vực công.]]'],
   ['[[Senior Advisor · VCyber Technology||Cố vấn cấp cao · VCyber Technology]]',
@@ -542,48 +541,10 @@ const service = section({
 <p class="note svc-note">[[Council and assessment roles are task-based appointments made by decision, not standing positions.||Các vai trò hội đồng và đoàn đánh giá là nhiệm vụ theo quyết định, không phải chức vụ thường trực.]]</p>` : ''),
 });
 
-/* ----------------------------------------------------------- 08 Leadership */
-
-const LEAD = [
-  ['NCBT', '[[Head of the Southern Regional Representative Office &amp; Head of Innovation||Trưởng Văn phòng Đại diện khu vực phía Nam, kiêm Lãnh đạo Đổi mới Sáng tạo]]',
-    '[[Leading the Southern Regional Representative Office and innovation at the National Center for Barcode and Traceability (NCBT), with a focus on technologies for national digital infrastructure: barcode, national traceability, electronic label and digital product passport.||Phụ trách Văn phòng Đại diện khu vực phía Nam và đổi mới sáng tạo tại Trung tâm Mã số Mã vạch Truy xuất Nguồn gốc Quốc gia (NCBT), tập trung vào các công nghệ cho hạ tầng số quốc gia: mã số mã vạch, truy xuất nguồn gốc, nhãn điện tử và hộ chiếu số sản phẩm.]]'],
-  ['IDT / VUSTA', '[[President, Scientific Council||Chủ tịch Hội đồng Khoa học]]',
-    '[[Supporting research strategy and scientific coordination for digital transformation at the <a href="https://idt.org.vn/gioi-thieu/co-cau-to-chuc-va-ban-lanh-dao">Institute of Digital Transformation Research &amp; Application (IDT)</a> under VUSTA.||Tham gia định hướng chiến lược nghiên cứu và điều phối khoa học cho chuyển đổi số tại <a href="https://idt.org.vn/gioi-thieu/co-cau-to-chuc-va-ban-lanh-dao">Viện Nghiên cứu Ứng dụng và Chuyển đổi số (IDT)</a> thuộc VUSTA.]]',
-    '/president-idt.jpg'],
-  ['NCA', '[[Member||Thành viên]]',
-    '[[Contributing to policy development and national cyber-defense frameworks through the <a href="https://www.nca.org.vn/home?l=vi">National Cybersecurity Association (NCA)</a>.||Tham gia phát triển chính sách và khung phòng thủ an ninh mạng quốc gia tại <a href="https://www.nca.org.vn/home?l=vi">Hiệp hội An ninh mạng Quốc gia (NCA)</a>.]]',
-    '/nca.jpg'],
-  ['DDC', '[[CEO||Tổng Giám đốc]]',
-    '[[Leading work on digital transformation and data solutions for enterprise and public-sector clients at <a href="https://sohoadulieu.org">Data Digitization Company (DDC)</a>.||Phụ trách các hoạt động chuyển đổi số và giải pháp dữ liệu cho doanh nghiệp và khu vực công tại <a href="https://sohoadulieu.org">Công ty Số hóa Dữ liệu (DDC)</a>.]]'],
-  ['VCyber Technology', '[[Senior Advisor||Cố vấn cấp cao]]',
-    '[[Advising <a href="https://vcyber.vn/">VCyber Technology</a> on software &amp; cybersecurity solutions for enterprise digital transformation. Flagship products: a traceability and electronic label application, OKI secure messaging and OKA secure storage.||Cố vấn cho <a href="https://vcyber.vn/">VCyber Technology</a> về giải pháp phần mềm và an ninh mạng phục vụ chuyển đổi số doanh nghiệp. Sản phẩm chủ lực gồm ứng dụng truy xuất nguồn gốc và nhãn điện tử, nhắn tin an toàn OKI và lưu trữ an toàn OKA.]]'],
-  ['Fanvity', '[[Technical Advisor||Cố vấn Kỹ thuật]]',
-    '[[Technical advice to <a href="https://fanvity.com">Fanvity</a>, an enterprise digital-transformation platform focused on National Traceability solutions.||Cố vấn cho <a href="https://fanvity.com">Fanvity</a>, nền tảng chuyển đổi số doanh nghiệp tập trung vào các giải pháp Truy xuất Nguồn gốc Quốc gia.]]'],
-  ['VLabel', '[[CTO||Giám đốc Kỹ thuật]]',
-    '[[<a href="https://vlabel.vn">VLabel</a>, a national platform for electronic labels and traceability solutions.||<a href="https://vlabel.vn">VLabel</a>, nền tảng quốc gia về nhãn điện tử và các giải pháp truy xuất nguồn gốc.]]'],
-  ['VShare', '[[CTO||Giám đốc Kỹ thuật]]',
-    '[[<a href="https://vshare.vn">VShare</a>, an enterprise platform that consolidates distributed organizational data into a unified on-premise environment for analytics, reporting and AI applications.||<a href="https://vshare.vn">VShare</a>, nền tảng doanh nghiệp tập hợp dữ liệu phân tán của tổ chức vào một môi trường on-premise thống nhất, phục vụ phân tích, báo cáo và ứng dụng AI.]]'],
-  ['Samanta Technology', '[[CTO||Giám đốc Kỹ thuật]]',
-    '[[<a href="https://samanta.com.vn/about">Samanta Technology</a>, a technology and digital-transformation company developing technology products in Vietnam.||<a href="https://samanta.com.vn/about">Samanta Technology</a>, công ty công nghệ và chuyển đổi số phát triển các sản phẩm công nghệ tại Việt Nam.]]'],
-  ['Viriya', '[[CTO||Giám đốc Kỹ thuật]]',
-    '[[<a href="https://viriya.com.vn">Viriya Company</a>, a company working in technology, digital transformation and AI applications in Vietnam.||<a href="https://viriya.com.vn">Công ty Công nghệ Viriya</a>, đơn vị hoạt động trong lĩnh vực công nghệ, chuyển đổi số và ứng dụng AI tại Việt Nam.]]'],
-  ['trinhminhduc.com', '[[Technical Architect||Kiến trúc sư Kỹ thuật]]',
-    '[[Technical architecture for <a href="https://trinhminhduc.com">trinhminhduc.com</a>, an online education platform.||Kiến trúc kỹ thuật cho <a href="https://trinhminhduc.com">trinhminhduc.com</a>, nền tảng giáo dục trực tuyến.]]'],
-];
-
-const leadership = section({
-  id: 'leadership', title: '[[Leadership &amp; Affiliations||Lãnh đạo &amp; Liên kết]]',
-  lede: '[[Roles connecting academia, industry and the public sector.||Các vai trò kết nối học thuật, doanh nghiệp và khu vực công.]]',
-  body: `
-<ul class="role-list">
-  ${LEAD.map(([org, role, text, info]) => `<li class="role"><p class="role-kind">${org}</p><h3 class="item-title">${role}</h3><p>${text}${info ? ` <a href="${info}">[[Info ↗||Thông tin ↗]]</a>` : ''}</p></li>`).join('\n  ')}
-</ul>`,
-});
-
 /* ----------------------------------------------------------- 09 Mentorship */
 
 const mentorship = section({
-  id: 'mentorship', title: '[[Mentorship||Hướng dẫn Sinh viên]]', tone: 'ivory',
+  id: 'mentorship', title: '[[Mentorship||Hướng dẫn Sinh viên]]',
   lede: '[[Supporting the development of the next generation of researchers through practical research experience.||Hỗ trợ thế hệ nhà nghiên cứu tiếp theo phát triển thông qua trải nghiệm nghiên cứu thực tế.]]',
   body: `
 <div class="prose prose--lead">
@@ -600,7 +561,7 @@ const mentorship = section({
 /* --------------------------------------------------------- 11 Work together */
 
 const work = section({
-  id: 'work', title: '[[Working With Me||Cơ hội Hợp tác]]',
+  id: 'work', title: '[[Working With Me||Cơ hội Hợp tác]]', tone: 'ivory',
   lede: '[[Opportunities to work together on secure and intelligent technologies.||Cơ hội cùng hợp tác trong các công nghệ an toàn và thông minh.]]',
   body: `
 <div class="prose prose--lead">
@@ -644,7 +605,7 @@ const REFS = [
 ];
 
 const references = section({
-  id: 'references', title: '[[References||Người giới thiệu]]', tone: 'ivory',
+  id: 'references', title: '[[References||Người giới thiệu]]',
   lede: '[[Academic references from senior scholars and university leaders.||Thông tin người giới thiệu gồm các học giả và lãnh đạo đại học giàu kinh nghiệm.]]',
   body: `
 <ul class="ref-grid">
@@ -660,4 +621,4 @@ const references = section({
 <p class="closing">[[Thank you for visiting my website.||Cảm ơn bạn đã ghé thăm trang cá nhân của tôi.]]</p>`,
 });
 
-export const body = (lang) => [hero(lang), biography, education, awards, service, experience, teaching, interests, publications, leadership, mentorship, work, references].join('\n');
+export const body = (lang) => [hero(lang), biography, education, awards, service, experience, teaching, interests, publications, mentorship, work, references].join('\n');
