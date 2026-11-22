@@ -53,7 +53,7 @@ const hero = (lang) => `
       <p class="hero-location">[[Hanoi, Vietnam||Hà Nội, Việt Nam]]</p>
       <ul class="hero-focus" aria-label="[[Research focus||Trọng tâm nghiên cứu]]">${FOCUS.map((f) => `<li>${f}</li>`).join('')}</ul>
       <div class="actions">
-        <a class="btn" href="/CV_Dinh_Duc_Nha_Nguyen.pdf">[[Download CV||Tải CV]] <span aria-hidden="true">↓</span></a>
+        <a class="btn" href="/CV_Nguyen_Dinh_Duc_Nha_[[EN||VI]].pdf">[[Download CV||Tải CV]] <span aria-hidden="true">↓</span></a>
         <a class="btn btn--ghost" href="#work">[[Work together||Cùng hợp tác]] <span aria-hidden="true">→</span></a>
       </div>
     </div>
@@ -128,7 +128,7 @@ const biography = section({
   <p>[[I hold <strong>professional certifications</strong> in cybersecurity (<em>Certified Ethical Hacker</em>), machine learning (IBM), IoT, quantum computing, cryptography and blockchain. My main areas of expertise include <strong>cybersecurity, AI, network security</strong>, and <strong>quantum technology</strong>, with an interdisciplinary focus on <strong>machine learning</strong> and <strong>data science</strong>.||Tôi sở hữu các <strong>chứng chỉ chuyên môn</strong> về an ninh mạng (<em>Certified Ethical Hacker</em>), học máy (IBM), IoT, điện toán lượng tử, mật mã học và blockchain. Các lĩnh vực chuyên môn chính của tôi gồm <strong>an ninh mạng, AI, bảo mật mạng</strong> và <strong>công nghệ lượng tử</strong>, với định hướng liên ngành về <strong>học máy</strong> và <strong>khoa học dữ liệu</strong>.]]</p>
 </div>
 <ul class="doc-list">
-  <li><a href="/CV_Dinh_Duc_Nha_Nguyen.pdf">[[One-page CV||CV một trang]]</a></li>
+  <li><a href="/CV_Nguyen_Dinh_Duc_Nha_[[EN||VI]].pdf">[[One-page CV||CV một trang]]</a></li>
   <li><a href="/Research_Statement_Dinh_Duc_Nha_Nguyen.pdf">[[Research Statement||Định hướng Nghiên cứu]]</a></li>
   <li><a href="/Teaching_Statement_Dinh_Duc_Nha_Nguyen.pdf">[[Teaching Statement||Định hướng Giảng dạy]]</a></li>
   <li><a href="/References_Dinh_Duc_Nha_Nguyen.pdf">[[References||Người giới thiệu]]</a></li>
@@ -498,9 +498,9 @@ const SERVICE = [
       text: '[[Evaluation of innovation-funding tasks in AI, ISO 22000:2018, traceability, productivity and quality; appointed by Decision 383/QĐ-SKHCN (25 Sep 2026).||Đánh giá các nhiệm vụ hỗ trợ đổi mới sáng tạo về AI, ISO 22000:2018, truy xuất nguồn gốc, năng suất và chất lượng; theo Quyết định 383/QĐ-SKHCN (25/09/2026).]]' },
   ]],
   ['[[Government &amp; Technical Assessment||Đánh giá kỹ thuật cho cơ quan nhà nước]]', [
-    { ev: [['[[Decision 4195||QĐ 4195]]', 'mps-v04-decision-4195.jpg'], ['7376', 'mps-v04-decision-7376.jpg'], ['266', 'mps-v04-decision-266.jpg'], ['268', 'mps-v04-decision-268.jpg']], gov: true, year: '2025–2026', title: '[[Assessment Team Member||Thành viên Đoàn đánh giá]]',
+    { ev: [['[[Decision 4195||QĐ 4195]]', 'mps-v04-decision-4195.jpg'], ['7376', 'mps-v04-decision-7376.jpg'], ['266', 'mps-v04-decision-266.jpg'], ['268', 'mps-v04-decision-268.jpg']], gov: true, key: true, tags: ['QCVN 06', 'QCVN 135 (QCVN 11)'], year: '2025–2026', title: '[[Assessment Team Member, Conformity Assessment||Thành viên Đoàn đánh giá năng lực tổ chức đánh giá sự phù hợp]]',
       org: '[[Ministry of Public Security (V04)||Bộ Công an (V04)]]',
-      text: '[[Four assessment assignments on testing and certification capability for IP cameras and on testing of vehicle journey-monitoring and driver-image devices.||Bốn đợt đánh giá theo quyết định về năng lực thử nghiệm, chứng nhận camera IP và thử nghiệm thiết bị giám sát hành trình, ghi nhận hình ảnh người lái xe.]]' },
+      text: '[[Four assessment assignments under QCVN 06 and QCVN 135 (QCVN 11), covering testing and certification capability for IP surveillance cameras and testing of vehicle journey-monitoring and driver-image devices.||Bốn đợt đánh giá theo quyết định, theo QCVN 06 và QCVN 135 (QCVN 11), về năng lực thử nghiệm, chứng nhận camera giám sát IP và thử nghiệm thiết bị giám sát hành trình, ghi nhận hình ảnh người lái xe.]]' },
   ]],
   ['[[Judging &amp; Community Engagement||Giám khảo &amp; hoạt động cộng đồng]]', [
     { ev: [['[[Plan 117||Kế hoạch 117]]', 'hungyen-workshop-plan-117.jpg'], ['[[Letter 350||Công văn 350]]', 'hungyen-workshop-letter-350.jpg']], gov: true, year: '2026', title: '[[Contributor, Provincial Scientific Workshop on S&amp;T and Innovation for Non-traditional Security||Tham gia Hội thảo khoa học cấp tỉnh “Khoa học công nghệ và đổi mới sáng tạo bảo đảm an ninh phi truyền thống trong kỷ nguyên số”]]',
@@ -513,7 +513,7 @@ const SERVICE = [
 ].map(([label, items]) => [label, items.filter((it) => PUBLIC_SECTOR_APPROVED || !it.gov)]);
 
 // Featured roles lead the section as cards; the rest follow, grouped.
-const FEATURED_ORDER = ['Editorial Board', 'Vice Chair', 'Track Chair', 'TCVN/JTC1/SC 31'];
+const FEATURED_ORDER = ['Editorial Board', 'Vice Chair', 'Track Chair', 'TCVN/JTC1/SC 31', 'Assessment Team'];
 const FEATURED = SERVICE.flatMap(([label, items]) => items.filter((it) => it.key).map((it) => ({ ...it, label })))
   .sort((x, y) => FEATURED_ORDER.findIndex((k) => x.title.includes(k)) - FEATURED_ORDER.findIndex((k) => y.title.includes(k)));
 const SERVICE_REST = SERVICE.map(([label, items]) => [label, items.filter((it) => !it.key)]).filter(([, items]) => items.length);
@@ -521,7 +521,8 @@ const SERVICE_REST = SERVICE.map(([label, items]) => [label, items.filter((it) =
 const officialLink = (url) => url ? ` <a class="doc-link" href="${url}">[[Official listing ↗||Danh sách chính thức ↗]]</a>` : '';
 const evidenceLinks = (ev = []) => ev.length ? `<p class="svc-evidence"><span class="svc-evidence-label">[[Evidence||Minh chứng]]</span>${ev.map(([label, file]) => `<a class="doc-link" href="/assets/evidence/${file}" target="_blank" rel="noopener">${label} ↗</a>`).join('')}</p>` : '';
 
-const featureCard = ({ year, title, org, url, text, label, ev }) => `<li class="svc-feature"><p class="svc-kind">${label} · ${year}</p><h3 class="svc-title">${title}</h3><p class="svc-org">${org}</p><p class="svc-text">${text}${officialLink(url)}</p>${evidenceLinks(ev)}</li>`;
+const tagRow = (tags = []) => tags.length ? `<p class="svc-tags">${tags.map((t) => `<span class="tag tag--accent">${t}</span>`).join('')}</p>` : '';
+const featureCard = ({ year, title, org, url, text, label, ev, tags }) => `<li class="svc-feature"><p class="svc-kind">${label} · ${year}</p><h3 class="svc-title">${title}</h3>${tagRow(tags)}<p class="svc-org">${org}</p><p class="svc-text">${text}${officialLink(url)}</p>${evidenceLinks(ev)}</li>`;
 
 const serviceCard = ({ year, title, org, url, text, ev }) => `<li class="svc-card"><p class="svc-kind">${year} · ${org}</p><h4 class="svc-card-title">${title}</h4><p class="svc-text">${text}${officialLink(url)}</p>${evidenceLinks(ev)}</li>`;
 
