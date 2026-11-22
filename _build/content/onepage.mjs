@@ -53,7 +53,7 @@ const hero = (lang) => `
       <p class="hero-location">[[Hanoi, Vietnam||Hà Nội, Việt Nam]]</p>
       <ul class="hero-focus" aria-label="[[Research focus||Trọng tâm nghiên cứu]]">${FOCUS.map((f) => `<li>${f}</li>`).join('')}</ul>
       <div class="actions">
-        <a class="btn" href="/CV_Nguyen_Dinh_Duc_Nha_[[EN||VI]].pdf">[[Download CV||Tải CV]] <span aria-hidden="true">↓</span></a>
+        <a class="btn" href="/CV_Nguyen_Dinh_Duc_Nha_[[EN||VI]].pdf" download>[[Download CV||Tải CV]] <span aria-hidden="true">↓</span></a>
         <a class="btn btn--ghost" href="#work">[[Work together||Cùng hợp tác]] <span aria-hidden="true">→</span></a>
       </div>
     </div>
@@ -128,7 +128,7 @@ const biography = section({
   <p>[[I hold <strong>professional certifications</strong> in cybersecurity (<em>Certified Ethical Hacker</em>), machine learning (IBM), IoT, quantum computing, cryptography and blockchain. My main areas of expertise include <strong>cybersecurity, AI, network security</strong>, and <strong>quantum technology</strong>, with an interdisciplinary focus on <strong>machine learning</strong> and <strong>data science</strong>.||Tôi sở hữu các <strong>chứng chỉ chuyên môn</strong> về an ninh mạng (<em>Certified Ethical Hacker</em>), học máy (IBM), IoT, điện toán lượng tử, mật mã học và blockchain. Các lĩnh vực chuyên môn chính của tôi gồm <strong>an ninh mạng, AI, bảo mật mạng</strong> và <strong>công nghệ lượng tử</strong>, với định hướng liên ngành về <strong>học máy</strong> và <strong>khoa học dữ liệu</strong>.]]</p>
 </div>
 <ul class="doc-list">
-  <li><a href="/CV_Nguyen_Dinh_Duc_Nha_[[EN||VI]].pdf">[[One-page CV||CV một trang]]</a></li>
+  <li><a href="/CV_Nguyen_Dinh_Duc_Nha_[[EN||VI]].pdf" download>[[One-page CV||CV một trang]]</a></li>
   <li><a href="/Research_Statement_Dinh_Duc_Nha_Nguyen.pdf">[[Research Statement||Định hướng Nghiên cứu]]</a></li>
   <li><a href="/Teaching_Statement_Dinh_Duc_Nha_Nguyen.pdf">[[Teaching Statement||Định hướng Giảng dạy]]</a></li>
   <li><a href="/References_Dinh_Duc_Nha_Nguyen.pdf">[[References||Người giới thiệu]]</a></li>
