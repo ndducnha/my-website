@@ -390,12 +390,30 @@ main { counter-reset: sec; }
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .reveal.is-in { opacity: 1; transform: none; }
 
+/* ------------------------------------------------------------ Language chooser (first visit) */
+.has-lang-gate { overflow: hidden; }
+.lang-gate { width: min(440px, calc(100% - 32px)); max-width: none; margin: auto; padding: var(--s-7) var(--s-6) var(--s-6); background: var(--ivory); color: var(--ink); border: 0; border-top: 3px solid var(--bronze); border-radius: 2px; box-shadow: 0 24px 64px -24px rgba(28, 36, 51, .45); text-align: center; }
+.lang-gate::backdrop { background: rgba(28, 36, 51, .55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.lang-gate-kicker { font-size: .75rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--bronze-text); }
+.lang-gate-title { margin-top: var(--s-3); font-family: var(--serif); font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem); letter-spacing: -.01em; }
+.lang-gate-title span { display: block; }
+.lang-gate-title [lang="vi"] { color: var(--slate); font-size: .8em; margin-top: var(--s-1); }
+.lang-gate-actions { display: grid; gap: var(--s-3); margin-top: var(--s-6); }
+@media (min-width: 420px) { .lang-gate-actions { grid-template-columns: 1fr 1fr; } }
+.lang-gate-note { margin-top: var(--s-5); font-size: .8125rem; line-height: 1.6; color: var(--slate); }
+.lang-gate-note span { display: block; }
+@media (max-width: 419.98px) { .lang-gate { padding: var(--s-6) var(--s-5) var(--s-5); } }
+@media (prefers-reduced-motion: no-preference) {
+  .lang-gate[open] { animation: lang-gate-in .35s var(--ease); }
+  @keyframes lang-gate-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+}
+
 /* ------------------------------------------------------------ Motion & print */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 @media print {
-  .site-header, .site-footer, .skip-link, .back-to-top { display: none !important; }
+  .site-header, .site-footer, .skip-link, .back-to-top, .lang-gate { display: none !important; }
   body { background: #fff; font-size: 11pt; }
   .block { padding-block: 16pt; }
   .block-head { position: static; }
